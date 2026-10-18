@@ -66,7 +66,7 @@ ENV PUPPETEER_SKIP_DOWNLOAD=true
 # because bare-metal actually launches NLM.
 ENV PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD=1
 
-RUN --mount=type=cache,target=/pnpm/store pnpm install --frozen-lockfile
+RUN pnpm install --frozen-lockfile
 
 # --- Build ---
 FROM deps AS build
