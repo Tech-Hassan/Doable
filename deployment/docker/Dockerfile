@@ -99,6 +99,7 @@ RUN pnpm --filter=@doable/web run build
 # (tsx transpiling the full TS graph at container start never finishes on
 # Railway-sized CPUs). Migrations still run via tsx (small graph, fast).
 RUN node tools/bundle.mjs services/api/src/index.ts services/api/src/bundle.mjs
+RUN node tools/bundle.mjs services/ws/src/index.ts services/ws/src/bundle.mjs
 
 # --- API service ---
 FROM base AS api
