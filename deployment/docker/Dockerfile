@@ -95,6 +95,11 @@ RUN pnpm --filter=docore run build || true
 RUN pnpm --filter=dovault run build || true
 RUN pnpm --filter=@doable/web run build
 
+# Bundle the API into a single file so its container boots with plain node
+# (tsx transpiling the full TS graph at container start never finishes on
+# Railway-sized CPUs). Migrations still run via tsx (small graph, fast).
+RUN node tools/bundle.mjs services/api/src/index.ts services/api/src/bundle.mjs
+
 # --- API service ---
 FROM base AS api
 WORKDIR /app
