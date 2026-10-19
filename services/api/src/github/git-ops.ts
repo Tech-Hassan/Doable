@@ -229,7 +229,7 @@ export async function gitClone(
   }
 
   // Set local git identity
-  await execGit(projectPath, ["config", "user.name", "Doable"]);
+  await execGit(projectPath, ["config", "user.name", "NIMRA"]);
   await execGit(projectPath, ["config", "user.email", "noreply@doable.me"]);
 }
 

@@ -81,7 +81,7 @@ export function scaffolder(sql: postgres.Sql) {
 
       // 4. Ensure .doable/ context files are written as project files too
       // so they appear in the file tree for user visibility
-      await writeDoableContextFiles(
+      await writeNIMRAContextFiles(
         sql,
         options.projectId,
         template
@@ -198,7 +198,7 @@ async function writeCodeFiles(
  * Write .doable/ context files as project files so they appear
  * in the project file tree.
  */
-async function writeDoableContextFiles(
+async function writeNIMRAContextFiles(
   sql: postgres.Sql,
   projectId: string,
   template: TemplateDefinition

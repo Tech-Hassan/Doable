@@ -8,7 +8,7 @@ import { useGitHubAccounts, useCustomProviders, useWorkspaceAISettings, useUserA
 import { ConnectionsTab } from "./connections-tab";
 import { ModelConfigTab } from "./model-config-tab";
 import { AccessControlTab } from "./access-control-tab";
-import { DoableAiSettingsTab } from "./doable-ai-tab";
+import { NIMRAAiSettingsTab } from "./doable-ai-tab";
 import { Link2, Bot, Shield, ShieldAlert, Sparkles } from "lucide-react";
 
 type Tab = "connections" | "models" | "doable-ai" | "access";
@@ -73,7 +73,7 @@ export function AiSettingsPage() {
   const allTabs: { key: Tab; label: string; icon: React.ElementType; adminOnly?: boolean }[] = [
     { key: "connections", label: "Connections", icon: Link2 },
     { key: "models", label: "Configure Model", icon: Bot },
-    { key: "doable-ai", label: "Doable AI", icon: Sparkles },
+    { key: "doable-ai", label: "NIMRA AI", icon: Sparkles },
     { key: "access", label: "Access Control", icon: Shield, adminOnly: true },
   ];
   const tabs = allTabs.filter((t) => !t.adminOnly || isPlatformAdmin);
@@ -194,7 +194,7 @@ export function AiSettingsPage() {
         />
       )}
       {activeTab === "doable-ai" && activeWorkspaceId && (
-        <DoableAiSettingsTab
+        <NIMRAAiSettingsTab
           workspaceId={activeWorkspaceId}
           isAdmin={isWorkspaceAdmin || isPlatformAdmin}
         />

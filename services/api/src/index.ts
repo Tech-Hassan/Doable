@@ -163,7 +163,7 @@ async function ensureProjectFilesTableExists(): Promise<void> {
 // Pre-create middleware instances (avoid re-instantiating on every request)
 const secureHeadersMw = secureHeaders();
 // Rate limit is env-configurable so operators can tune for their workload
-// without redeploying source. **Defaults to OFF (max=0)** because Doable
+// without redeploying source. **Defaults to OFF (max=0)** because NIMRA
 // production runs behind Cloudflare Tunnel which already provides DDoS /
 // bot protection upstream — the in-process limiter mostly punishes bursty
 // legit users (OAuth flows, dashboard polls) without adding much defence.
@@ -427,7 +427,7 @@ app.post("/api/chat", async (c) => {
   const match = referer.match(/\/preview\/([0-9a-f-]{36})/i);
   if (!match || !match[1]) {
     return c.text(
-      "No preview projectId in Referer — /api/chat is only bridged when called from a Doable preview iframe",
+      "No preview projectId in Referer — /api/chat is only bridged when called from a NIMRA preview iframe",
       400,
     );
   }
@@ -482,7 +482,7 @@ app.onError((err, c) => {
 const port = parseInt(process.env.API_PORT ?? "4000", 10);
 const host = process.env.API_HOST ?? "127.0.0.1";
 
-console.log(`Doable API starting on ${host}:${port}`);
+console.log(`NIMRA API starting on ${host}:${port}`);
 console.log(`[Integrations] OAuth callback URI: ${getOAuthRedirectUri()} — add this to your OAuth providers' allowed redirect URIs`);
 
 await ensureProjectFilesTableExists().catch((err) => {

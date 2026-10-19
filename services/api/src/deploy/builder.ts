@@ -293,8 +293,8 @@ export async function runBuild(
   // we actually re-pinned (TanStack projects on a .output-emitting config).
   if (tanstackNeedsRepin) {
     try {
-      const { linkDoableSdk } = await import("../projects/link-sdk.js");
-      await linkDoableSdk(projectDir);
+      const { linkNIMRASdk } = await import("../projects/link-sdk.js");
+      await linkNIMRASdk(projectDir);
       onLog?.("[tanstack-pin] re-linked @doable/* SDK after pin reinstall\n");
     } catch (err) {
       onLog?.(`[tanstack-pin] re-link warning: ${err instanceof Error ? err.message : String(err)}\n`);

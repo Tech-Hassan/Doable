@@ -28,7 +28,7 @@ import { McpPanel } from "@/modules/settings/components/mcp-panel";
 import { SkillsRulesPanel } from "@/modules/settings/components/skills-rules-panel";
 import { WorkspaceKnowledgePanel } from "./workspace-knowledge";
 import { GeneralTab } from "./general-tab";
-import { DoableAiWorkspaceTab } from "./doable-ai-tab";
+import { NIMRAAiWorkspaceTab } from "./doable-ai-tab";
 import { useToasts } from "@/hooks/use-toasts";
 import { ToastContainer } from "@/components/ui/toast-container";
 
@@ -41,7 +41,7 @@ const TABS = [
   { id: "mcp", label: "MCP Servers", icon: Radio },
   { id: "skills", label: "Skills & Rules", icon: Sparkles },
   { id: "knowledge", label: "Knowledge", icon: Brain },
-  { id: "doable-ai", label: "Doable AI", icon: Bot },
+  { id: "doable-ai", label: "NIMRA AI", icon: Bot },
 ] as const;
 
 type TabId = (typeof TABS)[number]["id"];
@@ -446,7 +446,7 @@ function WorkspaceSettingsPageInner() {
       )}
 
       {activeTab === "doable-ai" && (
-        <DoableAiWorkspaceTab workspaceId={workspace.id} isAdmin={isAdmin} addToast={addToast} />
+        <NIMRAAiWorkspaceTab workspaceId={workspace.id} isAdmin={isAdmin} addToast={addToast} />
       )}
 
       <ToastContainer toasts={toasts} onDismiss={dismissToast} />

@@ -69,7 +69,7 @@ export async function pushToGitHub(
       connectionId: conn.id,
       sha,
       message: commitInfo?.message ?? message,
-      author: "Doable",
+      author: "NIMRA",
       branch: conn.default_branch,
       direction: "push",
     });
@@ -120,7 +120,7 @@ export async function forcePushToGitHub(
       connectionId: conn.id,
       sha,
       message: commitInfo?.message ?? message,
-      author: "Doable",
+      author: "NIMRA",
       branch: conn.default_branch,
       direction: "push",
     });
@@ -200,9 +200,9 @@ export async function initialPush(
   });
 
   // Commit all current files and push
-  const commitInfo = await autoCommit(projectPath, "Initial commit from Doable");
+  const commitInfo = await autoCommit(projectPath, "Initial commit from NIMRA");
 
-  // Force push if connecting to an existing repo (Doable is source of truth)
+  // Force push if connecting to an existing repo (NIMRA is source of truth)
   await gitPush(projectPath, "origin", branch, opts.token, repoAlreadyExisted);
 
   const { stdout: sha } = await execGit(projectPath, ["rev-parse", "HEAD"]);
@@ -210,8 +210,8 @@ export async function initialPush(
   await db.createCommit({
     connectionId: (await db.findConnectionByProject(projectId))!.id,
     sha,
-    message: commitInfo?.message ?? "Initial commit from Doable",
-    author: "Doable",
+    message: commitInfo?.message ?? "Initial commit from NIMRA",
+    author: "NIMRA",
     branch,
     direction: "push",
   });
@@ -224,7 +224,7 @@ export async function initialPush(
   return {
     direction: "push",
     commitSha: sha,
-    message: commitInfo?.message ?? "Initial commit from Doable",
+    message: commitInfo?.message ?? "Initial commit from NIMRA",
     filesChanged: 0,
   };
 }

@@ -116,7 +116,7 @@ export async function buildConnectedIntegrationsContext(
 
   return [
     "<connected-integrations>",
-    "The user has pre-connected these services. You MUST use them via the listed env vars and tools. NEVER ask the user for API keys, URLs, or tokens for these services — Doable has already provisioned them.",
+    "The user has pre-connected these services. You MUST use them via the listed env vars and tools. NEVER ask the user for API keys, URLs, or tokens for these services — NIMRA has already provisioned them.",
     "",
     ...lines,
     "",
@@ -141,7 +141,7 @@ const BUILTIN_CONNECTOR_NAMES = new Set(BUILTIN_MCP_APPS.map((a) => a.name));
  * Build the `<connected-mcp-servers>` system-prompt block.
  *
  * Surfaces every ACTIVE, user-connected MCP connector for the workspace
- * (excluding Doable's builtin per-app-DB and builder MCP Apps) together with
+ * (excluding NIMRA's builtin per-app-DB and builder MCP Apps) together with
  * the EXACT AI-prefixed tool names the generated app must call at runtime via
  * `@doable/sdk`'s `doable.mcp.call()`.
  *
@@ -236,8 +236,8 @@ export async function buildConnectedMcpServersContext(
     "",
     "**🔌 HOW TO USE — build the data INTO the app; never just print it in chat:**",
     "```ts",
-    "import { createDoableClient } from '@doable/sdk';",
-    "const doable = createDoableClient();",
+    "import { createNIMRAClient } from '@doable/sdk';",
+    "const doable = createNIMRAClient();",
     "const r = await doable.mcp.call('<one of the mcp_… names above>', { /* tool args */ });",
     "if (r.success) { /* render r.data in a table / chart / card */ } else { /* show r.error.message */ }",
     "```",
@@ -249,7 +249,7 @@ export async function buildConnectedMcpServersContext(
     "5. This works identically in the live preview and the deployed site — the auth token / project key is injected automatically.",
     "6. **🔐 HANDLE AUTH/ERRORS GRACEFULLY — never show raw errors to end-users.** `doable.mcp.call` returns `{ success, data, error }` and does NOT throw. Show a loading state while a call is in flight. If a result is not successful and `error.code === 'AUTH_REQUIRED'`, render a clean centered panel telling the user the data source needs to be connected, with a Sign in button that opens `error.loginUrl` (when present) in a new tab — never a raw error and never a silently-empty dashboard. For any other failure show a small inline Retry affordance. Never surface 401/404 codes, stack traces, or the phrase 'authentication error' to end-users.",
     "7. **🧹 IGNORE the `_meta` field.** A tool result's `data` may include a large `data._meta` object (LLM-only formatting instructions). NEVER render it, NEVER map fields from it, and NEVER feed it into an AI prompt — strip it first, e.g. `const { _meta, ...clean } = r.data;` and use `clean`.",
-    "8. **🤖 IN-APP AI ASSISTANT / CHATBOT over MCP** (when the user asks for an assistant, chatbot, or to \"ask questions\"/\"chat\" about the data): `@doable/ai` has NO native tool/function-calling — you MUST hand-write a small ReAct loop. ⚠️ TWO SEPARATE pre-linked packages — DO NOT MIX THEM: the model client `ai` (and `chatSync`, `ChatMessage`) is exported ONLY by `@doable/ai`; the MCP client `createDoableClient`/`mcp` is exported ONLY by `@doable/sdk`. NEVER import `ai`/`chatSync`/`ChatMessage` from `@doable/sdk` — it has no `ai` export and the app will crash with \"does not provide an export named 'ai'\". Use TWO import lines: `import { ai } from '@doable/ai';` and `import { createDoableClient } from '@doable/sdk';`. Then `const res = await ai.chatSync(messages); const text = res.content;` — chatSync returns an OBJECT `{ content, usage }`, so ALWAYS read `.content` (a string); NEVER use the object directly and NEVER call `.match`/string ops on it. System-prompt the model to reply with ONLY JSON: `{\"tool\":\"<toolName>\",\"args\":{}}` to fetch data, or `{\"final\":\"<answer>\"}` when done. Parse `text` as JSON; on a tool request call `doable.mcp.call('mcp_<server>_'+toolName, args)`, then STRIP `data._meta` and CAP large arrays (keep ~first 40 items) before appending the result back as a `{ role: 'user', content: 'Tool result: '+JSON.stringify(clean) }` message; loop at most ~4 times. Display which MCP tool name(s) were called. Keeping each fed-back result small is REQUIRED so you never exceed the runtime input-token budget.",
+    "8. **🤖 IN-APP AI ASSISTANT / CHATBOT over MCP** (when the user asks for an assistant, chatbot, or to \"ask questions\"/\"chat\" about the data): `@doable/ai` has NO native tool/function-calling — you MUST hand-write a small ReAct loop. ⚠️ TWO SEPARATE pre-linked packages — DO NOT MIX THEM: the model client `ai` (and `chatSync`, `ChatMessage`) is exported ONLY by `@doable/ai`; the MCP client `createNIMRAClient`/`mcp` is exported ONLY by `@doable/sdk`. NEVER import `ai`/`chatSync`/`ChatMessage` from `@doable/sdk` — it has no `ai` export and the app will crash with \"does not provide an export named 'ai'\". Use TWO import lines: `import { ai } from '@doable/ai';` and `import { createNIMRAClient } from '@doable/sdk';`. Then `const res = await ai.chatSync(messages); const text = res.content;` — chatSync returns an OBJECT `{ content, usage }`, so ALWAYS read `.content` (a string); NEVER use the object directly and NEVER call `.match`/string ops on it. System-prompt the model to reply with ONLY JSON: `{\"tool\":\"<toolName>\",\"args\":{}}` to fetch data, or `{\"final\":\"<answer>\"}` when done. Parse `text` as JSON; on a tool request call `doable.mcp.call('mcp_<server>_'+toolName, args)`, then STRIP `data._meta` and CAP large arrays (keep ~first 40 items) before appending the result back as a `{ role: 'user', content: 'Tool result: '+JSON.stringify(clean) }` message; loop at most ~4 times. Display which MCP tool name(s) were called. Keeping each fed-back result small is REQUIRED so you never exceed the runtime input-token budget.",
     "</connected-mcp-servers>",
   ].join("\n");
 }

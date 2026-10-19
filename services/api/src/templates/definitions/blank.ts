@@ -99,7 +99,7 @@ export default defineConfig({
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Doable Project</title>
+    <title>NIMRA Project</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
@@ -189,7 +189,7 @@ class ErrorBoundary extends React.Component<
               margin: '0 0 24px',
               lineHeight: 1.5
             }}>
-              Doable is automatically fixing this. The preview will update in a moment.
+              NIMRA is automatically fixing this. The preview will update in a moment.
             </p>
             <button
               onClick={() => window.location.reload()}
@@ -236,7 +236,7 @@ const phrases = [
   "From zero to wow.",
 ];
 
-function DoableLogo({ className = "" }: { className?: string }) {
+function NIMRALogo({ className = "" }: { className?: string }) {
   return (
     <svg viewBox="0 0 40 40" fill="none" className={className}>
       <rect width="40" height="40" rx="10" className="fill-[#F97316]">
@@ -268,11 +268,11 @@ export default function App() {
     <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-neutral-50 via-stone-100 to-white dark:from-neutral-950 dark:via-neutral-900 dark:to-neutral-950">
       <div className="text-center space-y-6">
         <div className="flex justify-center">
-          <DoableLogo className="w-16 h-16 drop-shadow-lg" />
+          <NIMRALogo className="w-16 h-16 drop-shadow-lg" />
         </div>
         <div className="space-y-2">
           <h1 className="text-3xl font-bold tracking-tight text-neutral-900 dark:text-white">
-            Doable
+            NIMRA
           </h1>
           <p
             className="text-lg text-[#F97316] font-medium transition-opacity duration-400"
@@ -309,7 +309,7 @@ export default function App() {
 
     "src/index.css": `@import "tailwindcss";
 
-/* Class-based dark mode — Doable's editor toggles \`<html class="dark">\`
+/* Class-based dark mode — NIMRA's editor toggles \`<html class="dark">\`
    and the preview bridge mirrors that into this iframe. */
 @custom-variant dark (&:where(.dark, .dark *));
 

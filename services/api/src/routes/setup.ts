@@ -637,7 +637,7 @@ setupRoutes.post("/oauth/github", async (c) => {
 
 // ─── POST /api/setup/oauth/supabase ──────────────────────────────────────
 // Admin pastes Supabase OAuth APP credentials (client_id + client_secret) so
-// end users get a mid-build "Authorize Doable to provision Supabase" consent
+// end users get a mid-build "Authorize NIMRA to provision Supabase" consent
 // prompt. Saves to both platform_config (so /setup/status surfaces it) and
 // oauth_apps with workspace_id=NULL (platform-wide) so the existing
 // integrations-oauth.ts flow at oauthApps.get() picks it up for every

@@ -534,7 +534,7 @@ connectorProxyRoutes.options("/__doable/connector-proxy/*", (c) => {
 
 // ─── Integration File Serving ──────────────────────────
 // Serves files written by integration actions (e.g. ElevenLabs TTS MP3s).
-// DoableFilesService writes to DATA_DIR/integration-files/<uuid>.<ext>
+// NIMRAFilesService writes to DATA_DIR/integration-files/<uuid>.<ext>
 // and returns a URL like /files/integration/<uuid>.<ext>.
 // No auth required — files are content-addressed (UUID) and ephemeral.
 

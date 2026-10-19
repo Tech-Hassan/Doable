@@ -2159,7 +2159,7 @@ function EditorPageInner() {
     }
   }, [resolvedProjectId]);
 
-  // ─── Sync Doable theme into preview iframe ──────────────────
+  // ─── Sync NIMRA theme into preview iframe ──────────────────
   // Watches host <html>.dark and posts {type:"doable-theme"} to the
   // preview iframe so the bridge inside it can toggle <html class="dark">
   // and run its dark-shim. Also responds to the iframe's
@@ -2707,7 +2707,7 @@ function EditorPageInner() {
         const sameSigCount = autoFixHistoryRef.current.filter((a) => a.signature === sig).length;
         if (sameSigCount >= 3) {
           console.warn(
-            `[Doable] Auto-fix kill-switch: same error fired ${sameSigCount + 1}× in 5min, pausing.`,
+            `[NIMRA] Auto-fix kill-switch: same error fired ${sameSigCount + 1}× in 5min, pausing.`,
           );
           setAutoFixPausedReason({ kind: "hard", signature: sig, attempts: sameSigCount + 1 });
           setLiveStatus("");
@@ -2720,7 +2720,7 @@ function EditorPageInner() {
         const attempt: AutoFixAttempt = { signature: sig, ts: now, madeToolCall: false };
         autoFixHistoryRef.current.push(attempt);
 
-        console.log("[Doable] Preview error detected, auto-fixing:", errorSummary);
+        console.log("[NIMRA] Preview error detected, auto-fixing:", errorSummary);
 
         // Show status immediately
         setLiveStatus("Found a preview issue — fixing it...");
@@ -2740,7 +2740,7 @@ function EditorPageInner() {
         })
           .then(async (res) => {
             if (!res.ok) {
-              console.warn("[Doable] Auto-fix request failed:", res.status);
+              console.warn("[NIMRA] Auto-fix request failed:", res.status);
               autoFixInFlightRef.current = false;
               setLiveStatus("");
               return;
@@ -2846,7 +2846,7 @@ function EditorPageInner() {
               const until = Date.now() + 2 * 60_000;
               autoFixPausedUntilRef.current = until;
               setAutoFixPausedReason({ kind: "soft", until });
-              console.warn("[Doable] Auto-fix soft-pause: AI made no tool call this turn.");
+              console.warn("[NIMRA] Auto-fix soft-pause: AI made no tool call this turn.");
             }
 
             // Refresh preview + file tree after fix
@@ -3683,7 +3683,7 @@ function EditorPageInner() {
 
     // Gap #7: a just-imported project that uses Supabase but has no Supabase
     // connection yet. Open the connect-Supabase dialog automatically so the
-    // user is prompted (and Doable then injects the creds into the sandbox)
+    // user is prompted (and NIMRA then injects the creds into the sandbox)
     // instead of the app silently rendering "Supabase is not configured".
     // One-shot: consume the flag so it never re-opens on later mounts.
     const supabaseSetupKey = `doable_supabase_setup_required_${resolvedProjectId}`;
@@ -5126,7 +5126,7 @@ function EditorPageInner() {
       <header className="flex h-12 flex-shrink-0 items-center justify-between border-b border-border bg-card px-2 md:px-3">
         {/* Left: Logo + Back arrow + Project name with dropdown */}
         <div className="flex items-center gap-2.5 min-w-0">
-          {/* Doable logo icon */}
+          {/* NIMRA logo icon */}
           <button
             onClick={() => router.push("/dashboard")}
             className="flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-lg bg-brand-100 border border-brand-600 dark:bg-gradient-to-br dark:from-brand-600 dark:to-brand-700 dark:border-transparent shadow-sm shadow-brand-700/20 dark:shadow-brand-900/30 hover:brightness-95 transition-all"
@@ -5581,7 +5581,7 @@ function EditorPageInner() {
                     Start a conversation
                   </h3>
                   <p className="text-[13px] text-muted-foreground max-w-[280px]">
-                    Describe what you want to build and Doable AI will generate
+                    Describe what you want to build and NIMRA AI will generate
                     the code for you.
                   </p>
                   {/* Mode indicator in empty state */}
@@ -5747,7 +5747,7 @@ function EditorPageInner() {
                                 : "text-brand-700 dark:text-brand-400"
                             }`}
                           >
-                            {msg.isError ? "Error" : "Doable AI"}
+                            {msg.isError ? "Error" : "NIMRA AI"}
                           </span>
                           <span className="text-[10px] text-muted-foreground">
                             {msg.timestamp}
@@ -6360,7 +6360,7 @@ function EditorPageInner() {
                   className="flex items-center gap-2 rounded-full border border-border bg-secondary px-4 py-2 text-[13px] font-medium text-foreground shadow-lg shadow-md hover:bg-accent hover:border-border transition-all backdrop-blur-sm"
                 >
                   <Square className="h-3 w-3 fill-current" />
-                  Stop Doable
+                  Stop NIMRA
                 </button>
               </div>
             )}
@@ -6458,7 +6458,7 @@ function EditorPageInner() {
                         }
                       }}
                       onPaste={fileAttachments.handlePaste}
-                      placeholder={inputValue.length > 0 ? "" : "Ask Doable..."}
+                      placeholder={inputValue.length > 0 ? "" : "Ask NIMRA..."}
                       rows={1}
                       disabled={isStreaming}
                       className="w-full max-h-[40vh] min-h-[48px] resize-none bg-transparent px-4 py-3.5 text-[14px] leading-relaxed text-foreground placeholder:text-muted-foreground/70 outline-none disabled:opacity-50"

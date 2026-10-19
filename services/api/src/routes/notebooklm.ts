@@ -7,7 +7,7 @@
  * server lives on 127.0.0.1:3001 (spawned in start.sh); we forward through
  * here so the extension doesn't need its own hostname / tunnel entry.
  *
- * These routes intentionally require NO Doable Bearer token — the
+ * These routes intentionally require NO NIMRA Bearer token — the
  * extension has no way to obtain one. Authentication of the payload is a
  * per-user `user_token` embedded in the request body / query, which the
  * NLM server validates against its own user registry.

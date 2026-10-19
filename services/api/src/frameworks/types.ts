@@ -13,7 +13,7 @@
  *   - Template: a frameworkId plus a Record<filePath, content> (defined elsewhere).
  *
  * Adapter instances are singletons. They MUST NOT carry per-project state
- * in instance fields — state lives in Doable (projects.framework_id, the
+ * in instance fields — state lives in NIMRA (projects.framework_id, the
  * in-memory servers Map, etc.). See PRD §4.4.
  */
 
@@ -22,7 +22,7 @@ import type { BuildEventInput } from "../build-events/types.js";
 // ─── Capability flags (PRD §3) ───────────────────────────
 
 /**
- * Closed set of boolean features Doable code paths key off.
+ * Closed set of boolean features NIMRA code paths key off.
  *
  * Capabilities are NOT a free-form tag list. Adding one is a typed change;
  * adapters cannot invent capabilities at runtime.
@@ -53,7 +53,7 @@ export interface FrameworkContext {
   projectId: string;
   projectPath: string;        // absolute, e.g. /data/projects/{projectId}
   basePath: string;           // "/" or "/preview/{id}/" — proxy sub-path
-  env: Record<string, string>; // resolved user env vars + Doable defaults
+  env: Record<string, string>; // resolved user env vars + NIMRA defaults
   userId?: string;            // for env resolution + audit
   signal?: AbortSignal;       // cancellation
   onProgress?: (message: string) => void; // real-time status updates during install
@@ -325,7 +325,7 @@ export interface FrameworkAdapter {
 /**
  * Closed set of error codes adapters and the registry may throw.
  *
- * UI translation happens in Doable, not in adapters. Callers should match
+ * UI translation happens in NIMRA, not in adapters. Callers should match
  * on `code` rather than on `message` text.
  */
 export type FrameworkAdapterErrorCode =

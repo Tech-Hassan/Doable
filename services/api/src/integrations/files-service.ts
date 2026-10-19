@@ -10,7 +10,7 @@ const PUBLIC_URL = process.env.PUBLIC_URL ?? process.env.API_URL ?? "http://127.
  * Implements the Activepieces FilesService interface.
  * Stores files in a local directory and returns a public URL.
  */
-export class DoableFilesService {
+export class NIMRAFilesService {
   async write({ fileName, data }: { fileName: string; data: Buffer }): Promise<string> {
     const dir = path.join(DATA_DIR, "integration-files");
     await fs.mkdir(dir, { recursive: true });

@@ -31,7 +31,7 @@ export interface GitLogEntry extends GitCommitInfo {
 const COMMIT_BOUNDARY = "---COMMIT_BOUNDARY---";
 
 const DEFAULT_AUTHOR: GitAuthor = {
-  name: "Doable",
+  name: "NIMRA",
   email: "noreply@doable.me",
 };
 
@@ -74,9 +74,9 @@ export async function autoCommit(
 
   const author = opts?.author ?? DEFAULT_AUTHOR;
   const trailers: string[] = [];
-  if (opts?.type) trailers.push(`Doable-Type: ${opts.type}`);
+  if (opts?.type) trailers.push(`NIMRA-Type: ${opts.type}`);
   if (opts?.sessionMessageId)
-    trailers.push(`Doable-Session: ${opts.sessionMessageId}`);
+    trailers.push(`NIMRA-Session: ${opts.sessionMessageId}`);
 
   const fullMessage =
     trailers.length > 0
@@ -130,8 +130,8 @@ function parseLogEntry(lines: string[]): GitLogEntry | null {
 
   const body = messageLines.join("\n").trim();
   const message = body.split("\n")[0] ?? "";
-  const type = parseTrailer(body, "Doable-Type") ?? "";
-  const sessionMessageId = parseTrailer(body, "Doable-Session");
+  const type = parseTrailer(body, "NIMRA-Type") ?? "";
+  const sessionMessageId = parseTrailer(body, "NIMRA-Session");
   const stats = parseShortstat(statsLine);
 
   return {
@@ -236,7 +236,7 @@ export async function findCommitBySessionId(
     const { stdout } = await execGit(projectPath, [
       "log",
       "--all",
-      `--grep=Doable-Session: ${sessionMessageId}`,
+      `--grep=NIMRA-Session: ${sessionMessageId}`,
       "--format=%H",
       "-1",
     ]);

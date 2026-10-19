@@ -137,7 +137,7 @@ app.route("/", editorRoutes);
 if (DOABLE_APP_DB_ENABLED) {
   app.route("/projects", dataTokenRoutes);
 }
-// Per-project Doable AI settings (CRUD + usage readout). Mounted AFTER
+// Per-project NIMRA AI settings (CRUD + usage readout). Mounted AFTER
 // chatRoutes for the same RLS-deadlock reason documented above for
 // dataTokenRoutes — the router applies authMiddlewareWithRls on "/projects/*".
 if (DOABLE_APP_AI_ENABLED) {

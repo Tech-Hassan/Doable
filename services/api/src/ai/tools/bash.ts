@@ -1,5 +1,5 @@
 /**
- * Doable-owned `bash` tool — overrides the Copilot SDK's built-in bash.
+ * NIMRA-owned `bash` tool — overrides the Copilot SDK's built-in bash.
  *
  * Per SandboxAgnosticSandboxingPRD/13-ai-tool-integration.md §§4-6, the SDK
  * exposes a `bash` tool we cannot disable. By registering our own `bash` with
@@ -34,7 +34,7 @@ export interface BashToolCtx {
 }
 
 /**
- * Build the Doable-owned `bash` tool. Wire it into the per-session tool list
+ * Build the NIMRA-owned `bash` tool. Wire it into the per-session tool list
  * so the SDK routes every model `bash` call through `jailedSpawn` instead of
  * the CLI's built-in unsandboxed shell.
  */

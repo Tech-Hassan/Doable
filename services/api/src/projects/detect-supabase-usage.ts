@@ -4,7 +4,7 @@
  * Imported apps (e.g. Lovable / v0 exports) frequently talk to Supabase via
  * `@supabase/supabase-js` + `import.meta.env.VITE_SUPABASE_URL` /
  * `VITE_SUPABASE_ANON_KEY` (client) and `process.env.SUPABASE_*` (SSR). When the
- * committed `.env` ships empty creds and Doable injects nothing, the app silently
+ * committed `.env` ships empty creds and NIMRA injects nothing, the app silently
  * renders "Supabase is not configured" with no way for the user to know they must
  * connect Supabase. The import flow uses this detector to decide whether to
  * prompt the user to connect their Supabase project (gap #7).

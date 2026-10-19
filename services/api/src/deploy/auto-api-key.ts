@@ -106,7 +106,7 @@ async function scanDirectory(dir: string, tools: Set<string>, depth = 0): Promis
         while ((match = intRegex.exec(content)) !== null) {
           tools.add(`${match[1]!}:${match[2]!}`);
         }
-        // Doable voice helpers: `doable.voice.speak(...)` wraps
+        // NIMRA voice helpers: `doable.voice.speak(...)` wraps
         // elevenlabs-text-to-speech and `doable.voice.listen(...)` wraps
         // elevenlabs-speech-to-text (see packages/doable-sdk/src/index.ts
         // voice.*). The codegen prompt (framework-prompts/vite-react.ts §0v)
@@ -154,7 +154,7 @@ async function scanDirectory(dir: string, tools: Set<string>, depth = 0): Promis
           tools.add("data.query");
           tools.add("data.schema");
         }
-        // Doable AI runtime: detected by the @doable/ai import or by direct
+        // NIMRA AI runtime: detected by the @doable/ai import or by direct
         // calls to the `ai.chat`, `ai.chatSync` or `ai.embed` methods. We
         // grant `ai.chat` whenever the package is imported (the import alone
         // signals the developer intends to use chat) but withhold the more

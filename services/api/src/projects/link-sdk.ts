@@ -105,7 +105,7 @@ async function linkWorkspacePackage(
  * Link the private @doable/* workspace packages into a project's node_modules.
  * Idempotent; safe to call on every dev-server start.
  */
-export async function linkDoableSdk(projectPath: string): Promise<void> {
+export async function linkNIMRASdk(projectPath: string): Promise<void> {
   await linkWorkspacePackage(projectPath, "doable-sdk", ["index.ts", "react.ts", "server.ts"]);
   // @doable/data — per-app DB client (src/index.ts only; index.test.ts is
   // intentionally excluded so node:test never reaches the Vite bundle).

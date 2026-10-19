@@ -809,7 +809,7 @@ adminOpsRoutes.get("/runtime/:id/egress", async (c) => {
 
   // Squid access log (build-time proxy — Wave 29). Format:
   //   timestamp.ms elapsed client action/code bytes method URL ...
-  // We want lines that mention this project's slug as the X-Doable-Project
+  // We want lines that mention this project's slug as the X-NIMRA-Project
   // header (set by builder.ts) — newer Squid configs log it; if not, we
   // just return all recent lines so the operator can grep manually.
   const SQUID_LOG = "/var/log/squid/access.log";
@@ -837,7 +837,7 @@ adminOpsRoutes.get("/runtime/:id/egress", async (c) => {
           bytes: parseInt(parts[4] ?? "0", 10),
         });
       }
-      // Project-specific filtering would need the X-Doable-Project header
+      // Project-specific filtering would need the X-NIMRA-Project header
       // logged by Squid. For now we return everything — UI can filter.
       squidNote = `last ${squidEntries.length} entries from Squid access log (build-time proxy, all projects)`;
     } catch (e) {

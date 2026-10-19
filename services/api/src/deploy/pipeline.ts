@@ -11,13 +11,13 @@ import {
 import { runBuild, type BuildLogCallback, type BuildErrorCode } from "./builder.js";
 import type { DeployAdapter } from "./adapter.js";
 import {
-  DoableCloudAdapter,
+  NIMRACloudAdapter,
   generateSubdomain,
   getPublishedSiteDir,
   registerCloudflareDns,
   SitesDirUnwritableError,
 } from "./adapters/doable-cloud.js";
-import { DoablePathAdapter } from "./adapters/doable-path.js";
+import { NIMRAPathAdapter } from "./adapters/doable-path.js";
 import {
   resolvePublishTopology,
   computePublishLocation,
@@ -35,7 +35,7 @@ import type { RuntimeAdapter, RuntimeContext } from "../runtime/types.js";
 import { getProjectPath } from "../ai/project-files.js";
 import { detectTanStackStart } from "../projects/detect-tanstack-start.js";
 import { ensurePublishKey, injectDataToken } from "./auto-api-key.js";
-import { linkDoableSdk } from "../projects/link-sdk.js";
+import { linkNIMRASdk } from "../projects/link-sdk.js";
 
 const deployments = deploymentQueries(sql);
 const projects = projectQueries(sql);
@@ -54,8 +54,8 @@ async function getDnsMode(): Promise<"per_publish" | "wildcard"> {
 
 // ─── Adapter Registry ──────────────────────────────────────
 const adapters: Record<string, DeployAdapter> = {
-  "doable-cloud": new DoableCloudAdapter(),
-  "doable-path": new DoablePathAdapter(),
+  "doable-cloud": new NIMRACloudAdapter(),
+  "doable-path": new NIMRAPathAdapter(),
 };
 
 export function getAdapter(name: string): DeployAdapter {
@@ -275,7 +275,7 @@ export async function runPipeline(
     const projectDir = getProjectPath(projectId);
 
     // Ensure latest SDK is linked before build
-    try { await linkDoableSdk(projectDir); } catch { /* non-fatal */ }
+    try { await linkNIMRASdk(projectDir); } catch { /* non-fatal */ }
 
     // Compute publish URL & base path BEFORE build so Vite emits assets
     // with the correct base href when path-based hosting is enabled.

@@ -220,7 +220,7 @@ previewRoutes.post("/preview/:projectId/__doable/token", async (c) => {
   // <viewer uuid>`. That makes the self-stamping `created_by` DEFAULT resolve
   // to the viewer and the owner-RLS WITH CHECK pass on INSERT.
   //
-  // Identity is established ONLY by proving a real Doable session AND that the
+  // Identity is established ONLY by proving a real NIMRA session AND that the
   // session user has access to THIS project (requireProjectAccess). We NEVER
   // default to the workspace owner for an unauthenticated caller: the
   // standalone preview URL (/preview/<uuid>) serves to any URL-holder, so
@@ -417,13 +417,13 @@ function renderInstallingDepHTML(pkg: string): string {
  * in deploy/tanstack-node-server-entry.ts). Lovable-exported TanStack Start
  * apps ship a client that calls the app's OWN `POST /api/chat` backend which
  * reads `process.env.LOVABLE_API_KEY` and calls Lovable's AI gateway — a
- * pattern that doesn't exist on Doable. In the preview iframe those relative
+ * pattern that doesn't exist on NIMRA. In the preview iframe those relative
  * `/api/chat` calls arrive here as `/preview/:projectId/api/chat`; forwarding
  * them straight to vite dev either 404s or 500s. Intercept them and forward
- * to Doable's own `/__doable/ai/chat` (per-project AI credits) with the
+ * to NIMRA's own `/__doable/ai/chat` (per-project AI credits) with the
  * user's identity baked into the mint (mirrors the token minted by
  * `/preview/:projectId/__doable/token`), translating between AI-SDK
- * UIMessage[] and Doable ChatMessage[] on the way in and re-emitting the
+ * UIMessage[] and NIMRA ChatMessage[] on the way in and re-emitting the
  * response as an AI-SDK v5 UI Message Stream on the way out.
  * See BUG-2026-07-15-lovable-ai-chat.
  */
@@ -469,7 +469,7 @@ export async function handleLovableChatBridge(
     PROJECT_JWT_SECRET,
   );
 
-  // Translate AI-SDK UIMessage[] → Doable ChatMessage[]
+  // Translate AI-SDK UIMessage[] → NIMRA ChatMessage[]
   let body: Record<string, unknown> = {};
   try { body = (await c.req.json()) as Record<string, unknown>; } catch { body = {}; }
   const uiMessages = Array.isArray(body.messages) ? (body.messages as Array<Record<string, unknown>>) : [];
@@ -501,14 +501,14 @@ export async function handleLovableChatBridge(
     });
   } catch (err) {
     return c.text(
-      "Doable AI unreachable: " + (err instanceof Error ? err.message : String(err)),
+      "NIMRA AI unreachable: " + (err instanceof Error ? err.message : String(err)),
       502,
     );
   }
   if (!upstream.ok) {
     const errText = await upstream.text().catch(() => "");
     return c.text(
-      "Doable AI error " + upstream.status + ": " + errText.slice(0, 500),
+      "NIMRA AI error " + upstream.status + ": " + errText.slice(0, 500),
       upstream.status as 400 | 401 | 403 | 500 | 502 | 503,
     );
   }

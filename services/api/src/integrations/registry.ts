@@ -7,7 +7,7 @@ import type { IntegrationDefinition, IntegrationCategory } from "./types.js";
 // piece package backs it, and which actions are exposed.
 
 export const REGISTRY: Record<string, IntegrationDefinition> = {
-  // NOTE: GitHub is NOT in the catalog — Doable has a dedicated built-in git sync
+  // NOTE: GitHub is NOT in the catalog — NIMRA has a dedicated built-in git sync
   // feature (connect repo, push/pull, branch management) in the MCP connectors section.
   // The Activepieces GitHub piece (create issues, list repos, PRs) can be added later
   // as "github_api" if users need GitHub API access beyond git sync.

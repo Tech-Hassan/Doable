@@ -344,7 +344,7 @@ export async function ensureProjectDir(projectId: string): Promise<string> {
   return projectPath;
 }
 
-export async function ensureDoableDir(projectId: string): Promise<string> {
+export async function ensureNIMRADir(projectId: string): Promise<string> {
   const doablePath = join(getProjectPath(projectId), ".doable");
   await mkdir(doablePath, { recursive: true });
   return doablePath;

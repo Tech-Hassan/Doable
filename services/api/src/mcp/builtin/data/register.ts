@@ -48,7 +48,7 @@ export async function ensureDataConnectorForProject(
       projectId,
       createdBy: ownerUserId,
       scope: "project",
-      name: "Doable Per-App Database",
+      name: "NIMRA Per-App Database",
       description:
         "Built-in: per-project PGlite. Use data.query for runtime DML, data.migrate for schema.",
       transportType: "stdio",

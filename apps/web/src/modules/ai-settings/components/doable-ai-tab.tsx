@@ -45,7 +45,7 @@ interface Props {
   isAdmin: boolean;
 }
 
-export function DoableAiSettingsTab({ workspaceId, isAdmin }: Props) {
+export function NIMRAAiSettingsTab({ workspaceId, isAdmin }: Props) {
   const [ws, setWs] = useState<WorkspaceExtras | null>(null);
   const [personal, setPersonal] = useState<PersonalExtras | null>(null);
   const [loading, setLoading] = useState(true);
@@ -161,7 +161,7 @@ export function DoableAiSettingsTab({ workspaceId, isAdmin }: Props) {
         </div>
         <p className="mb-4 text-sm text-muted-foreground">
           Applied to new projects in this workspace. Each project can override these from the
-          per-project Doable AI tab.
+          per-project NIMRA AI tab.
         </p>
 
         <div className="space-y-4">

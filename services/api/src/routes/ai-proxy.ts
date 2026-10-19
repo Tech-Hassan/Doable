@@ -338,7 +338,7 @@ export function enforceModelAllowList(
   resolvedModel: string | undefined,
   settings: ProjectAiSettings,
 ): { ok: true; model: string } | { ok: false; code: string; message: string } {
-  // Priority: chat_model_override (Doable AI tab) >
+  // Priority: chat_model_override (NIMRA AI tab) >
   //           legacy default_model > workspace/engine-resolved default.
   const model = settings.chatModelOverride ?? settings.defaultModel ?? resolvedModel ?? "";
   if (!model) {
@@ -746,7 +746,7 @@ aiProxyRoutes.post("/__doable/ai/chat", async (c) => {
 
   const settings = await (settingsResolver ?? getProjectAiSettings)(auth.projectId);
   if (!settings.enabled) {
-    return jsonError(c, 503, "AI_DISABLED_FOR_PROJECT", "Doable AI is disabled for this project");
+    return jsonError(c, 503, "AI_DISABLED_FOR_PROJECT", "NIMRA AI is disabled for this project");
   }
 
   const aiConfig = engineResolver
@@ -761,7 +761,7 @@ aiProxyRoutes.post("/__doable/ai/chat", async (c) => {
   // Inject pinned system prompt server-side (never echoed to client).
   // Priority: explicit per-call request (caller is trusted via project JWT
   // only for the request body — system prompts come from settings):
-  //   1. settings.systemPromptOverride (from the Doable AI tab)
+  //   1. settings.systemPromptOverride (from the NIMRA AI tab)
   //   2. settings.systemPrompt (legacy field; kept for backward-compat)
   // We concatenate when BOTH are present so a workspace admin's pinned
   // safety prompt can't be silently replaced by a per-project override.
@@ -969,13 +969,13 @@ aiProxyRoutes.post("/__doable/ai/embed", async (c) => {
 
   const settings = await (settingsResolver ?? getProjectAiSettings)(auth.projectId);
   if (!settings.enabled) {
-    return jsonError(c, 503, "AI_DISABLED_FOR_PROJECT", "Doable AI is disabled for this project");
+    return jsonError(c, 503, "AI_DISABLED_FOR_PROJECT", "NIMRA AI is disabled for this project");
   }
 
   // Embedding-specific resolver — different from chat. Walks project →
   // workspace → platform-default (set in /setup or /admin/embedding-provider).
   // `embedding_model_override` (096) wins over `embedding_model` (095) so the
-  // Doable AI tab can rebind a project to a new model without dropping the
+  // NIMRA AI tab can rebind a project to a new model without dropping the
   // legacy column (which may still be used by older project_ai_settings rows).
   const effectiveEmbeddingModel =
     settings.embeddingModelOverride ?? settings.embeddingModel;

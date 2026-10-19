@@ -11,7 +11,7 @@ import {
 } from "./vite-plugin-source-annotations.js";
 import { ensureTailwindV4Consistency } from "./normalize-tailwind.js";
 import { ensureFlakyPeerDeps } from "./normalize-peer-deps.js";
-import { linkDoableSdk } from "./link-sdk.js";
+import { linkNIMRASdk } from "./link-sdk.js";
 import { spawnJailedVite } from "./vite-jail.js";
 import {
   acquireDevUid,
@@ -188,8 +188,8 @@ function runInstallBatch(projectId: string, pkgs: string[]): void {
   // node_modules during any install and chokes on the linked @doable packages
   // with `ENOTEMPTY: rename node_modules/@doable/data -> …`, which aborts the
   // WHOLE install so the requested package never lands. @doable is re-linked
-  // right after (the restart path's linkDoableSdk on success, the explicit
-  // linkDoableSdk on failure), so dropping it here is safe and makes the
+  // right after (the restart path's linkNIMRASdk on success, the explicit
+  // linkNIMRASdk on failure), so dropping it here is safe and makes the
   // install resilient. Best-effort.
   try {
     rmSync(pathJoin(projectPath, "node_modules", "@doable"), {
@@ -197,7 +197,7 @@ function runInstallBatch(projectId: string, pkgs: string[]): void {
       force: true,
     });
   } catch {
-    // ignore — install proceeds; linkDoableSdk re-creates the scope after
+    // ignore — install proceeds; linkNIMRASdk re-creates the scope after
   }
   // --legacy-peer-deps: generated apps pin React 19 while many app-code libs
   //   still declare a React ^16–18 peer range; without this npm ERESOLVE-fails.
@@ -253,7 +253,7 @@ function runInstallBatch(projectId: string, pkgs: string[]): void {
       // A failed npm install can still have pruned the link-sdk'd @doable/*
       // packages (extraneous to package.json). Re-link so their imports stay
       // resolvable even though we did NOT restart the dev server here.
-      linkDoableSdk(projectPath).catch(() => {});
+      linkNIMRASdk(projectPath).catch(() => {});
     }
   });
   npmChild.on("error", (err) => {
@@ -278,7 +278,7 @@ export function queueMissingDepInstall(projectId: string, pkg: string): void {
   // NEVER auto-install them: `npm install @doable/data` 404s AND npm prunes the
   // link-sdk'd copies (absent from package.json), making the import unresolvable
   // — the exact failure that pushed generated apps to localStorage instead of
-  // the inbuilt DB. linkDoableSdk re-links them on dev-server (re)start.
+  // the inbuilt DB. linkNIMRASdk re-links them on dev-server (re)start.
   if (pkg.startsWith("@doable/")) return;
   let attempted = peerDepInstallAttempts.get(projectId);
   if (!attempted) {
@@ -618,7 +618,7 @@ async function doStartDevServer(
   const url = `http://127.0.0.1:${port}`;
 
   // Acquire sandbox UID BEFORE API-side writes (ensureSourceAnnotationsPlugin,
-  // linkDoableSdk) — chown -R happens after those writes complete to avoid
+  // linkNIMRASdk) — chown -R happens after those writes complete to avoid
   // EACCES when the API uid hits a directory already owned by the sandbox uid.
   // Returns null on Windows/Mac or when chown isn't available.
   let sandboxUid: number | null = acquireDevUid(projectId);
@@ -684,7 +684,7 @@ async function doStartDevServer(
     }
   }
 
-  // Reclaim @doable/sdk to the API uid before linkDoableSdk writes it.
+  // Reclaim @doable/sdk to the API uid before linkNIMRASdk writes it.
   // The final chown -R below re-owns to sandboxUid. Use the actual euid —
   // the API runs as the doable user (uid 5000), not root.
   if (sandboxUid !== null && process.platform === "linux") {
@@ -705,7 +705,7 @@ async function doStartDevServer(
 
   // Ensure @doable/sdk is linked (idempotent — skips if already present)
   try {
-    await linkDoableSdk(projectPath);
+    await linkNIMRASdk(projectPath);
   } catch (err) {
     console.warn("[DevServer] Failed to link @doable/sdk:", err);
   }
@@ -913,7 +913,7 @@ async function doStartDevServer(
         // Forcing NODE_ENV=development + --include=dev keeps devDeps in
         // place and makes the install purely additive.
         // Drop the linked @doable/* scope so npm's node_modules reorg doesn't
-        // ENOTEMPTY-abort the install; the post-install linkDoableSdk below
+        // ENOTEMPTY-abort the install; the post-install linkNIMRASdk below
         // re-creates it before Vite spawns. --legacy-peer-deps lets React
         // ^16–18-peered libs install into the React-19 app. (See runInstallBatch.)
         try {
@@ -987,7 +987,7 @@ async function doStartDevServer(
   // and BEFORE Vite spawns so the link is present the instant Vite builds its
   // module graph. Idempotent.
   try {
-    await linkDoableSdk(projectPath);
+    await linkNIMRASdk(projectPath);
     // The relink ran as the API uid, AFTER the chown -R to sandboxUid above, so
     // the new @doable files are owned api:apiGid. The sandboxed Vite runs as
     // sandboxUid and is not in apiGid, so it could otherwise only read them via

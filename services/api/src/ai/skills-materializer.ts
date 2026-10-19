@@ -2,7 +2,7 @@
  * Skills Materializer — DB → Filesystem for SDK skillDirectories
  *
  * The Copilot SDK's native skills feature requires on-disk skill folders
- * (each skill = directory with SKILL.md + optional companion files). Doable
+ * (each skill = directory with SKILL.md + optional companion files). NIMRA
  * stores skills in `context_skills` (+ `context_skill_files`). This module
  * writes the relevant skills to a per-(workspace, project, user) cache dir
  * and returns the resulting paths to be passed as `skillDirectories` to the

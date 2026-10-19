@@ -440,7 +440,7 @@ const applyExistingSchema = z.object({
 // Set once during /setup, editable any time afterwards from /admin. Every
 // workspace inherits it silently (resolveEmbeddingEngine() walks project →
 // workspace → platform-default). End users never see embeddings config —
-// they just say "build me a chatbot with my docs" and Doable does the rest.
+// they just say "build me a chatbot with my docs" and NIMRA does the rest.
 
 adminAiRoutes.get("/embedding-provider", async (c) => {
   const [provider, baseUrl, model, apiKey] = await Promise.all([

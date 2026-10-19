@@ -12,7 +12,7 @@ import { ATTR_SERVICE_NAME, ATTR_SERVICE_VERSION } from "@opentelemetry/semantic
 import { registerInstrumentations } from "@opentelemetry/instrumentation";
 import { HttpInstrumentation } from "@opentelemetry/instrumentation-http";
 import { UndiciInstrumentation } from "@opentelemetry/instrumentation-undici";
-import { DoableSampler } from "./sampler.js";
+import { NIMRASampler } from "./sampler.js";
 import { PostgresSpanExporter } from "./pg-exporter.js";
 import {
   RedactingSpanProcessor,
@@ -46,7 +46,7 @@ export function initTracing(opts: InitOptions = {}): void {
       [ATTR_SERVICE_VERSION]: serviceVersion,
       "deployment.environment": process.env.NODE_ENV ?? "dev",
     }),
-    sampler: new DoableSampler(),
+    sampler: new NIMRASampler(),
   });
 
   const exporter = new PostgresSpanExporter();

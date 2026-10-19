@@ -57,7 +57,7 @@ export const APP_DB_PROMPT_BLOCK: string = `## Per-app database
    if (!r.ok) throw new Error(r.error?.message);
    \`\`\`
 6. **Never call \`db.exec\`** from app code — schema changes belong in migrations issued via \`data.migrate\` from this chat.
-7. **🔐 USER ACCOUNTS / LOGIN — use the built-in \`db.auth\`; NEVER roll your own passwords table.** When the app needs its OWN end-users (a store's customers, a SaaS's users — distinct from the Doable account that builds the app), use the built-in auth on the pre-linked \`@doable/data\`:
+7. **🔐 USER ACCOUNTS / LOGIN — use the built-in \`db.auth\`; NEVER roll your own passwords table.** When the app needs its OWN end-users (a store's customers, a SaaS's users — distinct from the NIMRA account that builds the app), use the built-in auth on the pre-linked \`@doable/data\`:
    \`\`\`ts
    import { db } from "@doable/data";
    await db.auth.signup({ email, password, name }); // creates the account AND signs in

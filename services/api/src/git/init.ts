@@ -22,7 +22,7 @@ export function isGitRepo(projectPath: string): boolean {
 
 export async function initRepo(projectPath: string): Promise<void> {
   await execGit(projectPath, ["init", "-b", "main"]);
-  await execGit(projectPath, ["config", "user.name", "Doable"]);
+  await execGit(projectPath, ["config", "user.name", "NIMRA"]);
   await execGit(projectPath, ["config", "user.email", "noreply@doable.me"]);
 
   const gitignorePath = join(projectPath, ".gitignore");
@@ -34,7 +34,7 @@ export async function initRepo(projectPath: string): Promise<void> {
   await execGit(projectPath, [
     "commit",
     "-m",
-    "Initial commit\n\nDoable-Type: init",
+    "Initial commit\n\nNIMRA-Type: init",
     "--allow-empty",
   ]);
 }

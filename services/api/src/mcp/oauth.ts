@@ -95,7 +95,7 @@ export interface McpOAuthAuthorizeParams {
   clientId?: string;
   /** Dynamic Client Registration endpoint (RFC 7591) */
   registrationEndpoint?: string;
-  /** Doable context */
+  /** NIMRA context */
   userId: string;
   workspaceId: string;
   /** If we're updating an existing connector */
@@ -117,7 +117,7 @@ interface ClientRegistrationResult {
 }
 
 /**
- * Register Doable as an OAuth client with the MCP server's authorization server.
+ * Register NIMRA as an OAuth client with the MCP server's authorization server.
  * Per MCP spec, servers SHOULD support RFC 7591 Dynamic Client Registration.
  *
  * Results are cached per registration endpoint to avoid re-registering.
@@ -141,7 +141,7 @@ async function registerClient(
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      client_name: "Doable",
+      client_name: "NIMRA",
       redirect_uris: [redirectUri],
       grant_types: ["authorization_code", "refresh_token"],
       response_types: ["code"],

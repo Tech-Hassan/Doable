@@ -1,7 +1,7 @@
 import * as crypto from "node:crypto";
 import { PostgresStore } from "./store.js";
-import { DoableFilesService } from "./files-service.js";
-import { DoableConnectionsManager } from "./connections-manager.js";
+import { NIMRAFilesService } from "./files-service.js";
+import { NIMRAConnectionsManager } from "./connections-manager.js";
 
 const API_URL = process.env.API_URL ?? "http://127.0.0.1:4000";
 const PUBLIC_URL = process.env.PUBLIC_URL ?? API_URL;
@@ -28,13 +28,13 @@ export function buildActionContext(params: {
     // ── Real implementations (used by ~15% of actions) ──
     executionType: "BEGIN",
     store: new PostgresStore(params.userId, params.workspaceId),
-    files: new DoableFilesService(),
+    files: new NIMRAFilesService(),
     server: {
       apiUrl: API_URL,
       publicUrl: PUBLIC_URL,
       token: "",
     },
-    connections: new DoableConnectionsManager(params.userId, params.workspaceId),
+    connections: new NIMRAConnectionsManager(params.userId, params.workspaceId),
 
     // ── Stubs (used by <1% of actions) ──
     tags: { add: async () => {} },

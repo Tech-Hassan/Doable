@@ -11,7 +11,7 @@ import type {
  * Static-files runtime adapter.
  *
  * Per devframeworkPRD/06-runtime-and-publish.md §7. The vite-react publish
- * path lands here unchanged — DoableCloudAdapter copies the build into
+ * path lands here unchanged — NIMRACloudAdapter copies the build into
  * /data/sites/{slug}/live/ and Caddy's wildcard `file_server` does the
  * rest. This adapter only verifies the site dir exists and is non-empty;
  * it has no process to start, stop, or supervise.

@@ -259,7 +259,7 @@ export function registerSendHandler(app: Hono<AuthEnv>) {
         return c.json({ error: "Viewers cannot use AI chat" }, 403);
       }
 
-      // Honour the project's Doable AI toggle. The runtime AI proxy
+      // Honour the project's NIMRA AI toggle. The runtime AI proxy
       // (/__doable/ai/*) already gates on project_ai_settings.enabled, but the
       // editor's code-generation chat never read the row, so flipping the
       // toggle off had no effect here. Read the same field and short-circuit
@@ -271,9 +271,9 @@ export function registerSendHandler(app: Hono<AuthEnv>) {
       if (aiRow && aiRow.enabled === false) {
         return c.json(
           {
-            error: "Doable AI is disabled for this project",
+            error: "NIMRA AI is disabled for this project",
             code: "AI_DISABLED_FOR_PROJECT",
-            hint: "Re-enable in Project Settings → Doable AI to resume chat.",
+            hint: "Re-enable in Project Settings → NIMRA AI to resume chat.",
           },
           503,
         );

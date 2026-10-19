@@ -3,7 +3,7 @@
  *
  * Lovable exports two flavours of Vite project: classic Vite + React (CSR,
  * `src/main.tsx` + `createRoot`) and TanStack Start (a native bootstrap
- * `src/start.tsx` + file-based routing under `src/routes/`). Doable runs a
+ * `src/start.tsx` + file-based routing under `src/routes/`). NIMRA runs a
  * CLEAN TanStack Start project correctly with NO special handling — it spawns
  * the exact same `vite --config vite.config.platform.mjs` as vite-react, and
  * TanStack's dev middleware serves the client entry. (Proven live:

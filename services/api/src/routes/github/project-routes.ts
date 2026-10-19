@@ -285,7 +285,7 @@ githubProjectRoutes.post("/:projectId/github/import", async (c) => {
 
     // Lovable chatbot persona preservation.
     //
-    // Doable's /api/chat bridge (commit 81491c3) routes AROUND the imported
+    // NIMRA's /api/chat bridge (commit 81491c3) routes AROUND the imported
     // src/routes/api/chat.ts file — the persona Lovable hard-codes there as
     // `streamText({ system: "You are Ember, the virtual barista..." })` is
     // therefore never read at runtime, and imported chatbots answer as generic
@@ -296,7 +296,7 @@ githubProjectRoutes.post("/:projectId/github/import", async (c) => {
     //
     // Best-effort; never fail the import if extraction / DB write throws. The
     // upsert uses COALESCE so an owner who has already customised the field
-    // in the Doable AI settings tab is never clobbered on re-import.
+    // in the NIMRA AI settings tab is never clobbered on re-import.
     //
     // See PRD: doableinfo/LOVABLE_CHATBOT_PERSONA_PRESERVATION.md
     try {

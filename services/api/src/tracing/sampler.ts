@@ -1,4 +1,4 @@
-// DoableSampler: custom OpenTelemetry sampler honoring kill-switch hierarchy.
+// NIMRASampler: custom OpenTelemetry sampler honoring kill-switch hierarchy.
 // See packages/db/migrations/053_tracing_tables.sql + level-registry.ts.
 
 import {
@@ -24,7 +24,7 @@ function ratioSampler(r: number): TraceIdRatioBasedSampler {
   return s;
 }
 
-export class DoableSampler implements Sampler {
+export class NIMRASampler implements Sampler {
   shouldSample(
     parentContext: Context,
     traceId: string,
@@ -69,6 +69,6 @@ export class DoableSampler implements Sampler {
   }
 
   toString() {
-    return `DoableSampler{global=${getGlobalLevel()}}`;
+    return `NIMRASampler{global=${getGlobalLevel()}}`;
   }
 }

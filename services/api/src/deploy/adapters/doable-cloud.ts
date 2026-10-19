@@ -134,7 +134,7 @@ export function computeSitePublishLocation(
  * The subdomain is generated once and stored in the project record,
  * then reused for every subsequent publish.
  */
-export class DoableCloudAdapter implements DeployAdapter {
+export class NIMRACloudAdapter implements DeployAdapter {
   readonly name = "doable-cloud";
 
   async deploy(input: DeployInput): Promise<DeployResult> {
@@ -900,7 +900,7 @@ export async function listZoneWildcards(): Promise<
 
 /**
  * Resolve the on-disk directory served by Caddy for a given publish.
- * Mirrors the layout produced by {@link DoableCloudAdapter.deploy}.
+ * Mirrors the layout produced by {@link NIMRACloudAdapter.deploy}.
  */
 export function getPublishedSiteDir(
   subdomain: string,

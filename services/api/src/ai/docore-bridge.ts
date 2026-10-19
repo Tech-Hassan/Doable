@@ -1,9 +1,9 @@
 /**
  * docore bridge — singleton wiring docore's user manager + policy store
- * into Doable's xray / trace / WS broadcast pipeline.
+ * into NIMRA's xray / trace / WS broadcast pipeline.
  *
  * This is the integration point between docore (AI sandbox + policy) and
- * the rest of Doable. Consumers import `userManager`, `policyStore`, and
+ * the rest of NIMRA. Consumers import `userManager`, `policyStore`, and
  * `wireEngineEvents` and call `initDocore()` / `shutdownDocore()` during
  * server lifecycle.
  */
@@ -44,7 +44,7 @@ const docoreTracer = new DoCoreTracer((span) => {
 const policyPersistence = new MemoryPersistence();
 export const policyStore = new PolicyStore({ persistence: policyPersistence });
 
-// Enable custom tools globally — Doable's custom SDK tools (read_file,
+// Enable custom tools globally — NIMRA's custom SDK tools (read_file,
 // list_files, create_plan, ask_clarification, etc.) must not be blocked
 // by the sandbox's default deny-all policy for custom tools.
 policyStore.setGlobal("sandbox.customTools.enabled", true);
@@ -86,7 +86,7 @@ export const userManager = new DoCoreUserManager({
 // ─── Event wiring per engine acquire ──────────────────────
 
 /**
- * Wire a DoCoreEngine's EventBus into Doable's trace / WS broadcast pipeline.
+ * Wire a DoCoreEngine's EventBus into NIMRA's trace / WS broadcast pipeline.
  * Call once per engine acquire. Returns an unwire function to call on
  * disconnect.
  */

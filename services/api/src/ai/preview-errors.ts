@@ -20,7 +20,7 @@ export interface PreviewErrorInfo {
 /**
  * A Vite "Failed to resolve import" error for a pre-linked @doable/* package is
  * almost always a STARTUP TRANSIENT: the dev server begins serving before
- * linkDoableSdk has finished writing node_modules/@doable, or during a dep
+ * linkNIMRASdk has finished writing node_modules/@doable, or during a dep
  * re-optimize window. It self-heals within a second or two. Surfacing it to the
  * AI is actively harmful — the auto-fix prompt tells the model to install the
  * package, but @doable/* are private + pre-linked (not on npm), so install_package
@@ -28,7 +28,7 @@ export interface PreviewErrorInfo {
  * hand-rolled fetch clients pointed at invented URLs). Detect this shape so the
  * caller can re-verify resolution and drop the error if it has already cleared.
  */
-export function isDoableResolveTransient(raw: string): boolean {
+export function isNIMRAResolveTransient(raw: string): boolean {
   return /(?:failed to resolve import|cannot resolve|could not resolve)[^\n]*@doable\/(?:data|sdk|ai)/i.test(raw)
     || /@doable\/(?:data|sdk|ai)[^\n]*(?:is not (?:installed|resolved|exported)|cannot be resolved)/i.test(raw);
 }
@@ -204,7 +204,7 @@ export async function detectPreviewError(projectId: string): Promise<PreviewErro
           // Drop transient @doable/* resolve errors that have already cleared —
           // surfacing them sends the AI down the install/stub/hand-rolled-client
           // rabbit hole for packages that are pre-linked, not on npm.
-          if (isDoableResolveTransient(clean) && (await doableImportNowResolves(base, clean))) {
+          if (isNIMRAResolveTransient(clean) && (await doableImportNowResolves(base, clean))) {
             continue;
           }
           // TanStack-Start cold-boot: during warm-up the dev middleware can answer
@@ -262,7 +262,7 @@ export async function detectPreviewError(projectId: string): Promise<PreviewErro
             .replace(/\s+/g, " ")
             .trim()
             .slice(0, 800);
-          if (isDoableResolveTransient(clean) && (await doableImportNowResolves(base, clean))) {
+          if (isNIMRAResolveTransient(clean) && (await doableImportNowResolves(base, clean))) {
             return null;
           }
           // TanStack-Start cold-boot warm-up transient (see file-probe/page-probe).
@@ -293,7 +293,7 @@ export async function detectPreviewError(projectId: string): Promise<PreviewErro
         const pageHtml = await pageRes.text();
         const overlayError = extractViteErrorOverlay(pageHtml);
         if (overlayError) {
-          if (isDoableResolveTransient(overlayError) && (await doableImportNowResolves(base, overlayError))) {
+          if (isNIMRAResolveTransient(overlayError) && (await doableImportNowResolves(base, overlayError))) {
             return null;
           }
           return {
@@ -351,7 +351,7 @@ export async function detectPreviewError(projectId: string): Promise<PreviewErro
         const { probePreviewRuntime } = await import("../thumbnails/capture.js");
         const runtime = await probePreviewRuntime(`${base}/`);
         if (runtime) {
-          if (isDoableResolveTransient(runtime.message) && (await doableImportNowResolves(base, runtime.message))) {
+          if (isNIMRAResolveTransient(runtime.message) && (await doableImportNowResolves(base, runtime.message))) {
             return null;
           }
           // TUNNEL-MODE FALSE POSITIVE: a client-injected overlay that is only the
@@ -388,7 +388,7 @@ export async function detectPreviewError(projectId: string): Promise<PreviewErro
  * Build a targeted, structured prompt for the AI to fix a preview error.
  */
 export function buildAutoFixPrompt(error: string): string {
-  const doableNote = isDoableResolveTransient(error)
+  const doableNote = isNIMRAResolveTransient(error)
     ? `\n⚠️ This error mentions @doable/data, @doable/sdk, or @doable/ai. These are PRE-LINKED platform ` +
       `packages (NOT on npm). DO NOT install_package them, DO NOT create a local db.ts / stub / ` +
       `.d.ts / wrapper, and DO NOT hand-roll a fetch client or invent an API URL (there is no ` +

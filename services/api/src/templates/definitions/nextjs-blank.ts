@@ -46,7 +46,7 @@ const NEXT_CONFIG_TS = `import type { NextConfig } from "next";
 import path from "path";
 
 /**
- * Next.js config. Doable threads its preview base path via the
+ * Next.js config. NIMRA threads its preview base path via the
  * DOABLE_BASE_PATH env var; surface it as basePath so links resolve
  * correctly under /preview/{projectId}/. In production the runtime
  * supervisor (PRD 06) hosts this app at the project's root subdomain
@@ -138,8 +138,8 @@ const APP_LAYOUT = `import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Doable App",
-  description: "Built with Next.js on Doable",
+  title: "NIMRA App",
+  description: "Built with Next.js on NIMRA",
 };
 
 export default function RootLayout({
@@ -149,7 +149,7 @@ export default function RootLayout({
 }) {
   return (
     // suppressHydrationWarning is REQUIRED on both <html> and <body>:
-    // the Doable preview proxy injects scripts (storage namespace, error
+    // the NIMRA preview proxy injects scripts (storage namespace, error
     // capture, visual-edit bridge, analytics) into <head> AND <body> on
     // the way out, so the served HTML doesn't match what React's server
     // bundle produced. Without these props, React logs a hydration error
@@ -179,7 +179,7 @@ const phrases = [
   "From zero to wow.",
 ];
 
-function DoableLogo({ className = "" }: { className?: string }) {
+function NIMRALogo({ className = "" }: { className?: string }) {
   return (
     <svg viewBox="0 0 40 40" fill="none" className={className}>
       <rect width="40" height="40" rx="10" className="fill-[#F97316]">
@@ -211,11 +211,11 @@ export default function Home() {
     <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-neutral-50 via-stone-100 to-white dark:from-neutral-950 dark:via-neutral-900 dark:to-neutral-950">
       <div className="text-center space-y-6">
         <div className="flex justify-center">
-          <DoableLogo className="w-16 h-16 drop-shadow-lg" />
+          <NIMRALogo className="w-16 h-16 drop-shadow-lg" />
         </div>
         <div className="space-y-2">
           <h1 className="text-3xl font-bold tracking-tight text-neutral-900 dark:text-white">
-            Doable
+            NIMRA
           </h1>
           <p
             className="text-lg text-[#F97316] font-medium transition-opacity duration-400"

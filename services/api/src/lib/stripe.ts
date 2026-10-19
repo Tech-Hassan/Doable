@@ -43,7 +43,7 @@ export const PLANS: PlanDefinition[] = [
       "3 projects",
       "5 daily AI credits",
       "Community support",
-      "Doable subdomain",
+      "NIMRA subdomain",
     ],
     dailyCredits: 5,
     monthlyCredits: 0,
@@ -185,7 +185,7 @@ export async function createTopUpSession(opts: {
           currency: "usd",
           product_data: {
             name: `${opts.credits} AI Credits`,
-            description: "One-time credit top-up for Doable",
+            description: "One-time credit top-up for NIMRA",
           },
           unit_amount: opts.amount,
         },

@@ -65,7 +65,7 @@ export async function pullFromGitHub(
       connectionId: conn.id,
       sha,
       message: `Pull from GitHub`,
-      author: "Doable",
+      author: "NIMRA",
       branch: conn.default_branch,
       direction: "pull",
     });
@@ -210,7 +210,7 @@ export async function importFromGitHub(
       connectionId: conn.id,
       sha,
       message: "Imported from GitHub",
-      author: "Doable",
+      author: "NIMRA",
       branch,
       direction: "pull",
     });

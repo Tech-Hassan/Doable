@@ -1,5 +1,5 @@
 /**
- * Doable-specific tools for Copilot agent sessions.
+ * NIMRA-specific tools for Copilot agent sessions.
  *
  * These provide real filesystem operations so the AI can create, edit,
  * and read files in the project directory. Vite hot-reloads changes.
@@ -135,13 +135,13 @@ function emitToolEvent(projectId: string, toolName: string, status: "start" | "e
   if (handler) handler(toolName, status, args);
 }
 
-export interface DoableToolOptions {
+export interface NIMRAToolOptions {
   userId?: string;
   workspaceId?: string;
   hasSupabase?: boolean;
 }
 
-export function createDoableTools(projectId: string, userId?: string, workspaceId?: string, options?: DoableToolOptions): Tool[] {
+export function createNIMRATools(projectId: string, userId?: string, workspaceId?: string, options?: NIMRAToolOptions): Tool[] {
   const hasSupabase = options?.hasSupabase ?? false;
   return ([
     defineTool("create_file", {
@@ -566,7 +566,7 @@ export function createDoableTools(projectId: string, userId?: string, workspaceI
       },
     }),
 
-    // PRD ch 13: Doable-owned bash overrides SDK built-in; routes through sandbox orchestrator.
+    // PRD ch 13: NIMRA-owned bash overrides SDK built-in; routes through sandbox orchestrator.
     createBashTool({ projectId, workspaceId: workspaceId ?? null, userId: userId ?? "", sessionId: projectId }),
   ] as Tool[]);
 }

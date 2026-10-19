@@ -69,7 +69,7 @@ export default defineConfig({
       manifest: {
         name: "My App",
         short_name: "MyApp",
-        description: "A fast, installable app built with Doable",
+        description: "A fast, installable app built with NIMRA",
         theme_color: "#6366f1",
         background_color: "#ffffff",
         display: "standalone",
@@ -282,7 +282,7 @@ class ErrorBoundary extends React.Component<
               Making improvements...
             </h2>
             <p style={{ fontSize: "14px", color: "#6b7280", margin: "0 0 24px", lineHeight: 1.5 }}>
-              Doable is automatically fixing this. The preview will update in a moment.
+              NIMRA is automatically fixing this. The preview will update in a moment.
             </p>
             <button
               onClick={() => window.location.reload()}

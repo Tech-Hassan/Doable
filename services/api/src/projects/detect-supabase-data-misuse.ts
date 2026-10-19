@@ -43,7 +43,7 @@ function isInspectableSource(relPath: string): boolean {
  * inbuilt DB (`import { db } from "@doable/data"`). Matches single/double/back
  * quotes and `import(...)`/`from "..."` forms.
  */
-function usesDoableData(content: string): boolean {
+function usesNIMRAData(content: string): boolean {
   return /["'`]@doable\/data["'`]/.test(content);
 }
 
@@ -96,7 +96,7 @@ export async function supabaseDataMisuseViolation(
   if (typeof content !== "string" || content.length === 0) return null;
 
   // Fast path — the overwhelming majority of writes never touch @doable/data.
-  if (!usesDoableData(content)) return null;
+  if (!usesNIMRAData(content)) return null;
 
   // Candidate: does this project's DB live in a connected Supabase project?
   if (!(await isProjectSupabaseBacked(projectId))) return null;
@@ -167,7 +167,7 @@ export async function supabaseNotConnectedViolation(
     "referencing tables that were never created).\n\n" +
     "STOP this turn now: do not write `@supabase/supabase-js` code and do not call " +
     "run_supabase_migration. End with a short message asking the user to finish " +
-    "connecting Supabase in the dialog. Doable will then restart the dev server and " +
+    "connecting Supabase in the dialog. NIMRA will then restart the dev server and " +
     "automatically re-prompt you with 'Supabase provisioning complete' — ONLY THEN " +
     "create tables with run_supabase_migration and write the client code using " +
     "import.meta.env.VITE_SUPABASE_URL / VITE_SUPABASE_ANON_KEY."

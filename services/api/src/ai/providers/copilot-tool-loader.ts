@@ -1,5 +1,5 @@
 /**
- * Tool composition — merges built-in Doable tools, native integration
+ * Tool composition — merges built-in NIMRA tools, native integration
  * tools, and MCP connector tools into a single tool set for a session.
  *
  * Supports progressive tool loading: when there are many MCP tools (>20),
@@ -10,7 +10,7 @@
  */
 
 import { defineTool, type Tool } from "@github/copilot-sdk";
-import { createDoableTools } from "./copilot-tools.js";
+import { createNIMRATools } from "./copilot-tools.js";
 import { getConnectorManager } from "../../mcp/connector-manager.js";
 import { createMcpTools } from "../../mcp/tool-bridge.js";
 import type { McpConnectorConfig, ResolvedMcpTool } from "../../mcp/types.js";
@@ -42,7 +42,7 @@ export async function createAllTools(
     } catch {}
   }
 
-  const builtinTools = createDoableTools(projectId, userId, workspaceId, { hasSupabase });
+  const builtinTools = createNIMRATools(projectId, userId, workspaceId, { hasSupabase });
   if (!workspaceId) return builtinTools;
 
   let connectorFilter: string[] | undefined;

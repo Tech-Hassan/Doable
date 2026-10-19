@@ -2,7 +2,7 @@
  * Project File Manager
  *
  * Scaffolds Vite+React+TypeScript projects on the server filesystem
- * and provides file CRUD operations. This is the core of how Doable's
+ * and provides file CRUD operations. This is the core of how NIMRA's
  * live preview works — files written here are served by the Vite dev server.
  */
 
@@ -25,7 +25,7 @@ import { getTemplate } from "../templates/registry.js";
 import { initRepo } from "../git/init.js";
 import { defaultRegistry } from "../frameworks/registry.js";
 import { FrameworkAdapterError, type FrameworkContext } from "../frameworks/types.js";
-import { linkDoableSdk } from "./link-sdk.js";
+import { linkNIMRASdk } from "./link-sdk.js";
 import { isSandboxWrapperAvailable } from "../runtime/dev-uid-allocator.js";
 
 // Re-export for convenience
@@ -276,7 +276,7 @@ async function doCreateProject(
 
   // Pre-link @doable/sdk so generated apps can import it without npm publish
   try {
-    await linkDoableSdk(projectPath);
+    await linkNIMRASdk(projectPath);
   } catch (err) {
     console.warn(`[FileManager] Failed to link @doable/sdk for project ${projectId}:`, err);
   }
@@ -410,7 +410,7 @@ export async function ensureDependencies(projectId: string): Promise<void> {
 
   // Ensure @doable/sdk is available after install
   try {
-    await linkDoableSdk(projectPath);
+    await linkNIMRASdk(projectPath);
   } catch {
     // Non-critical
   }
@@ -466,7 +466,7 @@ export async function forceReinstallDependencies(projectId: string): Promise<voi
   clearInstallFailures(projectId);
 
   try {
-    await linkDoableSdk(projectPath);
+    await linkNIMRASdk(projectPath);
   } catch {
     // Non-critical
   }

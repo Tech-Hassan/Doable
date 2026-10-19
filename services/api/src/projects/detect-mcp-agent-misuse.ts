@@ -78,8 +78,8 @@ export function handRolledMcpAgentViolation(
     "wraps them in [TOOL_CALL] tags, or uses unquoted keys — the tool never runs " +
     "and fabricated data leaks to the UI. Use the built-in helper instead:\n\n" +
     "  import { runMcpAgent } from \"@doable/ai\";\n" +
-    "  import { createDoableClient } from \"@doable/sdk\";\n" +
-    "  const doable = createDoableClient();\n" +
+    "  import { createNIMRAClient } from \"@doable/sdk\";\n" +
+    "  const doable = createNIMRAClient();\n" +
     "  const { answer, toolsUsed } = await runMcpAgent({ mcp: doable.mcp, prompt: userText });\n" +
     "  // render `answer` (markdown). Optional: { system, history, onToolCall }.\n\n" +
     "runMcpAgent discovers tools, runs the model↔tool ReAct loop, and answers " +

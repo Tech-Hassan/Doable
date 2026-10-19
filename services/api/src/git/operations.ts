@@ -154,7 +154,7 @@ export async function revertToCommit(
       sha: original?.sha ?? sha,
       shortSha,
       message,
-      author: original?.author ?? { name: "Doable", email: "noreply@doable.me" },
+      author: original?.author ?? { name: "NIMRA", email: "noreply@doable.me" },
       timestamp: original?.timestamp ?? new Date().toISOString(),
     };
   }

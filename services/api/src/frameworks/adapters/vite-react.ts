@@ -195,7 +195,7 @@ export const viteReactAdapter: FrameworkAdapter = {
       await writeFile(full, content, "utf-8");
     }
 
-    // Inject the Doable source-annotations Vite plugin so click-to-edit works
+    // Inject the NIMRA source-annotations Vite plugin so click-to-edit works
     // from first dev-server start. Idempotent — no-op if already present.
     await ensureSourceAnnotationsPlugin(ctx.projectPath);
 

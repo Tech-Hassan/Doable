@@ -127,8 +127,8 @@ describe("detectUsedTools", () => {
     const dir = await makeProject({
       "src/App.tsx": `
         const { runMcpAgent } = await import("@doable/ai");
-        const { createDoableClient } = await import("@doable/sdk");
-        const doable = createDoableClient();
+        const { createNIMRAClient } = await import("@doable/sdk");
+        const doable = createNIMRAClient();
         const { answer } = await runMcpAgent({ mcp: doable.mcp, ai, messages });
       `,
     });

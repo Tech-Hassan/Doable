@@ -31,7 +31,7 @@ import { computePublishLocation } from "../topology.js";
  * Nuxt, etc.) are not served under a sub-path — those need the subdomain
  * topology (which the pipeline auto-selects when tunnel/wildcard infra exists).
  */
-export class DoablePathAdapter implements DeployAdapter {
+export class NIMRAPathAdapter implements DeployAdapter {
   readonly name = "doable-path";
 
   async deploy(input: DeployInput): Promise<DeployResult> {
@@ -118,7 +118,7 @@ export class DoablePathAdapter implements DeployAdapter {
 
   async teardown(projectId: string, environment: string): Promise<void> {
     // The pipeline doesn't currently pass the subdomain to teardown, so we
-    // can't resolve the exact dirKey here. Mirror DoableCloudAdapter's
+    // can't resolve the exact dirKey here. Mirror NIMRACloudAdapter's
     // best-effort log-only behaviour; unpublish flows that know the subdomain
     // remove the directory directly via getPublishedSiteDir().
     console.log(

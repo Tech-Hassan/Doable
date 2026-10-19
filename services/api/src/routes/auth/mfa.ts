@@ -54,7 +54,7 @@ const mfa = mfaQueries(sql);
 
 export const mfaRoutes = new Hono({ strict: false });
 
-const TOTP_ISSUER = process.env.MFA_ISSUER_NAME ?? "Doable";
+const TOTP_ISSUER = process.env.MFA_ISSUER_NAME ?? "NIMRA";
 
 const RECOVERY_CODE_COUNT = 10;
 

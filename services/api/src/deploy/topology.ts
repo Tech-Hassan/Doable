@@ -1,7 +1,7 @@
 /**
  * Publish topology resolution.
  *
- * Doable supports two ways to host a published app:
+ * NIMRA supports two ways to host a published app:
  *
  *   - "subdomain" (recommended): each app gets `https://<slug>.<domain>`.
  *     Requires wildcard DNS + wildcard TLS, which in practice means a
@@ -101,8 +101,8 @@ function publicOrigin(): string {
 /**
  * Compute the publish location for a given subdomain + environment under the
  * chosen topology. Mirrors the on-disk layout each adapter writes:
- *   - subdomain → SITES_DIR/<siteSubdomain>/live/  (DoableCloudAdapter)
- *   - path      → SITES_DIR/<dirKey>/              (DoablePathAdapter)
+ *   - subdomain → SITES_DIR/<siteSubdomain>/live/  (NIMRACloudAdapter)
+ *   - path      → SITES_DIR/<dirKey>/              (NIMRAPathAdapter)
  */
 export function computePublishLocation(
   subdomain: string,

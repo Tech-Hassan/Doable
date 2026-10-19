@@ -17,7 +17,7 @@ import { ProjectChatModelPicker } from "./project-chat-model-picker";
 
 type Visibility = "auto" | "always-show" | "hide";
 
-interface DoableAiSettings {
+interface NIMRAAiSettings {
   enabled: boolean;
   systemPrompt: string | null;
   systemPromptOverride: string | null;
@@ -56,8 +56,8 @@ interface Props {
   addToast: (kind: "success" | "error", msg: string) => void;
 }
 
-export function DoableAiTab({ projectId, workspaceId, addToast }: Props) {
-  const [settings, setSettings] = useState<DoableAiSettings | null>(null);
+export function NIMRAAiTab({ projectId, workspaceId, addToast }: Props) {
+  const [settings, setSettings] = useState<NIMRAAiSettings | null>(null);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [pendingPrompt, setPendingPrompt] = useState("");
@@ -79,7 +79,7 @@ export function DoableAiTab({ projectId, workspaceId, addToast }: Props) {
 
   const refreshSettings = useCallback(() => {
     setLoading(true);
-    apiFetch<{ data: DoableAiSettings }>(`/projects/${projectId}/ai-settings`)
+    apiFetch<{ data: NIMRAAiSettings }>(`/projects/${projectId}/ai-settings`)
       .then(({ data }) => {
         setSettings(data);
         setPendingPrompt(data.systemPromptOverride ?? "");
@@ -124,7 +124,7 @@ export function DoableAiTab({ projectId, workspaceId, addToast }: Props) {
           chatModelOverride: pendingChatModel,
         }),
       });
-      addToast("success", "Doable AI settings saved.");
+      addToast("success", "NIMRA AI settings saved.");
       refreshSettings();
     } catch (err) {
       addToast("error", err instanceof Error ? err.message : "Save failed.");
@@ -197,7 +197,7 @@ export function DoableAiTab({ projectId, workspaceId, addToast }: Props) {
     <div className="space-y-6" data-doable-ai-tab>
       {/* ── Master toggle ── */}
       <SectionCard
-        title="Doable AI for this project"
+        title="NIMRA AI for this project"
         description="When disabled, /__doable/ai/* returns 503 AI_DISABLED_FOR_PROJECT. Useful for paused projects or quota lockouts."
       >
         <div className="flex items-center gap-3">

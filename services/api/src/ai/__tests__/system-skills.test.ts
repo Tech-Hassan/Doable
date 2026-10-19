@@ -75,7 +75,7 @@ describe("getSystemSkillDirs()", () => {
   });
 });
 
-// Master skills shipped from DoableSkills — every install/workspace gets these
+// Master skills shipped from NIMRASkills — every install/workspace gets these
 // by default. The slug must match the _system/<slug>/ folder name.
 const SHIPPED_SKILL_SLUGS = [
   "business-card-maker",

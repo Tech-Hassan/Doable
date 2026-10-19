@@ -243,7 +243,7 @@ export function DashboardSidebar({ onNavigate }: { onNavigate?: () => void } = {
         {/* Logo */}
         <a href="/dashboard" className="flex items-center gap-2.5 px-5 pt-5 pb-4 hover:opacity-80 transition-opacity cursor-pointer">
           <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-brand-100 border border-brand-600 dark:bg-gradient-to-br dark:from-brand-600 dark:to-brand-700 dark:border-transparent shadow-sm shadow-brand-700/20 dark:shadow-brand-900/30"><span className="text-sm font-bold text-brand-700 dark:text-white self-end mb-1">D</span><span className="h-2 w-2 rounded-full bg-violet-700 dark:bg-violet-400 self-end mb-2 ml-0.5 shrink-0" /></div>
-          <span className="text-lg font-semibold tracking-tight text-foreground">Doable</span>
+          <span className="text-lg font-semibold tracking-tight text-foreground">NIMRA</span>
         </a>
 
         {/* Workspace Selector */}

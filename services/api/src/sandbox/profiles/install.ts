@@ -51,7 +51,7 @@ export function installProfile(ctx: SpawnContext, sys: SystemRules): SandboxProf
         "/etc/group": "installer:x:9500:\nroot:x:0:\n",
         "/etc/hostname": "installer\n",
         "/etc/resolv.conf": "nameserver 127.0.0.1\n",
-        "/etc/os-release": "NAME=Doable\nID=doable\n",
+        "/etc/os-release": "NAME=NIMRA\nID=doable\n",
       },
       masks: ["/opt/doable", "/home", "/root", "/var/lib/dpkg", "/var/log"],
     },

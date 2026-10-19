@@ -54,7 +54,7 @@ export function aiBashProfile(ctx: SpawnContext, sys: SystemRules): SandboxProfi
         "/etc/group": `project:x:${uid}:\nroot:x:0:\n`,
         "/etc/hostname": "project\n",
         "/etc/resolv.conf": "nameserver 127.0.0.1\n",
-        "/etc/os-release": "NAME=Doable\nID=doable\n",
+        "/etc/os-release": "NAME=NIMRA\nID=doable\n",
       },
       masks: [
         "/opt/doable", "/home", "/root", "/var/lib/dpkg",

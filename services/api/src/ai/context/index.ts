@@ -1,16 +1,16 @@
 import { join } from "node:path";
-import type { DoableContextFile, ProjectContext } from "@doable/shared/types/ai.js";
+import type { NIMRAContextFile, ProjectContext } from "@doable/shared/types/ai.js";
 import {
   getProjectPath,
   readProjectFile,
   writeProjectFile,
-  ensureDoableDir,
+  ensureNIMRADir,
 } from "../project-files.js";
 import { CONTEXT_DEFAULTS } from "./defaults.js";
 
 // ─── All Context Files ────────────────────────────────────
 
-const CONTEXT_FILE_NAMES: DoableContextFile[] = [
+const CONTEXT_FILE_NAMES: NIMRAContextFile[] = [
   "knowledge.md",
   "instructions.md",
   "identity.md",
@@ -26,7 +26,7 @@ export async function loadProjectContext(
   projectId: string,
 ): Promise<ProjectContext> {
   const projectPath = getProjectPath(projectId);
-  const contextFiles: Partial<Record<DoableContextFile, string>> = {};
+  const contextFiles: Partial<Record<NIMRAContextFile, string>> = {};
 
   for (const fileName of CONTEXT_FILE_NAMES) {
     const filePath = join(".doable", fileName);
@@ -45,7 +45,7 @@ export async function loadProjectContext(
 // ─── Initialize Context ───────────────────────────────────
 
 export async function initializeContext(projectId: string): Promise<void> {
-  await ensureDoableDir(projectId);
+  await ensureNIMRADir(projectId);
 
   for (const fileName of CONTEXT_FILE_NAMES) {
     const filePath = join(".doable", fileName);
@@ -63,10 +63,10 @@ export async function initializeContext(projectId: string): Promise<void> {
 
 export async function updateContextFile(
   projectId: string,
-  fileName: DoableContextFile,
+  fileName: NIMRAContextFile,
   content: string,
 ): Promise<void> {
-  await ensureDoableDir(projectId);
+  await ensureNIMRADir(projectId);
   const filePath = join(".doable", fileName);
   await writeProjectFile(projectId, filePath, content);
 }
@@ -75,7 +75,7 @@ export async function updateContextFile(
 
 export async function readContextFile(
   projectId: string,
-  fileName: DoableContextFile,
+  fileName: NIMRAContextFile,
 ): Promise<string> {
   const filePath = join(".doable", fileName);
   try {

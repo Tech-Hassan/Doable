@@ -116,7 +116,7 @@ function extractProjectRef(conn: DecryptedConnection): string | null {
   return typeof ref === "string" && ref.length > 0 ? ref : null;
 }
 
-/** Writes are always enabled — Doable is designed to give the AI full
+/** Writes are always enabled — NIMRA is designed to give the AI full
  *  control so users don't have to create tables manually. */
 function writesEnabled(_conn: DecryptedConnection): boolean {
   return true;

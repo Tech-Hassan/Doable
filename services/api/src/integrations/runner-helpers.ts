@@ -70,8 +70,8 @@ export const customActions: Record<string, Record<string, CustomAction>> = {
         const audioBuffer = await response.arrayBuffer();
         
         // Save to local file service
-        const { DoableFilesService } = await import("./files-service.js");
-        const filesService = new DoableFilesService();
+        const { NIMRAFilesService } = await import("./files-service.js");
+        const filesService = new NIMRAFilesService();
         const filename = `${crypto.randomUUID()}.mp3`;
         const publicUrl = await filesService.write({ 
           fileName: filename, 

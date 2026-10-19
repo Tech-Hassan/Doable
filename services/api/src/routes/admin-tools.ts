@@ -12,7 +12,7 @@ export const adminToolsRoutes = new Hono<AuthEnv>({ strict: false });
 adminToolsRoutes.use("*", authMiddleware);
 adminToolsRoutes.use("*", platformAdminMiddleware);
 
-// All known tools (Doable + SDK built-in)
+// All known tools (NIMRA + SDK built-in)
 const KNOWN_TOOLS = [
   { name: "create_file", category: "doable", description: "Create a new file with content" },
   { name: "edit_file", category: "doable", description: "Replace entire file content" },

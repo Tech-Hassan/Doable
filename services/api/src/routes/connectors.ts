@@ -135,7 +135,7 @@ connectorRoutes.get("/:workspaceId/connectors", async (c) => {
   // The per-app database connector (builtin:data) is provisioned PER PROJECT —
   // one mcp_connectors row per project (scope='project'), by design, because
   // each project owns its own PGlite database. This settings list is a
-  // per-server display, so without de-duplication "Doable Per-App Database"
+  // per-server display, so without de-duplication "NIMRA Per-App Database"
   // shows up once per project (4 projects -> 4 identical rows). Collapse those
   // built-in per-project rows to a single representative entry. When a
   // projectId is in scope, prefer that project's own row.

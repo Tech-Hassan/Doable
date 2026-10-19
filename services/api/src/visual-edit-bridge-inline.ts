@@ -11,8 +11,8 @@ export const VISUAL_EDIT_BRIDGE_INLINE = `
   if (window.__visualEditBridge) return;
   window.__visualEditBridge = true;
 
-  // ─── Doable theme sync ──────────────────────────────────────
-  // Parent (Doable editor) posts {type:"doable-theme", theme:"dark"|"light"}
+  // ─── NIMRA theme sync ──────────────────────────────────────
+  // Parent (NIMRA editor) posts {type:"doable-theme", theme:"dark"|"light"}
   // on iframe load and whenever the user toggles theme. Mirror it onto the
   // preview's <html> so Tailwind \`dark:\` classes resolve correctly and the
   // user-agent canvas color matches.
@@ -20,7 +20,7 @@ export const VISUAL_EDIT_BRIDGE_INLINE = `
   var __mqlListeners = []; // { mql, listener }
 
   // Patch window.matchMedia so any code reading "prefers-color-scheme" sees
-  // Doable's theme rather than the OS preference. This rescues legacy
+  // NIMRA's theme rather than the OS preference. This rescues legacy
   // scaffolds that embed the OS query in inline styles or one-shot reads.
   try {
     var origMatchMedia = window.matchMedia.bind(window);
@@ -65,7 +65,7 @@ export const VISUAL_EDIT_BRIDGE_INLINE = `
     }
   }
 
-  function applyDoableTheme(/* theme */) {
+  function applyNIMRATheme(/* theme */) {
     // The preview must render identical to the standalone-window case: no
     // .dark class, no data-theme, no inline color-scheme. The editor's
     // chrome theme is separate from the user's app preview, and forcing it
@@ -133,7 +133,7 @@ export const VISUAL_EDIT_BRIDGE_INLINE = `
 
   window.addEventListener("message", function(e) {
     if (!e.data || e.data.type !== "doable-theme") return;
-    applyDoableTheme(e.data.theme);
+    applyNIMRATheme(e.data.theme);
   });
   // Run shim setup on load (after stylesheets finish loading) and periodically
   // for HMR-added stylesheets.

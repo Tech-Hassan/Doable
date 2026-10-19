@@ -1,5 +1,5 @@
 /**
- * Per-app Doable AI prompt addendum.
+ * Per-app NIMRA AI prompt addendum.
  * Source: PRD ChatBotInfra ch02 §8 + ch03 §3.
  *
  * Exported as named constants so tests can assert against the exact text
@@ -10,9 +10,9 @@
  * `app-db-prompt.ts:buildAppDbContext`).
  */
 
-export const APP_AI_PROMPT_BLOCK: string = `## Doable AI (runtime chat + embeddings)
+export const APP_AI_PROMPT_BLOCK: string = `## NIMRA AI (runtime chat + embeddings)
 
-**Doable AI.** This project can call Doable's configured AI model from
+**NIMRA AI.** This project can call NIMRA's configured AI model from
 the browser via the pre-linked \`@doable/ai\` package
 (\`import { ai } from "@doable/ai"\`). The provider API key never leaves the
 server — the SDK only ever holds a fenced, project-scoped token. **🚫 NEVER
@@ -130,8 +130,8 @@ for (const t of tail.thinking) thinking.push(t);
 render(visible, thinking);
 \`\`\`
 
-The Doable project owner can flip thinking visibility (\`auto\` /
-\`always-show\` / \`hide\`) from the **Doable AI** tab of Project
+The NIMRA project owner can flip thinking visibility (\`auto\` /
+\`always-show\` / \`hide\`) from the **NIMRA AI** tab of Project
 Settings; \`hide\` is enforced server-side so you don't have to
 special-case it in the app, but \`auto\` is the default and you SHOULD
 ship the disclosure component above so users still see them on demand.`;
@@ -219,7 +219,7 @@ Extra rules:
    this in the UI; pgvector handles the cross-over silently.`;
 
 /**
- * Returns the per-app Doable AI prompt block unless
+ * Returns the per-app NIMRA AI prompt block unless
  * `DOABLE_APP_AI_ENABLED==="0"` (ON by default; set the env var to "0" to opt
  * out), otherwise an empty string so the block is invisible when the feature is
  * disabled. The RAG block is appended only when

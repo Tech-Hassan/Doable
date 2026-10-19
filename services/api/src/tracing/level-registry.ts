@@ -1,5 +1,5 @@
 // Central kill-switch state. Resolves the effective tracing level for a given
-// (user, workspace, route) tuple. Consulted by DoableSampler on every span.
+// (user, workspace, route) tuple. Consulted by NIMRASampler on every span.
 
 import { sql } from "../db/index.js";
 import type { TracingLevel } from "./types.js";

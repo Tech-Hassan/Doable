@@ -5,8 +5,8 @@ import { handRolledMcpAgentViolation } from "../detect-mcp-agent-misuse.js";
 
 const HANDROLLED_TOOLCALL_MARKERS = `
 import { ai } from "@doable/ai";
-import { createDoableClient } from "@doable/sdk";
-const doable = createDoableClient();
+import { createNIMRAClient } from "@doable/sdk";
+const doable = createNIMRAClient();
 async function send(text) {
   let reply = "";
   for await (const t of ai.chat([{ role: "user", content: text }])) reply += t;
@@ -20,8 +20,8 @@ async function send(text) {
 
 const HANDROLLED_REGEX_PARSE = `
 import { ai } from "@doable/ai";
-import { createDoableClient } from "@doable/sdk";
-const doable = createDoableClient();
+import { createNIMRAClient } from "@doable/sdk";
+const doable = createNIMRAClient();
 async function send(text) {
   const { content: reply } = await ai.chatSync([{ role: "user", content: text }]);
   const jsonMatch = reply.match(/\\{[\\s\\S]*?"tool"[\\s\\S]*?\\}/);
@@ -34,8 +34,8 @@ async function send(text) {
 
 const USES_RUN_MCP_AGENT = `
 import { runMcpAgent } from "@doable/ai";
-import { createDoableClient } from "@doable/sdk";
-const doable = createDoableClient();
+import { createNIMRAClient } from "@doable/sdk";
+const doable = createNIMRAClient();
 async function send(text) {
   const { answer } = await runMcpAgent({ mcp: doable.mcp, prompt: text });
   return answer;
@@ -43,9 +43,9 @@ async function send(text) {
 `;
 
 const DASHBOARD_DIRECT = `
-import { createDoableClient } from "@doable/sdk";
+import { createNIMRAClient } from "@doable/sdk";
 import { useEffect, useState } from "react";
-const doable = createDoableClient();
+const doable = createNIMRAClient();
 function Cases() {
   const [cases, setCases] = useState([]);
   useEffect(() => {

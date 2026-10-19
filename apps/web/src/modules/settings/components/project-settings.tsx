@@ -21,7 +21,7 @@ import { EnvironmentsTab, DangerTab } from "./project-settings-tabs";
 import { RateLimitingTab } from "./project-settings-ratelimit";
 import { SecurityTab } from "./project-settings-security";
 import { DatabaseTab } from "@/modules/settings/database/database-tab";
-import { DoableAiTab } from "./project-settings-doable-ai";
+import { NIMRAAiTab } from "./project-settings-doable-ai";
 
 // ─── Main Component ─────────────────────────────────────────
 
@@ -132,7 +132,7 @@ export function ProjectSettings({ projectId }: ProjectSettingsProps) {
         <ContextFilesTab projectId={projectId} addToast={addToast} />
       )}
       {activeTab === "doable-ai" && project.workspace_id && (
-        <DoableAiTab
+        <NIMRAAiTab
           projectId={projectId}
           workspaceId={project.workspace_id}
           addToast={addToast}

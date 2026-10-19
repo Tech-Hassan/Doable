@@ -5,7 +5,7 @@ import { credentialVault } from "./credential-vault.js";
  * Used by ~2% of actions that need cross-integration access.
  * Implements the Activepieces ConnectionsManager interface.
  */
-export class DoableConnectionsManager {
+export class NIMRAConnectionsManager {
   constructor(
     private userId: string,
     private workspaceId: string,

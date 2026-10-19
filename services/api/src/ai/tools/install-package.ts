@@ -3,7 +3,7 @@ import type { Tool } from "./index.js";
 import { getProjectPath } from "../project-files.js";
 import { restartDevServer, isRunning } from "../../projects/dev-server.js";
 import { buildSafeEnv } from "../../projects/safe-env.js";
-import { linkDoableSdk } from "../../projects/link-sdk.js";
+import { linkNIMRASdk } from "../../projects/link-sdk.js";
 import { sql } from "../../db/index.js";
 import { getSandboxSettings, listSandboxRules } from "../../sandbox/queries.js";
 import { evaluateSandbox } from "../../sandbox/rule-matcher.js";
@@ -140,7 +140,7 @@ export const installPackageTool: Tool = {
 
     if (sdkPackages.length > 0) {
       try {
-        await linkDoableSdk(cwd);
+        await linkNIMRASdk(cwd);
       } catch (err) {
         return {
           success: false,

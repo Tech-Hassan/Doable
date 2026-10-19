@@ -1,11 +1,11 @@
-import type { DoableContextFile } from "@doable/shared/types/ai.js";
+import type { NIMRAContextFile } from "@doable/shared/types/ai.js";
 
 // ─── Default .doable/ File Contents ───────────────────────
 // These defaults are used when reading context files from the file system
 // (the legacy path). The canonical defaults are in services/api/src/context/defaults.ts
 // which powers the database-backed context system.
 
-export const CONTEXT_DEFAULTS: Partial<Record<DoableContextFile, string>> = {
+export const CONTEXT_DEFAULTS: Partial<Record<NIMRAContextFile, string>> = {
   "knowledge.md": `# Knowledge Base
 
 ## Tech Stack

@@ -16,9 +16,9 @@ import { TracingInit } from "@/components/tracing-init";
 export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
-  title: "Doable | Dream it. Do it. Done.",
+  title: "NIMRA | Dream it. Do it. Done.",
   description:
-    "Tell AI what you want to do and Doable gets it done. From idea to deployed app in minutes.",
+    "Tell AI what you want to do and NIMRA gets it done. From idea to deployed app in minutes.",
   keywords: ["AI", "app builder", "code generation", "full-stack", "no-code"],
   icons: {
     icon: [

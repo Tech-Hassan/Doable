@@ -38,7 +38,7 @@ let activeProvider: EmailProvider | null = null;
 let initialized = false;
 let dbSql: postgres.Sql | null = null;
 
-const EMAIL_FROM = process.env.EMAIL_FROM ?? "Doable <noreply@doable.me>";
+const EMAIL_FROM = process.env.EMAIL_FROM ?? "NIMRA <noreply@doable.me>";
 
 // ─── DB Config Loader ───────────────────────────────────────
 
@@ -423,19 +423,19 @@ export async function sendTemplatedEmail<T extends TemplateType>(
   switch (template) {
     case "password-reset": {
       const d = data as PasswordResetData;
-      subject = "Reset your Doable password";
+      subject = "Reset your NIMRA password";
       html = passwordResetEmail(d.resetUrl, d.userName);
       break;
     }
     case "welcome": {
       const d = data as WelcomeData;
-      subject = "Welcome to Doable!";
+      subject = "Welcome to NIMRA!";
       html = welcomeEmail(d.userName);
       break;
     }
     case "invite": {
       const d = data as InviteData;
-      subject = `You're invited to join ${d.workspaceName} on Doable`;
+      subject = `You're invited to join ${d.workspaceName} on NIMRA`;
       html = inviteEmail(d.workspaceName, d.inviterName, d.acceptUrl);
       break;
     }

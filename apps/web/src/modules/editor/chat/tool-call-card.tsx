@@ -3,7 +3,7 @@
 /**
  * ToolCallCard — animated card rendered inside assistant messages
  * for each tool call (running / completed / failed).
- * Preserves Doable's existing design tokens (brand-*, border, muted, etc.)
+ * Preserves NIMRA's existing design tokens (brand-*, border, muted, etc.)
  */
 
 import { memo } from "react";

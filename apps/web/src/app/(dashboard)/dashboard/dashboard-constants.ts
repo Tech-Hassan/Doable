@@ -12,8 +12,8 @@ export type SortDir = "asc" | "desc";
 export const VIEW_MODE_KEY = "doable_dashboard_view";
 
 export const GREETINGS = [
-  "Let's make it Doable",
-  "What's Doable today",
+  "Let's make it NIMRA",
+  "What's NIMRA today",
   "Ready to get it done",
   "Dream it. Do it",
   "What will you ship",
