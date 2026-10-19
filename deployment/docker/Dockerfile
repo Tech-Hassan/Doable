@@ -65,6 +65,9 @@ ENV PUPPETEER_SKIP_DOWNLOAD=true
 # image small; bare-metal server-setup.sh runs the postinstall unrestricted
 # because bare-metal actually launches NLM.
 ENV PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD=1
+COPY packages/doable-ai/package.json packages/doable-ai/
+COPY packages/doable-data/package.json packages/doable-data/
+COPY mcp-servers/image-generator/package.json mcp-servers/image-generator/
 
 RUN pnpm install --no-frozen-lockfile
 
