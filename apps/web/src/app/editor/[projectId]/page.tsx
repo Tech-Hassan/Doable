@@ -1958,6 +1958,18 @@ function EditorPageInner() {
   }, [effectiveAiConfig?.enforce_ai]);
 
   const [deviceMode, setDeviceMode] = useState<DeviceMode>("desktop");
+  // Narrow (phone) screens: the split chat+preview layout cannot fit a
+  // ~390px display — both panes get squeezed and cut off. On small
+  // screens the editor shows ONE pane at a time instead (see
+  // narrowSinglePane below).
+  const [isNarrowScreen, setIsNarrowScreen] = useState(false);
+  useEffect(() => {
+    const mq = window.matchMedia("(max-width: 767px)");
+    const update = () => setIsNarrowScreen(mq.matches);
+    update();
+    mq.addEventListener("change", update);
+    return () => mq.removeEventListener("change", update);
+  }, []);
   const [messages, setMessages] = useState<ChatMsg[]>(() => {
     // Restore chat history from localStorage on mount
     if (typeof window === "undefined") return [];
@@ -4850,6 +4862,12 @@ function EditorPageInner() {
   const showCode = activeTab === "code";
   const showPreview = ((activeTab === "preview" || activeTab === "chat") && !isPanelView) || isDesignMode;
 
+  // Phone layout: one pane at a time at full width — chat normally, the
+  // preview when the Preview tab is active. Desktop keeps the split.
+  const narrowSinglePane = isNarrowScreen && !isPanelView;
+  const showChatPane = showChat && !(narrowSinglePane && activeTab === "preview");
+  const showPreviewPane = showPreview && !(narrowSinglePane && activeTab !== "preview");
+
   // ─── Scaffold loading overlay ─────────────────────────────
   const renderScaffoldOverlay = () => {
     if (scaffoldStatus === "ready") return null;
@@ -5423,7 +5441,7 @@ function EditorPageInner() {
         <div className="flex items-center gap-1">
           {isEditingRoute ? (
             <form
-              className="flex items-center gap-1 rounded-full bg-muted border border-[#4D91FF] px-2.5 py-1"
+              className="hidden md:flex items-center gap-1 rounded-full bg-muted border border-[#4D91FF] px-2.5 py-1"
               onSubmit={(e) => {
                 e.preventDefault();
                 const route = routeInputValue.startsWith("/") ? routeInputValue : `/${routeInputValue}`;
@@ -5466,14 +5484,14 @@ function EditorPageInner() {
                 setIsEditingRoute(true);
                 setTimeout(() => routeInputRef.current?.select(), 0);
               }}
-              className="flex items-center gap-1 rounded-full bg-muted border border-border px-2.5 py-1 hover:border-border transition-colors cursor-text"
+              className="hidden md:flex items-center gap-1 rounded-full bg-muted border border-border px-2.5 py-1 hover:border-border transition-colors cursor-text"
               title="Click to navigate to a route"
             >
               <Globe className="h-3 w-3 text-muted-foreground" />
               <span className="text-[11px] text-muted-foreground font-mono">{previewRoute}</span>
             </button>
           )}
-          <div className="flex items-center rounded-full bg-muted border border-border p-0.5">
+          <div className="hidden md:flex items-center rounded-full bg-muted border border-border p-0.5">
             {([
               { mode: "desktop" as DeviceMode, Icon: Monitor, label: "Desktop" },
               { mode: "tablet" as DeviceMode, Icon: Tablet, label: "Tablet (768px)" },
@@ -5517,7 +5535,7 @@ function EditorPageInner() {
           </button>
           <button
             onClick={handleToggleFullscreen}
-            className="flex h-7 w-7 items-center justify-center rounded-md text-muted-foreground hover:bg-muted hover:text-foreground transition-colors"
+            className="hidden md:flex h-7 w-7 items-center justify-center rounded-md text-muted-foreground hover:bg-muted hover:text-foreground transition-colors"
             title={isFullscreen ? "Exit fullscreen" : "Fullscreen"}
           >
             {isFullscreen ? <Minimize2 className="h-3.5 w-3.5" /> : <Maximize2 className="h-3.5 w-3.5" />}
@@ -5575,12 +5593,12 @@ function EditorPageInner() {
       {/* ─── Main Content ─────────────────────────────────────── */}
       <div ref={containerRef} className="flex flex-1 overflow-hidden">
         {/* ─── Chat Panel ───────────────────────────────────── */}
-        {showChat && (
+        {showChatPane && (
           <div
             className="flex flex-col border-r border-border bg-card"
             style={{
-              width: (showPreview || isPanelView) ? `${splitPos}%` : "100%",
-              minWidth: "260px",
+              width: (showPreviewPane || isPanelView) ? `${splitPos}%` : "100%",
+              minWidth: isNarrowScreen ? "0px" : "260px",
             }}
           >
             {/* ─── Design Mode: Show DesignPanel ─────────────── */}
@@ -6849,7 +6867,7 @@ function EditorPageInner() {
         )}
 
         {/* ─── Resize Handle ────────────────────────────────── */}
-        {showChat && (showPreview || isPanelView) && (
+        {showChatPane && (showPreviewPane || isPanelView) && (
           <div
             className="group relative z-20 w-1 flex-shrink-0 cursor-col-resize"
             onMouseDown={handleMouseDown}
@@ -6865,7 +6883,7 @@ function EditorPageInner() {
         )}
 
         {/* ─── Preview Panel ────────────────────────────────── */}
-        {showPreview && !showCode && (
+        {showPreviewPane && !showCode && (
           <div className="flex flex-1 flex-col overflow-hidden bg-card">
             {/* Preview iframe or loading state */}
             <div className="relative flex flex-1 items-center justify-center overflow-hidden bg-background p-2">
