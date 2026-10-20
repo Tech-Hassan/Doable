@@ -763,6 +763,26 @@ export function registerSendHandler(app: Hono<AuthEnv>) {
                 } else {
                   console.log(`[Chat][${projectId.slice(0, 8)}] Keeping ${bufLen} chars as thinking (all thinking, no visible content)`);
                 }
+              } else if (state.hadToolCalls && state.assistantContent.length === 0) {
+                // Tool turn with no visible content yet: the buffer was
+                // reset after the last tool_result, so what remains in it
+                // is the model's closing text (its summary of the work),
+                // not pre-tool reasoning. Promote it — otherwise every
+                // build turn ends with an empty assistant message and the
+                // user never sees a "done" summary.
+                const buffered = state.leadingTextBuffer;
+                state.leadingTextBuffer = "";
+                state.leadingTextFlushed = true;
+                const visibleContent = buffered.replace(/<think>[\s\S]*?<\/think>\s*/gi, "").trim();
+                if (visibleContent) {
+                  state.assistantThinking = state.assistantThinking.slice(0, state.assistantThinking.length - buffered.length);
+                  state.assistantContent += visibleContent;
+                  console.log(`[Chat][${projectId.slice(0, 8)}] Promoting final post-tool text (${visibleContent.length} chars) to content`);
+                  broadcastToRoom(projectId, { type: "ai:stream-chunk", chunk: visibleContent, messageId, isThinking: false }, userId).catch(() => {});
+                  await stream.writeSSE({ data: JSON.stringify({ type: "thinking_to_text", data: visibleContent }) });
+                } else {
+                  console.log(`[Chat][${projectId.slice(0, 8)}] Keeping ${bufLen} chars as thinking (post-tool buffer had no visible content)`);
+                }
               } else {
                 state.leadingTextBuffer = "";
                 state.leadingTextFlushed = true;
