@@ -159,8 +159,8 @@ COPY --from=build --chown=node:node /app .
 # static sites into (path publish topology). Same root:root-on-first-mount
 # trap — pre-create it node-owned so the doable_sites volume initialises
 # writable by USER node.
-RUN mkdir -p /app/services/api/projects /app/services/api/thumbnails /data/sites \
-  && chown -R node:node /app/services/api/projects /app/services/api/thumbnails /data/sites \
+RUN mkdir -p /app/services/api/projects /app/services/api/thumbnails /data/sites /var/cache/doable/npm \
+  && chown -R node:node /app/services/api/projects /app/services/api/thumbnails /data/sites /var/cache/doable \
   && ln -sf services/api/projects /app/projects \
   && ln -sf services/api/thumbnails /app/thumbnails \
   && chown -h node:node /app/projects /app/thumbnails
