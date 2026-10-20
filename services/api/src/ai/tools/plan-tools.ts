@@ -14,7 +14,7 @@ import type { Tool, ToolContext } from "./index.js";
 export const askClarificationTool: Tool = {
   name: "ask_clarification",
   description:
-    "Ask the user clarifying questions before generating a plan. Use this when the request is ambiguous or underspecified. Maximum 4 questions per call.",
+    "Ask the user clarifying questions before generating a plan. Use this when the request is ambiguous or underspecified. Maximum 4 questions per call. IMPORTANT: after calling this tool, END YOUR TURN immediately — the questions are shown to the user and they must answer before anything else happens. Never call it twice in one turn and never continue planning in the same turn.",
   parameters: {
     type: "object",
     required: ["questions"],

@@ -395,7 +395,7 @@ export function createNIMRATools(projectId: string, userId?: string, workspaceId
         emitToolEvent(projectId, "ask_clarification", "start", {});
         const questions = args.questions.slice(0, 4);
         emitToolEvent(projectId, "ask_clarification", "end", { output: JSON.stringify(questions) });
-        return { success: true, questions, message: `Asked ${questions.length} clarification questions` };
+        return { success: true, questions, message: `Asked ${questions.length} clarification questions. ✋ STOP THIS TURN NOW: the questions are on the user's screen and they must answer before anything else can happen. End immediately with ONE short sentence saying you have asked the questions and will continue once they answer. Do NOT call any more tools, do NOT call ask_clarification again, and do NOT start planning in this turn.` };
       },
     }),
 
