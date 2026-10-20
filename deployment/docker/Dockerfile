@@ -132,6 +132,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     fonts-liberation \
     git \
     bubblewrap \
+    ca-certificates \
     unzip \
   && (apt-get install -y --no-install-recommends libasound2t64 \
       || apt-get install -y --no-install-recommends libasound2) \
