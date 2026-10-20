@@ -93,7 +93,13 @@ const PLAN_MODE_ALLOWED_DEFAULT = new Set([
   "ask_clarification", "create_plan", "mark_step_complete",
 ]);
 const PLAN_ONLY_TOOLS = new Set([
-  "ask_clarification", "create_plan", "mark_step_complete",
+  "ask_clarification", "create_plan",
+  // NOTE: mark_step_complete is deliberately NOT plan-only — steps are
+  // completed during build/agent execution, so the tracking tool must
+  // stay available there. It was previously filtered out of every
+  // non-plan mode (and the DB mode_tool_config is keyed "build" while
+  // the pipeline's mode is "agent", so the DB allowlist never matched),
+  // which made plan-step marking impossible outside plan mode.
 ]);
 
 // In-memory cache for DB tool configs (refreshed every 60s)
