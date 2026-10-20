@@ -31,7 +31,7 @@ const SMTP_HOST = process.env.SMTP_HOST;
 const SMTP_PORT = parseInt(process.env.SMTP_PORT ?? "587", 10);
 const SMTP_USER = process.env.SMTP_USER;
 const SMTP_PASS = process.env.SMTP_PASS;
-const EMAIL_FROM = process.env.EMAIL_FROM ?? "NIMRA <noreply@doable.me>";
+const EMAIL_FROM = process.env.EMAIL_FROM ?? "Nimra <noreply@doable.me>";
 
 export function createSmtpProvider(): EmailProvider | null {
   // Need either a well-known service or manual SMTP host, plus credentials

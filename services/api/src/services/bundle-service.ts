@@ -15,7 +15,7 @@ import { skillsQueries } from "@doable/db/queries/skills";
 import { marketplaceQueries, type ManifestSummary } from "@doable/db/queries/marketplace";
 
 /**
- * Bundle Service — owns the translation between NIMRA's internal environment
+ * Bundle Service — owns the translation between Nimra's internal environment
  * model and portable Marketplace Bundles. The codec lives in
  * @doable/marketplace-bundle (pure / dependency-free); this service is the
  * thin DB-aware wrapper used by HTTP routes.

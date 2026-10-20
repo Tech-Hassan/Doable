@@ -79,7 +79,7 @@ export const CONNECTOR_BRIDGE_SNIPPET = `<script data-cfasync="false">
     // Per-app-DB identity (chatbot-infra): forward a platform access token when
     // one is reachable so the minted connector-proxy JWT carries the viewer's
     // userId (→ app.user_id → owner-RLS INSERT passes). Sources, in order:
-    //   1. window.__DOABLE_ACCESS_TOKEN — an app with its own NIMRA-session
+    //   1. window.__DOABLE_ACCESS_TOKEN — an app with its own Nimra-session
     //      bridge can set this before this snippet runs.
     //   2. Same-origin cookies (credentials:"include") — harmless today (the API
     //      is cookieless) but future-proofs a server-set session cookie.
@@ -271,7 +271,7 @@ export const CONNECTOR_BRIDGE_SNIPPET = `<script data-cfasync="false">
  * preamble into index.html — but some setups never get that HTML transform and
  * the preamble is missing, so EVERY component throws on mount → blank preview.
  *
- * The most common case in NIMRA: imported Lovable **TanStack Start** projects
+ * The most common case in Nimra: imported Lovable **TanStack Start** projects
  * run as an SPA (entry `/src/main.tsx`, `disableSSR`). Their HTML is produced by
  * the TanStack Start dev middleware, which bypasses `@vitejs/plugin-react`'s
  * `transformIndexHtml`, so the preamble never lands. (Verified: the served HTML

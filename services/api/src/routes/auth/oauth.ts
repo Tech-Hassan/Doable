@@ -373,7 +373,7 @@ oauthRoutes.get("/github/copilot/callback", async (c) => {
 
 // ─── GET /auth/github/repo/callback ─ Handle GitHub repo OAuth ─
 // This route handles the repo-scoped OAuth callback (needs "repo" scope)
-// so users can push/pull code to GitHub from their NIMRA projects.
+// so users can push/pull code to GitHub from their Nimra projects.
 oauthRoutes.get("/github/repo/callback", async (c) => {
   const code = c.req.query("code");
   const stateParam = c.req.query("state");

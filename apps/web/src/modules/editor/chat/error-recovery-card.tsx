@@ -3,7 +3,7 @@
 /**
  * ErrorRecoveryCard — shown when the AI stream hits a fatal error.
  * Every error state has at least one recovery CTA — no dead ends.
- * Preserves NIMRA's existing design tokens.
+ * Preserves Nimra's existing design tokens.
  */
 
 import { AlertCircle, RotateCcw, Settings, Zap, Clock, Wifi } from "lucide-react";

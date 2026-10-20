@@ -99,7 +99,7 @@ export default defineConfig({
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>NIMRA Project</title>
+    <title>Nimra Project</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
@@ -189,7 +189,7 @@ class ErrorBoundary extends React.Component<
               margin: '0 0 24px',
               lineHeight: 1.5
             }}>
-              NIMRA is automatically fixing this. The preview will update in a moment.
+              Nimra is automatically fixing this. The preview will update in a moment.
             </p>
             <button
               onClick={() => window.location.reload()}
@@ -272,7 +272,7 @@ export default function App() {
         </div>
         <div className="space-y-2">
           <h1 className="text-3xl font-bold tracking-tight text-neutral-900 dark:text-white">
-            NIMRA
+            Nimra
           </h1>
           <p
             className="text-lg text-[#F97316] font-medium transition-opacity duration-400"
@@ -309,7 +309,7 @@ export default function App() {
 
     "src/index.css": `@import "tailwindcss";
 
-/* Class-based dark mode — NIMRA's editor toggles \`<html class="dark">\`
+/* Class-based dark mode — Nimra's editor toggles \`<html class="dark">\`
    and the preview bridge mirrors that into this iframe. */
 @custom-variant dark (&:where(.dark, .dark *));
 

@@ -54,11 +54,11 @@ export function useChat(
   useEffect(() => {
     const store = useEditorStore.getState();
     if (!isStreaming) {
-      document.title = "NIMRA";
+      document.title = "Nimra";
       return;
     }
     const progress = store.activeAgentProgress;
-    document.title = `⚡ ${progress?.message ?? "Building…"} — NIMRA`;
+    document.title = `⚡ ${progress?.message ?? "Building…"} — Nimra`;
   }, [isStreaming]);
 
   // ─── sendMessage ─────────────────────────────────────────────────
@@ -147,12 +147,12 @@ export function useChat(
             setActiveAgentProgress(null);
             return;
           }
-          // NIMRA AI disabled for this project — surface a clear message in the
+          // Nimra AI disabled for this project — surface a clear message in the
           // chat instead of a generic failure. See doableinfo/doable_ai.md.
           if (status === 503) {
             const body = await response.json().catch(() => ({} as { code?: string; error?: string; hint?: string }));
             if (body.code === "AI_DISABLED_FOR_PROJECT") {
-              const message = body.error ?? "NIMRA AI is disabled for this project.";
+              const message = body.error ?? "Nimra AI is disabled for this project.";
               updateMessageFields(assistantId, {
                 content: body.hint ? `${message} ${body.hint}` : message,
                 agentProgress: { phase: "failed", message },

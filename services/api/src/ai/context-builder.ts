@@ -221,7 +221,7 @@ export async function buildProjectContextForMode(
     // ── Built-in MCP App: NotebookLM user identity ──
     // NotebookLM MCP tools require a user_token to route requests to the
     // correct user's Google cookies. The token equals the calling user's
-    // NIMRA user ID — always pass it in every NotebookLM tool call.
+    // Nimra user ID — always pass it in every NotebookLM tool call.
     if (userId) {
       context += `\n\nNotebookLM MCP: always pass \`user_token: "${userId}"\` in every call to generate_summary, ask_question, list_sources, generate_infographic, and check_infographic_status. Never omit it.`;
       console.log(`[Chat] NotebookLM user_token injected for user ${userId.slice(0, 8)}`);
@@ -240,7 +240,7 @@ export async function buildProjectContextForMode(
     }
   }
 
-  // Per-app NIMRA AI prompt block (chat / embed / RAG recipes). Mirrors the
+  // Per-app Nimra AI prompt block (chat / embed / RAG recipes). Mirrors the
   // per-app DB pattern above. When DOABLE_APP_AI_ENABLED is on, the block is
   // appended after the DB block so the AI knows about both SDKs and can
   // emit RAG recipes that combine @doable/ai + @doable/data.
@@ -248,7 +248,7 @@ export async function buildProjectContextForMode(
     const { buildAppAiContext } = await import("./app-ai-prompt.js");
     const appAiBlock = buildAppAiContext();
     if (appAiBlock) {
-      console.log("[Chat] Per-app NIMRA AI prompt block injected");
+      console.log("[Chat] Per-app Nimra AI prompt block injected");
       context += `\n\n${appAiBlock}`;
     }
   }

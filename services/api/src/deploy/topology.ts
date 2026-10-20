@@ -1,7 +1,7 @@
 /**
  * Publish topology resolution.
  *
- * NIMRA supports two ways to host a published app:
+ * Nimra supports two ways to host a published app:
  *
  *   - "subdomain" (recommended): each app gets `https://<slug>.<domain>`.
  *     Requires wildcard DNS + wildcard TLS, which in practice means a

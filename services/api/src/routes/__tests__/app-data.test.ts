@@ -75,7 +75,7 @@ test("x-doable-app-user is IGNORED for a preview JWT (browser-exposed credential
   assert.equal(seen, "user1"); // header ignored → falls back to the JWT's platform user
 });
 
-test("missing X-NIMRA-Data-Api header => 400 PARAMS_INVALID", async () => {
+test("missing X-Nimra-Data-Api header => 400 PARAMS_INVALID", async () => {
   __setExecutorForTest(async () => ({ id: "x", ok: true, rows: [], rowCount: 0, fields: [] }));
   const res = await app.request("/__doable/data/query", {
     method: "POST",

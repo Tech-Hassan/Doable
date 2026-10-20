@@ -1,5 +1,5 @@
 /**
- * Workspace-level extras for the "NIMRA AI" surface.
+ * Workspace-level extras for the "Nimra AI" surface.
  *
  * - GET /workspaces/:workspaceId/ai-extras   — default thinking + system prompt
  * - PUT /workspaces/:workspaceId/ai-extras   — admin-only update

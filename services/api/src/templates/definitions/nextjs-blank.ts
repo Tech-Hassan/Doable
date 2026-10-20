@@ -46,7 +46,7 @@ const NEXT_CONFIG_TS = `import type { NextConfig } from "next";
 import path from "path";
 
 /**
- * Next.js config. NIMRA threads its preview base path via the
+ * Next.js config. Nimra threads its preview base path via the
  * DOABLE_BASE_PATH env var; surface it as basePath so links resolve
  * correctly under /preview/{projectId}/. In production the runtime
  * supervisor (PRD 06) hosts this app at the project's root subdomain
@@ -138,8 +138,8 @@ const APP_LAYOUT = `import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "NIMRA App",
-  description: "Built with Next.js on NIMRA",
+  title: "Nimra App",
+  description: "Built with Next.js on Nimra",
 };
 
 export default function RootLayout({
@@ -149,7 +149,7 @@ export default function RootLayout({
 }) {
   return (
     // suppressHydrationWarning is REQUIRED on both <html> and <body>:
-    // the NIMRA preview proxy injects scripts (storage namespace, error
+    // the Nimra preview proxy injects scripts (storage namespace, error
     // capture, visual-edit bridge, analytics) into <head> AND <body> on
     // the way out, so the served HTML doesn't match what React's server
     // bundle produced. Without these props, React logs a hydration error
@@ -215,7 +215,7 @@ export default function Home() {
         </div>
         <div className="space-y-2">
           <h1 className="text-3xl font-bold tracking-tight text-neutral-900 dark:text-white">
-            NIMRA
+            Nimra
           </h1>
           <p
             className="text-lg text-[#F97316] font-medium transition-opacity duration-400"

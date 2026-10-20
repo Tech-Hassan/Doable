@@ -141,8 +141,8 @@ export async function runAction(params: RunActionParams): Promise<RunActionResul
 
     if (!action) {
       xr.end("error", `Action '${params.actionName}' not found`);
-      // Include custom (NIMRA-owned) actions in the "Available" list too —
-      // otherwise the error message hides NIMRA-custom actions like
+      // Include custom (Nimra-owned) actions in the "Available" list too —
+      // otherwise the error message hides Nimra-custom actions like
       // `elevenlabs-speech-to-text` that are ONLY in customActions.
       const pieceNames = Array.isArray(resolvedActions)
         ? resolvedActions.map((a: any) => a.name)

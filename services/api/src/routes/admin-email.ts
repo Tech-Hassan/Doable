@@ -189,7 +189,7 @@ adminEmailRoutes.post("/test", async (c) => {
 
   const success = await sendEmail({
     to: userEmail,
-    subject: "NIMRA — Test Email",
+    subject: "Nimra — Test Email",
     html: `
       <div style="font-family: sans-serif; max-width: 480px; margin: 0 auto; padding: 32px;">
         <h2 style="color: #6366f1; margin-bottom: 16px;">Email is working!</h2>
@@ -197,7 +197,7 @@ adminEmailRoutes.post("/test", async (c) => {
           This test email confirms that your email provider is correctly configured.
         </p>
         <p style="color: #6b7280; font-size: 13px; margin-top: 24px;">
-          Sent at ${new Date().toISOString()} from NIMRA.
+          Sent at ${new Date().toISOString()} from Nimra.
         </p>
       </div>
     `,
@@ -416,7 +416,7 @@ adminEmailRoutes.get("/google/callback", async (c) => {
     VALUES (
       'google',
       ${`Gmail (${emailUser})`},
-      ${`NIMRA <${emailUser}>`},
+      ${`Nimra <${emailUser}>`},
       pgp_sym_encrypt(${credJson}, ${ENCRYPTION_KEY}),
       ${userId},
       true

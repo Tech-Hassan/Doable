@@ -64,7 +64,7 @@ export function vitePreviewProfile(ctx: SpawnContext, sys: SystemRules): Sandbox
         "/etc/group": `preview:x:${uid}:\nroot:x:0:\n`,
         "/etc/hostname": "preview\n",
         "/etc/resolv.conf": "nameserver 127.0.0.1\n",
-        "/etc/os-release": "NAME=NIMRA\nID=doable\n",
+        "/etc/os-release": "NAME=Nimra\nID=doable\n",
       },
       masks: ["/opt/doable", "/home", "/root", "/var/lib/dpkg", "/var/log"],
     },

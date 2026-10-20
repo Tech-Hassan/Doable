@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Terms of Service | NIMRA",
+  title: "Terms of Service | Nimra",
   description:
-    "Terms of Service for NIMRA, an AI-powered web development platform operated by NIMRA.",
+    "Terms of Service for Nimra, an AI-powered web development platform operated by Nimra.",
 };
 
 export default function TermsPage() {
@@ -16,9 +16,9 @@ export default function TermsPage() {
 
       <p>
         These Terms of Service (&ldquo;Terms&rdquo;) govern your access to and use
-        of the NIMRA platform and any related websites, applications, APIs, and
+        of the Nimra platform and any related websites, applications, APIs, and
         services (collectively, the &ldquo;Service&rdquo;) operated by{" "}
-        <strong>NIMRA</strong> (&ldquo;NIMRA,&rdquo; &ldquo;we,&rdquo;
+        <strong>Nimra</strong> (&ldquo;Nimra,&rdquo; &ldquo;we,&rdquo;
         &ldquo;us,&rdquo; or &ldquo;our&rdquo;). By accessing or using the
         Service, you agree to be bound by these Terms. If you do not agree, do
         not use the Service.
@@ -45,7 +45,7 @@ export default function TermsPage() {
 
       <h2>3. Subscriptions and Billing</h2>
       <p>
-        NIMRA offers free and paid plans. Paid plans are billed in advance on a
+        Nimra offers free and paid plans. Paid plans are billed in advance on a
         recurring basis (monthly or annually) until you cancel. Charges are
         non-refundable except as required by law or as expressly stated in these
         Terms. You authorize us and our payment processor (Stripe) to charge your
@@ -61,7 +61,7 @@ export default function TermsPage() {
       <p>
         You retain all rights to the code, prompts, designs, and other materials
         you create or upload using the Service (&ldquo;User Content&rdquo;). You
-        grant NIMRA a worldwide, non-exclusive, royalty-free license to host,
+        grant Nimra a worldwide, non-exclusive, royalty-free license to host,
         store, reproduce, and display User Content solely as necessary to operate
         and improve the Service.
       </p>
@@ -117,7 +117,7 @@ export default function TermsPage() {
 
       <h2>7. Open Source</h2>
       <p>
-        The NIMRA software is also available as open source under the MIT
+        The Nimra software is also available as open source under the MIT
         License at{" "}
         <a
           href="https://github.com/doable-me/doable"
@@ -142,8 +142,8 @@ export default function TermsPage() {
 
       <h2>9. Intellectual Property</h2>
       <p>
-        The Service, including its branding, logos, and trademarks (&ldquo;NIMRA&rdquo;
-        and the NIMRA logo), are owned by NIMRA. Except for the
+        The Service, including its branding, logos, and trademarks (&ldquo;Nimra&rdquo;
+        and the Nimra logo), are owned by Nimra. Except for the
         rights expressly granted under these Terms or the MIT License for the
         open-source codebase, no rights are granted to you.
       </p>
@@ -168,7 +168,7 @@ export default function TermsPage() {
 
       <h2>12. Limitation of Liability</h2>
       <p>
-        TO THE MAXIMUM EXTENT PERMITTED BY LAW, NIMRA WORKS LLC AND ITS
+        TO THE MAXIMUM EXTENT PERMITTED BY LAW, Nimra WORKS LLC AND ITS
         AFFILIATES, OFFICERS, EMPLOYEES, AGENTS, AND PARTNERS WILL NOT BE LIABLE
         FOR ANY INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL, OR PUNITIVE
         DAMAGES, OR ANY LOSS OF PROFITS, REVENUE, DATA, OR GOODWILL, ARISING OUT
@@ -183,7 +183,7 @@ export default function TermsPage() {
 
       <h2>13. Indemnification</h2>
       <p>
-        You agree to indemnify and hold harmless NIMRA from any
+        You agree to indemnify and hold harmless Nimra from any
         claims, damages, liabilities, and expenses (including reasonable
         attorneys&rsquo; fees) arising out of your use of the Service, your User
         Content, or your violation of these Terms.
@@ -214,7 +214,7 @@ export default function TermsPage() {
         <a href="/contact">contact page</a>.
       </p>
       <p>
-        <strong>NIMRA</strong>
+        <strong>Nimra</strong>
         <br />
         Email: <a href="mailto:legal@doable.me">legal@doable.me</a>
       </p>

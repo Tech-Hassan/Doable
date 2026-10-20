@@ -151,7 +151,7 @@ export async function getGitHubRepoAuthUrl(state?: string): Promise<string> {
 
 // ─── Revoke a GitHub OAuth grant (used by "Switch account") ─
 //
-// Deleting NIMRA's stored token alone does NOT revoke the authorization on
+// Deleting Nimra's stored token alone does NOT revoke the authorization on
 // github.com. GitHub OAuth Apps have no `prompt=select_account`, so the next
 // authorize call — with an active github.com session and an existing grant —
 // silently re-issues a token for the SAME account with no chooser. That's why

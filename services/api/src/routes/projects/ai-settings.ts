@@ -41,7 +41,7 @@ const upsertSchema = z.object({
   systemPrompt:         z.string().max(8_000).nullable().optional(),
   embeddingModel:       z.string().nullable().optional(),
   embeddingProviderId:  z.string().uuid().nullable().optional(),
-  // ─── NIMRA AI tab additions (migration 096) ────────────────
+  // ─── Nimra AI tab additions (migration 096) ────────────────
   thinkingVisibility:      z.enum(["auto", "always-show", "hide"]).optional(),
   systemPromptOverride:    z.string().max(4_096).nullable().optional(),
   chatModelOverride:       z.string().max(120).nullable().optional(),

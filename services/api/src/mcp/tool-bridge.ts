@@ -148,7 +148,7 @@ export function createMcpTools(
           return { success: false, error: `Connector ${connectorName} not found` };
         }
 
-        // Inject the NIMRA userId as user_token for any MCP tool that declares
+        // Inject the Nimra userId as user_token for any MCP tool that declares
         // it in its schema — server-side, so AI never needs to know or pass it.
         // This ensures per-user cookie isolation without privacy leakage.
         const toolSchema = tool.inputSchema as { properties?: Record<string, unknown> } | undefined;
@@ -211,7 +211,7 @@ export function createMcpTools(
               let hops = 0;
               while (projectId && hops < 4) {
                 // NB: a marker is honoured even on an isError result — the
-                // re-auth fork returns isError (so non-NIMRA clients still see
+                // re-auth fork returns isError (so non-Nimra clients still see
                 // a failure) but is recoverable once the user re-syncs cookies.
                 const marker = extractUserInputMarker(result);
                 if (!marker) break;

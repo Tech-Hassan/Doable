@@ -50,7 +50,7 @@ provisionCreateRoutes.post(
     const userId = c.get("userId");
     const body = c.req.valid("json");
 
-    // Look up the NIMRA project's workspace so we can enforce membership
+    // Look up the Nimra project's workspace so we can enforce membership
     // and scope the credential-vault entry correctly.
     const [project] = await sql`
       SELECT id, workspace_id, name FROM projects WHERE id = ${body.projectId}
@@ -59,7 +59,7 @@ provisionCreateRoutes.post(
       return c.json({ error: "Project not found" }, 404);
     }
     const workspaceId = project.workspace_id as string;
-    const projectName = (project.name as string | null) ?? "NIMRA project";
+    const projectName = (project.name as string | null) ?? "Nimra project";
 
     const memberErr = await requireMember(workspaceId, userId);
     if (memberErr) return c.json({ error: memberErr }, 403);

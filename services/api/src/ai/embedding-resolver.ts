@@ -5,7 +5,7 @@
  *   1) project_ai_settings.embedding_provider_id (+ embedding_model)
  *   2) workspace_ai_settings.default_embedding_provider_id (+ default_embedding_model)
  *   3) platform default — set via /api/setup/ai-embedding-provider and stored in
- *      platform_config under the `setup.embedding_*` keys. This is the "NIMRA
+ *      platform_config under the `setup.embedding_*` keys. This is the "Nimra
  *      admin sets it once at install, every workspace inherits silently" path
  *      the user asked for.
  *

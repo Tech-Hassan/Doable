@@ -177,7 +177,7 @@ async function isPreviewHealthy(page: import("puppeteer").Page): Promise<boolean
       }
       // Check for scaffold placeholder — means the app hasn't been built yet
       if (bodyText.includes("Dream it. Build it.") && bodyText.includes("pulse")) return true;
-      if (bodyText.includes("Dream it. Build it.") && bodyText.includes("NIMRA")) return true;
+      if (bodyText.includes("Dream it. Build it.") && bodyText.includes("Nimra")) return true;
       // Check for "Starting dev server" or loading states
       if (bodyText.includes("Starting dev server")) return true;
       if (bodyText.includes("Loading...")) return true;

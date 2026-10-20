@@ -2,8 +2,8 @@ import Link from "next/link";
 import { BookOpen, ArrowRight } from "lucide-react";
 
 export const metadata = {
-  title: "Help Center — NIMRA",
-  description: "Guides and articles to help you get the most out of NIMRA.",
+  title: "Help Center — Nimra",
+  description: "Guides and articles to help you get the most out of Nimra.",
 };
 
 const articles = [
@@ -23,7 +23,7 @@ export default function HelpIndexPage() {
           <p className="text-xs uppercase tracking-wider text-muted-foreground mb-2">Help</p>
           <h1 className="text-3xl font-bold text-foreground mb-3">Help Center</h1>
           <p className="text-muted-foreground">
-            Guides and articles to help you get the most out of NIMRA.
+            Guides and articles to help you get the most out of Nimra.
           </p>
         </div>
 

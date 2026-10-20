@@ -53,7 +53,7 @@ export function useTypingPlaceholder(): string {
     return () => clearTimeout(timeout);
   }, [displayText, phase, index]);
 
-  return displayText || "Ask NIMRA to create...";
+  return displayText || "Ask Nimra to create...";
 }
 
 // ─── Context Menu Hook ──────────────────────────────────────

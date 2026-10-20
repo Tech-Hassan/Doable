@@ -2,7 +2,7 @@
  * Per-app end-user authentication for generated apps (`/__doable/auth/*`).
  *
  * Generated apps frequently need their OWN end-user accounts (a salon's
- * customers, a SaaS's users) — distinct from the NIMRA platform account that
+ * customers, a SaaS's users) — distinct from the Nimra platform account that
  * built the app. Before this, the AI had to roll its own password table in the
  * per-app DB, which forced two bad outcomes:
  *   1. The credentials table had to be `public_read` so login could verify a

@@ -17,7 +17,7 @@ export default function LegalLayout({
               <span className="h-2 w-2 rounded-full bg-violet-700 self-end mb-2 ml-0.5 shrink-0" />
             </div>
             <span className="text-lg font-semibold tracking-tight text-white">
-              NIMRA
+              Nimra
             </span>
           </Link>
           <Link
@@ -81,8 +81,8 @@ export default function LegalLayout({
       <footer className="border-t border-gray-800/50">
         <div className="mx-auto max-w-5xl px-4 py-8 sm:px-6 lg:px-8">
           <p className="text-xs text-gray-600">
-            &copy; {new Date().getFullYear()} NIMRA Works LLC. All rights reserved.
-            NIMRA is a registered service of NIMRA Works LLC.
+            &copy; {new Date().getFullYear()} Nimra Works LLC. All rights reserved.
+            Nimra is a registered service of Nimra Works LLC.
           </p>
         </div>
       </footer>

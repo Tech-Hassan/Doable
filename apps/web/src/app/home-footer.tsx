@@ -43,10 +43,10 @@ export function HomeFooter() {
                 <span className="text-xs font-bold text-white self-end mb-1">D</span>
                 <span className="h-2 w-2 rounded-full bg-violet-700 self-end mb-2 ml-0.5 shrink-0" />
               </div>
-              <span className="text-base font-semibold text-white">NIMRA</span>
+              <span className="text-base font-semibold text-white">Nimra</span>
             </Link>
             <p className="mt-3 max-w-xs text-sm leading-relaxed text-gray-500">
-              Tell AI what you want to do and NIMRA gets it done.
+              Tell AI what you want to do and Nimra gets it done.
               From idea to deployed app in minutes.
             </p>
             <div className="mt-4 flex gap-4">
@@ -115,7 +115,7 @@ export function HomeFooter() {
 
         <div className="mt-12 flex flex-col gap-3 border-t border-gray-800/50 pt-6 sm:flex-row sm:items-center sm:justify-between">
           <p className="text-xs text-gray-600">
-            &copy; {new Date().getFullYear()} NIMRA. All rights reserved.
+            &copy; {new Date().getFullYear()} Nimra. All rights reserved.
           </p>
           <div className="flex flex-wrap gap-x-5 gap-y-1 text-xs text-gray-600">
             <Link href="/terms" className="hover:text-gray-400">

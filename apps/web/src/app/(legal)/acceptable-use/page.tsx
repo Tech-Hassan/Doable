@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Acceptable Use Policy | NIMRA",
-  description: "Rules for using the NIMRA platform responsibly.",
+  title: "Acceptable Use Policy | Nimra",
+  description: "Rules for using the Nimra platform responsibly.",
 };
 
 export default function AcceptableUsePage() {
@@ -15,15 +15,15 @@ export default function AcceptableUsePage() {
 
       <p>
         This Acceptable Use Policy (&ldquo;AUP&rdquo;) describes activities that
-        are not permitted on NIMRA, operated by{" "}
-        <strong>NIMRA</strong>. It supplements our{" "}
+        are not permitted on Nimra, operated by{" "}
+        <strong>Nimra</strong>. It supplements our{" "}
         <a href="/terms">Terms of Service</a>. Violations may result in
         suspension or termination of your account without refund and, where
         appropriate, referral to law enforcement.
       </p>
 
       <h2>Prohibited content and behavior</h2>
-      <p>You may not use NIMRA to create, deploy, host, or distribute:</p>
+      <p>You may not use Nimra to create, deploy, host, or distribute:</p>
       <ul>
         <li>
           <strong>Illegal content</strong> &mdash; anything that violates
@@ -97,7 +97,7 @@ export default function AcceptableUsePage() {
         </li>
         <li>
           Distributing private API keys, internal tokens, or credentials
-          belonging to NIMRA or other users
+          belonging to Nimra or other users
         </li>
         <li>
           Interfering with the integrity, performance, or availability of the

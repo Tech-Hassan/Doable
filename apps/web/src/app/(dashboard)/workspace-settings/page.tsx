@@ -41,7 +41,7 @@ const TABS = [
   { id: "mcp", label: "MCP Servers", icon: Radio },
   { id: "skills", label: "Skills & Rules", icon: Sparkles },
   { id: "knowledge", label: "Knowledge", icon: Brain },
-  { id: "doable-ai", label: "NIMRA AI", icon: Bot },
+  { id: "doable-ai", label: "Nimra AI", icon: Bot },
 ] as const;
 
 type TabId = (typeof TABS)[number]["id"];

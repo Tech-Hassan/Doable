@@ -2,7 +2,7 @@
  * Embedding erase route — DELETE /projects/:id/embeddings
  *
  * Implements the destructive part of the "change embedding model"
- * flow surfaced from the NIMRA AI tab in Project Settings. The pgvector
+ * flow surfaced from the Nimra AI tab in Project Settings. The pgvector
  * column dimension is fixed per row, so a model change with different
  * `dimensions` invalidates every existing embedding for that project.
  *

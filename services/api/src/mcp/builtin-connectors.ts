@@ -1,5 +1,5 @@
 /**
- * Built-in MCP Apps that ship with NIMRA by default.
+ * Built-in MCP Apps that ship with Nimra by default.
  *
  * Every workspace gets these connectors provisioned exactly once. If the
  * user deletes one (the marketplace UI lets them remove any connector),

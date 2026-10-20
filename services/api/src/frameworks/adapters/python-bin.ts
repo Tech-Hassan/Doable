@@ -8,7 +8,7 @@
  * sometimes `py`.
  *
  * Strategy: probe `python3 --version` once at module load, fall back to
- * `python` if it isn't found. The NIMRA setup-server.sh installs
+ * `python` if it isn't found. The Nimra setup-server.sh installs
  * `python3-venv` + `python3-pip` but not `python-is-python3`, so the
  * default discovery here matches what production hosts actually have.
  */

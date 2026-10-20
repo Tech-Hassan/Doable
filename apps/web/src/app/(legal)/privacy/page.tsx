@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Privacy Policy | NIMRA",
+  title: "Privacy Policy | Nimra",
   description:
-    "How NIMRA collects, uses, and protects your personal information.",
+    "How Nimra collects, uses, and protects your personal information.",
 };
 
 export default function PrivacyPage() {
@@ -15,10 +15,10 @@ export default function PrivacyPage() {
       </p>
 
       <p>
-        This Privacy Policy explains how <strong>NIMRA</strong>{" "}
-        (&ldquo;NIMRA,&rdquo; &ldquo;we,&rdquo; &ldquo;us,&rdquo; or
+        This Privacy Policy explains how <strong>Nimra</strong>{" "}
+        (&ldquo;Nimra,&rdquo; &ldquo;we,&rdquo; &ldquo;us,&rdquo; or
         &ldquo;our&rdquo;) collects, uses, and protects information when you use
-        the NIMRA platform at doable.me, dev.doable.me, and related services
+        the Nimra platform at doable.me, dev.doable.me, and related services
         (the &ldquo;Service&rdquo;).
       </p>
 
@@ -71,7 +71,7 @@ export default function PrivacyPage() {
         </li>
         <li>Stripe for billing and subscription status</li>
         <li>
-          Integration partners that you authorize NIMRA to connect with on your
+          Integration partners that you authorize Nimra to connect with on your
           behalf
         </li>
       </ul>
@@ -156,7 +156,7 @@ export default function PrivacyPage() {
           to protect rights, property, or safety
         </li>
         <li>
-          <strong>In a business transfer</strong> if NIMRA is
+          <strong>In a business transfer</strong> if Nimra is
           acquired, merged, or sells assets, in which case we will provide
           notice
         </li>
@@ -207,7 +207,7 @@ export default function PrivacyPage() {
 
       <h2>8. International Transfers</h2>
       <p>
-        NIMRA is based in the United States. If you access the
+        Nimra is based in the United States. If you access the
         Service from outside the U.S., your information may be transferred to,
         stored, and processed in the U.S. or other countries where our service
         providers operate. Where required, we use Standard Contractual Clauses
@@ -257,7 +257,7 @@ export default function PrivacyPage() {
         <a href="mailto:privacy@doable.me">privacy@doable.me</a>.
       </p>
       <p>
-        <strong>NIMRA</strong>
+        <strong>Nimra</strong>
         <br />
         Email: <a href="mailto:privacy@doable.me">privacy@doable.me</a>
       </p>

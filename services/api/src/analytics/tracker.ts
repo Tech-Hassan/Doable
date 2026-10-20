@@ -119,7 +119,7 @@ export function extractClientIp(headers: {
 export function getTrackingScript(apiUrl: string): string {
   return `
     (function() {
-      // NIMRA Analytics Tracker
+      // Nimra Analytics Tracker
       // Privacy-friendly: no cookies, no fingerprinting
 
       var API_URL = '${apiUrl}';

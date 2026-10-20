@@ -117,7 +117,7 @@ export function ImportGitHubDialog({
         <div className="border-b px-6 py-4">
           <h2 className="text-lg font-semibold">Import from GitHub</h2>
           <p className="mt-1 text-sm text-muted-foreground">
-            Import an existing repository to continue working on it in NIMRA.
+            Import an existing repository to continue working on it in Nimra.
           </p>
         </div>
 
@@ -137,7 +137,7 @@ export function ImportGitHubDialog({
                 Connect your GitHub account
               </h4>
               <p className="mt-1 text-xs text-muted-foreground">
-                Authorize NIMRA to access your repositories.
+                Authorize Nimra to access your repositories.
               </p>
               <button
                 className="mt-4 rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground hover:bg-primary/90"

@@ -55,8 +55,8 @@ export function PreviewPanel() {
     return () => window.removeEventListener("message", handleMessage);
   }, [iframeRef]);
 
-  // ─── Sync NIMRA theme into preview iframe ─────────────────
-  // Always push `light` — the editor's dark theme is NIMRA chrome, not the
+  // ─── Sync Nimra theme into preview iframe ─────────────────
+  // Always push `light` — the editor's dark theme is Nimra chrome, not the
   // user's app. AI-scaffolded `.dark` rules typically only flip `--foreground`
   // while leaving `--background` light, so forcing dark on the iframe yields
   // invisible (white-on-white) text. The user's preview shows their app's

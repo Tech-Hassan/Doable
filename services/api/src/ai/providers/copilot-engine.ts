@@ -1,8 +1,8 @@
 /**
- * CopilotEngine — NIMRA's AI session manager backed by docore.
+ * CopilotEngine — Nimra's AI session manager backed by docore.
  *
  * Delegates all session lifecycle (create, resume, send, abort) to
- * docore's DoCorePool + DoCoreEngine. NIMRA never directly constructs
+ * docore's DoCorePool + DoCoreEngine. Nimra never directly constructs
  * CopilotClient or CopilotSession.
  */
 
@@ -31,7 +31,7 @@ const PLAN_ALLOWED_TOOLS = new Set([
 
 // Tools whose first argument is a project file path that may need
 // pre-permission normalization. Covers both the SDK CLI built-ins
-// (str_replace_editor, view, write) and NIMRA's custom file tools
+// (str_replace_editor, view, write) and Nimra's custom file tools
 // (create_file, edit_file, read_file).
 //
 // MiniMax-M2.7 and other smaller models emit a mix of
@@ -48,7 +48,7 @@ const PLAN_ALLOWED_TOOLS = new Set([
 // call from those models hits "Path not absolute" then ENOENT in a loop
 // until the model gives up and tries bash. Adding the SDK names lets
 // onPreToolUse rewrite their `path` arg the same way it does for the
-// NIMRA custom names. The set is intentionally permissive — unknown
+// Nimra custom names. The set is intentionally permissive — unknown
 // names just fall through unchanged.
 const PATH_REWRITE_TOOLS = new Set([
   "str_replace_editor",
@@ -58,7 +58,7 @@ const PATH_REWRITE_TOOLS = new Set([
   "edit_file",
   "read_file",
   // SDK built-ins (docore CLI) — same `path` field shape, different names.
-  // MiniMax was observed picking each of these over NIMRA's custom names
+  // MiniMax was observed picking each of these over Nimra's custom names
   // during R27 testing. Adding all known SDK file tools defensively.
   "edit",
   "multi_edit",

@@ -80,7 +80,7 @@ provisionListRoutes.get(
 
 // ─── POST /integrations/supabase/use-existing ─────────────
 //
-// Connects an existing Supabase project to a NIMRA project without
+// Connects an existing Supabase project to a Nimra project without
 // provisioning a new one.
 const useExistingSchema = z.object({
   projectRef: z.string().min(1),
@@ -95,7 +95,7 @@ provisionListRoutes.post(
     const userId = c.get("userId");
     const body = c.req.valid("json");
 
-    // Look up the NIMRA project to scope the credential row correctly.
+    // Look up the Nimra project to scope the credential row correctly.
     const [project] = await sql`
       SELECT id, workspace_id, name FROM projects WHERE id = ${body.projectId}
     `;
@@ -132,7 +132,7 @@ provisionListRoutes.post(
       return c.json({ error: err instanceof Error ? err.message : String(err) }, 500);
     }
 
-    // Clean up any stale project-scoped supabase row for this NIMRA project
+    // Clean up any stale project-scoped supabase row for this Nimra project
     await sql`
       DELETE FROM integration_connections
       WHERE user_id = ${userId}

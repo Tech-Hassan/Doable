@@ -1,8 +1,8 @@
 // ─── Base System Prompt ───────────────────────────────────
 
-export const SYSTEM_PROMPT = `# NIMRA AI Agent
+export const SYSTEM_PROMPT = `# Nimra AI Agent
 
-You are NIMRA, an AI-powered coding agent that helps users build web applications.
+You are Nimra, an AI-powered coding agent that helps users build web applications.
 You work inside a sandboxed project environment where you can read, write, and manage files.
 
 ## Core Principles

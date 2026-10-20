@@ -57,7 +57,7 @@ export default function HomePage() {
               <span className="h-2 w-2 rounded-full bg-violet-700 self-end mb-2 ml-0.5 shrink-0" />
             </div>
             <span className="text-lg font-semibold tracking-tight text-white">
-              NIMRA
+              Nimra
             </span>
           </Link>
 
@@ -129,7 +129,7 @@ export default function HomePage() {
             Dream it. Do it. Done.
           </h1>
           <p className="mb-12 text-base text-gray-400 sm:text-lg">
-            Say it. NIMRA does it.
+            Say it. Nimra does it.
           </p>
 
           {/* Prompt Input Box */}
@@ -138,7 +138,7 @@ export default function HomePage() {
               <textarea
                 value={prompt}
                 onChange={(e) => setPrompt(e.target.value)}
-                placeholder="What do you want NIMRA to do?"
+                placeholder="What do you want Nimra to do?"
                 rows={3}
                 className="w-full resize-none bg-transparent px-2 pt-1 text-sm text-white placeholder:text-gray-500 focus:outline-none sm:text-base"
                 onKeyDown={(e) => {
@@ -191,7 +191,7 @@ export default function HomePage() {
       {/* ─── Social Proof Bar ────────────────────────────────── */}
       <section className="relative z-10 border-t border-gray-800/50 bg-[#0a0a0a] py-16">
         <p className="mb-8 text-center text-sm text-gray-500">
-          Teams who do more, do it with NIMRA
+          Teams who do more, do it with Nimra
         </p>
         <div className="mx-auto flex max-w-4xl flex-wrap items-center justify-center gap-x-12 gap-y-6 px-4 opacity-40">
           {["Zendesk", "Uber", "Microsoft", "ElevenLabs", "HubSpot"].map(
@@ -211,7 +211,7 @@ export default function HomePage() {
       <section id="how-it-works" className="relative z-10 py-24">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <h2 className="mb-4 text-center text-3xl font-bold sm:text-4xl">
-            How you Do it with NIMRA
+            How you Do it with Nimra
           </h2>
           <div className="mt-16 grid gap-12 md:grid-cols-3">
             {[
@@ -219,11 +219,11 @@ export default function HomePage() {
                 icon: Lightbulb,
                 title: "Say what you want to do",
                 description:
-                  "Describe your app, drop in screenshots, or share docs. NIMRA gets it.",
+                  "Describe your app, drop in screenshots, or share docs. Nimra gets it.",
               },
               {
                 icon: Wand2,
-                title: "Watch NIMRA doing it",
+                title: "Watch Nimra doing it",
                 description:
                   "AI writes the code, builds the UI, and sets up the backend while you watch.",
               },
@@ -255,7 +255,7 @@ export default function HomePage() {
             Everything you need to get it done
           </h2>
           <p className="mx-auto mb-16 max-w-xl text-center text-gray-400">
-            All the tools built in so you keep doing, not configuring. NIMRA handles the rest.
+            All the tools built in so you keep doing, not configuring. Nimra handles the rest.
           </p>
 
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
@@ -308,10 +308,10 @@ export default function HomePage() {
 
           <div className="relative">
             <h2 className="mb-4 text-3xl font-bold sm:text-4xl lg:text-5xl">
-              Ready to do this? NIMRA is.
+              Ready to do this? Nimra is.
             </h2>
             <p className="mx-auto mb-8 max-w-xl text-gray-400">
-              Thousands of makers are already doing it with NIMRA.
+              Thousands of makers are already doing it with Nimra.
               Start for free. No credit card required.
             </p>
             <div className="flex flex-col items-center justify-center gap-3 sm:flex-row">
@@ -330,7 +330,7 @@ export default function HomePage() {
               </Button>
             </div>
             <p className="mt-4 text-xs text-gray-600">
-              Free forever for personal projects. Just do it with NIMRA.
+              Free forever for personal projects. Just do it with Nimra.
             </p>
           </div>
         </div>

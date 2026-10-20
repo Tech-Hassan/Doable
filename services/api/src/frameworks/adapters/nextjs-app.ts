@@ -20,7 +20,7 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 
 /**
- * The NIMRA preview proxy serves projects under /preview/<id>/. Without
+ * The Nimra preview proxy serves projects under /preview/<id>/. Without
  * a basePath in next.config.*, Next.js thinks it's at / and returns 404
  * for the iframe URL. Default content for next.config.ts that wires
  * DOABLE_BASE_PATH (passed in the dev env) into next's basePath.

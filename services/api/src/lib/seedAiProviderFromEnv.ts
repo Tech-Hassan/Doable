@@ -20,7 +20,7 @@
  * keys they actually hold — the wizard at /setup supports 50+ providers
  * regardless (PROVIDER_CATALOG in @doable/shared).
  *
- * NOTE: NIMRA does NOT bundle, ship, or proxy any third-party API keys.
+ * NOTE: Nimra does NOT bundle, ship, or proxy any third-party API keys.
  * Every key in this file is a BYOK (bring-your-own-key) seed — the
  * operator must obtain it from the provider themselves.
  *

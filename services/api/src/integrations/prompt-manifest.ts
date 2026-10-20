@@ -116,7 +116,7 @@ export async function buildConnectedIntegrationsContext(
 
   return [
     "<connected-integrations>",
-    "The user has pre-connected these services. You MUST use them via the listed env vars and tools. NEVER ask the user for API keys, URLs, or tokens for these services — NIMRA has already provisioned them.",
+    "The user has pre-connected these services. You MUST use them via the listed env vars and tools. NEVER ask the user for API keys, URLs, or tokens for these services — Nimra has already provisioned them.",
     "",
     ...lines,
     "",
@@ -141,7 +141,7 @@ const BUILTIN_CONNECTOR_NAMES = new Set(BUILTIN_MCP_APPS.map((a) => a.name));
  * Build the `<connected-mcp-servers>` system-prompt block.
  *
  * Surfaces every ACTIVE, user-connected MCP connector for the workspace
- * (excluding NIMRA's builtin per-app-DB and builder MCP Apps) together with
+ * (excluding Nimra's builtin per-app-DB and builder MCP Apps) together with
  * the EXACT AI-prefixed tool names the generated app must call at runtime via
  * `@doable/sdk`'s `doable.mcp.call()`.
  *

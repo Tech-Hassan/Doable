@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "DMCA & Copyright Policy | NIMRA",
-  description: "How to report copyright infringement on NIMRA.",
+  title: "DMCA & Copyright Policy | Nimra",
+  description: "How to report copyright infringement on Nimra.",
 };
 
 export default function DMCAPage() {
@@ -14,7 +14,7 @@ export default function DMCAPage() {
       </p>
 
       <p>
-        <strong>NIMRA</strong> respects the intellectual property
+        <strong>Nimra</strong> respects the intellectual property
         rights of others and expects users of the Service to do the same. We
         respond to clear notices of alleged copyright infringement that comply
         with the U.S. Digital Millennium Copyright Act (&ldquo;DMCA&rdquo;).
@@ -56,7 +56,7 @@ export default function DMCAPage() {
       <p>
         Send DMCA notices to:
         <br />
-        <strong>NIMRA &mdash; DMCA Agent</strong>
+        <strong>Nimra &mdash; DMCA Agent</strong>
         <br />
         Email: <a href="mailto:dmca@doable.me">dmca@doable.me</a>
       </p>

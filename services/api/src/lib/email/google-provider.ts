@@ -17,7 +17,7 @@ const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID;
 const GOOGLE_CLIENT_SECRET = process.env.GOOGLE_CLIENT_SECRET;
 const GOOGLE_REFRESH_TOKEN = process.env.GOOGLE_REFRESH_TOKEN;
 const GOOGLE_EMAIL_USER = process.env.GOOGLE_EMAIL_USER; // The Gmail address to send from
-const EMAIL_FROM = process.env.EMAIL_FROM ?? "NIMRA <noreply@doable.me>";
+const EMAIL_FROM = process.env.EMAIL_FROM ?? "Nimra <noreply@doable.me>";
 const TOKEN_URL = "https://oauth2.googleapis.com/token";
 const GMAIL_SEND_URL = "https://gmail.googleapis.com/gmail/v1/users/me/messages/send";
 

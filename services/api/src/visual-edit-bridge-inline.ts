@@ -11,8 +11,8 @@ export const VISUAL_EDIT_BRIDGE_INLINE = `
   if (window.__visualEditBridge) return;
   window.__visualEditBridge = true;
 
-  // ─── NIMRA theme sync ──────────────────────────────────────
-  // Parent (NIMRA editor) posts {type:"doable-theme", theme:"dark"|"light"}
+  // ─── Nimra theme sync ──────────────────────────────────────
+  // Parent (Nimra editor) posts {type:"doable-theme", theme:"dark"|"light"}
   // on iframe load and whenever the user toggles theme. Mirror it onto the
   // preview's <html> so Tailwind \`dark:\` classes resolve correctly and the
   // user-agent canvas color matches.
@@ -20,7 +20,7 @@ export const VISUAL_EDIT_BRIDGE_INLINE = `
   var __mqlListeners = []; // { mql, listener }
 
   // Patch window.matchMedia so any code reading "prefers-color-scheme" sees
-  // NIMRA's theme rather than the OS preference. This rescues legacy
+  // Nimra's theme rather than the OS preference. This rescues legacy
   // scaffolds that embed the OS query in inline styles or one-shot reads.
   try {
     var origMatchMedia = window.matchMedia.bind(window);

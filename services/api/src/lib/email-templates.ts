@@ -18,7 +18,7 @@ function baseLayout(content: string): string {
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>NIMRA</title>
+  <title>Nimra</title>
 </head>
 <body style="margin:0;padding:0;background-color:${BG_COLOR};font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;">
   <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="background-color:${BG_COLOR};">
@@ -28,7 +28,7 @@ function baseLayout(content: string): string {
           <!-- Logo -->
           <tr>
             <td align="center" style="padding-bottom:32px;">
-              <span style="font-size:28px;font-weight:700;color:${BRAND_COLOR};letter-spacing:-0.5px;">NIMRA</span>
+              <span style="font-size:28px;font-weight:700;color:${BRAND_COLOR};letter-spacing:-0.5px;">Nimra</span>
             </td>
           </tr>
           <!-- Card -->
@@ -41,7 +41,7 @@ function baseLayout(content: string): string {
           <tr>
             <td align="center" style="padding-top:24px;">
               <p style="margin:0;font-size:12px;color:${TEXT_MUTED};line-height:1.5;">
-                This email was sent by NIMRA. If you did not expect this email, you can safely ignore it.
+                This email was sent by Nimra. If you did not expect this email, you can safely ignore it.
               </p>
             </td>
           </tr>
@@ -80,7 +80,7 @@ export function passwordResetEmail(resetUrl: string, userName: string): string {
       Hi ${escapeHtml(displayName)},
     </p>
     <p style="margin:0 0 4px;font-size:15px;color:${TEXT_COLOR};line-height:1.6;">
-      We received a request to reset the password for your NIMRA account. Click the button below to choose a new password.
+      We received a request to reset the password for your Nimra account. Click the button below to choose a new password.
     </p>
     ${button("Reset Password", resetUrl)}
     <p style="margin:0 0 8px;font-size:13px;color:${TEXT_MUTED};line-height:1.5;">
@@ -102,13 +102,13 @@ export function welcomeEmail(userName: string): string {
   const appUrl = process.env.NEXT_PUBLIC_APP_URL ?? "http://localhost:3000";
   return baseLayout(`
     <h1 style="margin:0 0 16px;font-size:22px;font-weight:700;color:${TEXT_COLOR};line-height:1.3;">
-      Welcome to NIMRA!
+      Welcome to Nimra!
     </h1>
     <p style="margin:0 0 12px;font-size:15px;color:${TEXT_COLOR};line-height:1.6;">
       Hi ${escapeHtml(displayName)},
     </p>
     <p style="margin:0 0 12px;font-size:15px;color:${TEXT_COLOR};line-height:1.6;">
-      Your account is all set up and ready to go. NIMRA helps you build, preview, and ship web projects with AI-powered assistance.
+      Your account is all set up and ready to go. Nimra helps you build, preview, and ship web projects with AI-powered assistance.
     </p>
     <p style="margin:0 0 4px;font-size:15px;color:${TEXT_COLOR};line-height:1.6;">
       Here are a few things you can do right away:
@@ -119,7 +119,7 @@ export function welcomeEmail(userName: string): string {
       <li>Preview your app live as you build</li>
       <li>Publish and share with one click</li>
     </ul>
-    ${button("Go to NIMRA", appUrl)}
+    ${button("Go to Nimra", appUrl)}
     <p style="margin:0;font-size:13px;color:${TEXT_MUTED};line-height:1.5;">
       If you have any questions, reply to this email or visit our docs.
     </p>
@@ -140,14 +140,14 @@ export function inviteEmail(
     </h1>
     <p style="margin:0 0 12px;font-size:15px;color:${TEXT_COLOR};line-height:1.6;">
       <strong>${escapeHtml(inviterName)}</strong> has invited you to join the
-      <strong>${escapeHtml(workspaceName)}</strong> workspace on NIMRA.
+      <strong>${escapeHtml(workspaceName)}</strong> workspace on Nimra.
     </p>
     <p style="margin:0 0 4px;font-size:15px;color:${TEXT_COLOR};line-height:1.6;">
       Click the button below to accept the invitation and start collaborating.
     </p>
     ${button("Accept Invitation", acceptUrl)}
     <p style="margin:0;font-size:13px;color:${TEXT_MUTED};line-height:1.5;">
-      If you don't have a NIMRA account yet, you'll be able to create one when you accept.
+      If you don't have a Nimra account yet, you'll be able to create one when you accept.
     </p>
     <hr style="border:none;border-top:1px solid #e5e7eb;margin:24px 0 16px;" />
     <p style="margin:0;font-size:12px;color:${TEXT_MUTED};line-height:1.5;">

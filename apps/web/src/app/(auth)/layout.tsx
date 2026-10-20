@@ -21,7 +21,7 @@ export default function AuthLayout({
           <div className="mb-8 text-center">
             <a href="/" className="inline-flex items-center gap-1">
               <span className="text-3xl font-bold tracking-tight text-[hsl(var(--foreground))]">
-                NIMRA
+                Nimra
               </span>
               <span className="inline-block h-2.5 w-2.5 rounded-full bg-brand-700" />
             </a>

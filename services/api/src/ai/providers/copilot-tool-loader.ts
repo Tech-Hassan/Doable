@@ -1,5 +1,5 @@
 /**
- * Tool composition — merges built-in NIMRA tools, native integration
+ * Tool composition — merges built-in Nimra tools, native integration
  * tools, and MCP connector tools into a single tool set for a session.
  *
  * Supports progressive tool loading: when there are many MCP tools (>20),

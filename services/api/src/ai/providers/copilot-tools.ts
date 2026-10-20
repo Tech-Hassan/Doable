@@ -1,5 +1,5 @@
 /**
- * NIMRA-specific tools for Copilot agent sessions.
+ * Nimra-specific tools for Copilot agent sessions.
  *
  * These provide real filesystem operations so the AI can create, edit,
  * and read files in the project directory. Vite hot-reloads changes.
@@ -566,7 +566,7 @@ export function createNIMRATools(projectId: string, userId?: string, workspaceId
       },
     }),
 
-    // PRD ch 13: NIMRA-owned bash overrides SDK built-in; routes through sandbox orchestrator.
+    // PRD ch 13: Nimra-owned bash overrides SDK built-in; routes through sandbox orchestrator.
     createBashTool({ projectId, workspaceId: workspaceId ?? null, userId: userId ?? "", sessionId: projectId }),
   ] as Tool[]);
 }

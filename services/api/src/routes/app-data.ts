@@ -76,7 +76,7 @@ interface ParsedBody {
 }
 function parseAndValidate(c: Context, body: Record<string, unknown>, op: DataOp): ParsedBody | Response {
   if (c.req.header("x-doable-data-api") !== "1") {
-    return jsonError(c, 400, "PARAMS_INVALID", "Missing or wrong X-NIMRA-Data-Api header (expected '1')");
+    return jsonError(c, 400, "PARAMS_INVALID", "Missing or wrong X-Nimra-Data-Api header (expected '1')");
   }
   if (op !== "schema") {
     if (typeof body.sql !== "string" || body.sql.trim() === "") {

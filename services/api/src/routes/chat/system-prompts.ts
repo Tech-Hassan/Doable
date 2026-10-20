@@ -46,7 +46,7 @@ React / HashRouter / src/main.tsx guidance later in this prompt.
 
 /**
  * Generic guard for projects imported from an existing repo (any framework).
- * NIMRA already installs deps + starts the dev server from the project's own
+ * Nimra already installs deps + starts the dev server from the project's own
  * config (preview-proxy: ensureDependencies + startDevServer) — so the AI's job
  * is NOT to "set up" or "adapt" a project that already runs. This block exists
  * because the post-import "analyze & set it up" prompt otherwise leads the model
@@ -56,7 +56,7 @@ React / HashRouter / src/main.tsx guidance later in this prompt.
 const IMPORTED_PROJECT_GUARD = `═══════════════════════════════════════════════════════════════
   📦  IMPORTED PROJECT — ALREADY INSTALLED & RUNNING  📦
 ═══════════════════════════════════════════════════════════════
-This project was imported from an existing repository. NIMRA has ALREADY
+This project was imported from an existing repository. Nimra has ALREADY
 installed its dependencies and started its dev server using the project's OWN
 config — it builds and serves on its own. You are NOT here to "set it up",
 "adapt" it, or "make it render". Assume the imported code is correct.
@@ -138,7 +138,7 @@ export async function buildSystemPrompt(
 }
 
 function buildPlanPrompt(projectContext: string, isScaffolded: boolean): string {
-  return `You are NIMRA's Plan Mode AI. You have two tools for planning: ask_clarification and create_plan.
+  return `You are Nimra's Plan Mode AI. You have two tools for planning: ask_clarification and create_plan.
 ${isScaffolded ? `
 CONTEXT: This project already has files and code. The user switched to Plan Mode mid-build to plan NEXT STEPS — not to start over. Use the read_file, list_files, and search_files tools to understand what's already built before planning.
 ` : ""}
@@ -167,7 +167,7 @@ IMPORTANT: Do NOT write code. Do NOT create or edit files. Only analyze and plan
 }
 
 function buildVisualEditPrompt(previewUrl: string | undefined, frameworkPrompt: string): string {
-  return `You are NIMRA's Visual Edit AI. You make precise, surgical edits to individual UI elements. The user has selected a specific element in the visual preview and wants you to modify it.
+  return `You are Nimra's Visual Edit AI. You make precise, surgical edits to individual UI elements. The user has selected a specific element in the visual preview and wants you to modify it.
 
 The user message will be prefixed with [Visual Edit] and include the element's tag, classes, and full DOM selector — that is your complete context. You do NOT need to ask clarifying questions or hunt across the codebase. Locate the JSX, edit it, done.
 
@@ -183,7 +183,7 @@ ${frameworkPrompt}${previewUrl ? `\nPreview: ${previewUrl}` : ""}`;
 }
 
 function buildAgentPrompt(projectContext: string, previewUrl: string | undefined, frameworkPrompt: string): string {
-  return `You are NIMRA's Agent Mode AI. You build complete, working web applications by creating files, editing files, and installing packages. The user sees a live preview that updates in real-time as you make changes.
+  return `You are Nimra's Agent Mode AI. You build complete, working web applications by creating files, editing files, and installing packages. The user sees a live preview that updates in real-time as you make changes.
 
 ═══════════════════════════════════════════════════════════════
   🚫  OUTPUT DISCIPLINE — CRITICAL  🚫
@@ -498,7 +498,7 @@ ERROR RECOVERY — if you encounter errors:
 }
 
 function buildChatPrompt(projectContext: string): string {
-  return `You are NIMRA's Chat Mode AI — a knowledgeable assistant that answers questions, explains concepts, and helps users think through their projects. You do NOT write or edit files in this mode.
+  return `You are Nimra's Chat Mode AI — a knowledgeable assistant that answers questions, explains concepts, and helps users think through their projects. You do NOT write or edit files in this mode.
 
 ${projectContext ? `PROJECT CONTEXT:\n${projectContext}\n` : ""}
 Your role:

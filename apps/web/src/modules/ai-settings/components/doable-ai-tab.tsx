@@ -161,7 +161,7 @@ export function NIMRAAiSettingsTab({ workspaceId, isAdmin }: Props) {
         </div>
         <p className="mb-4 text-sm text-muted-foreground">
           Applied to new projects in this workspace. Each project can override these from the
-          per-project NIMRA AI tab.
+          per-project Nimra AI tab.
         </p>
 
         <div className="space-y-4">

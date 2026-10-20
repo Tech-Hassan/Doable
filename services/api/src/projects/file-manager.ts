@@ -2,7 +2,7 @@
  * Project File Manager
  *
  * Scaffolds Vite+React+TypeScript projects on the server filesystem
- * and provides file CRUD operations. This is the core of how NIMRA's
+ * and provides file CRUD operations. This is the core of how Nimra's
  * live preview works — files written here are served by the Vite dev server.
  */
 
