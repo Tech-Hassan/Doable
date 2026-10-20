@@ -438,7 +438,7 @@ export function createNIMRATools(projectId: string, userId?: string, workspaceId
           await mkdir(join(projectPath, ".doable"), { recursive: true });
           let md = `# Plan\n\nPlan ID: ${planId}\n\n${args.summary}\n\n**Complexity:** ${args.complexity}\n\n`;
           for (const step of steps) {
-            md += `## ${step.order}. ${step.title}\n\n${step.description}\n\n`;
+            md += `## ${step.order}. ${step.title}\n\nStep ID: ${step.id}\n\n${step.description}\n\n`;
             if (step.details) md += `**Details:** ${step.details}\n\n`;
             if (step.filePaths?.length) md += `**Files:** ${step.filePaths.join(", ")}\n\n`;
           }
@@ -561,6 +561,17 @@ export function createNIMRATools(projectId: string, userId?: string, workspaceId
         required: ["stepId", "planId"] as const,
       },
       handler: async (args: { stepId: string; planId: string }) => {
+        // Persist the completion — previously this handler only emitted
+        // an event and NOTHING ever wrote the new status to the DB, so
+        // the plan banner reloaded from the DB stayed at 0/N forever.
+        try {
+          const { sql } = await import("../../db/index.js");
+          await sql`UPDATE plan_steps SET status = 'completed', completed_at = now() WHERE id = ${args.stepId} AND plan_id = ${args.planId}`;
+          const remaining = await sql`SELECT count(*)::int AS c FROM plan_steps WHERE plan_id = ${args.planId} AND status <> 'completed'`;
+          if (remaining.length > 0 && Number(remaining[0].c) === 0) {
+            await sql`UPDATE plans SET status = 'completed', completed_at = now() WHERE id = ${args.planId}`;
+          }
+        } catch { /* non-fatal: the live UI still gets the step update event */ }
         emitToolEvent(projectId, "mark_step_complete", "end", { stepId: args.stepId, planId: args.planId, status: "completed" });
         return { success: true, stepId: args.stepId, planId: args.planId, status: "completed" };
       },

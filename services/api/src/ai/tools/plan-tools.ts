@@ -242,6 +242,18 @@ export const markStepCompleteTool: Tool = {
       };
     }
 
+    // Persist the completion — previously this tool only returned an
+    // event payload and NOTHING ever wrote the new status to the DB,
+    // so the plan banner reloaded from the DB stayed at 0/N forever.
+    try {
+      const { sql } = await import("../../db/index.js");
+      await sql`UPDATE plan_steps SET status = 'completed', completed_at = now() WHERE id = ${stepId} AND plan_id = ${planId}`;
+      const remaining = await sql`SELECT count(*)::int AS c FROM plan_steps WHERE plan_id = ${planId} AND status <> 'completed'`;
+      if (remaining.length > 0 && Number(remaining[0].c) === 0) {
+        await sql`UPDATE plans SET status = 'completed', completed_at = now() WHERE id = ${planId}`;
+      }
+    } catch { /* non-fatal: the live UI still gets the step update event */ }
+
     return {
       success: true,
       output: JSON.stringify({ planId, stepId, status: "completed" }),
