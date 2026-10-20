@@ -2090,6 +2090,10 @@ function EditorPageInner() {
   // True only while this tab owns an active SSE stream reader.
   // Prevents periodic DB history sync from overwriting live streamed content.
   const localStreamActiveRef = useRef(false);
+  // Latest copy of the mount-time stream-recovery routine, so the
+  // visibility/online handlers further below can re-run it when the
+  // user returns to a backgrounded tab.
+  const recoverInterruptedStreamRef = useRef<(() => Promise<void>) | null>(null);
   // Dedupe suggestion fetches: React StrictMode runs state updaters twice
   // in development, and fetchAISuggestions is (historically) called inside
   // a setMessages((prev) => {...}) updater. Without this guard, every
@@ -3193,7 +3197,7 @@ function EditorPageInner() {
     //      loading-dots indicator renders during the gap before the first event
     //      arrives. (loadFromApi above writes isStreaming:false for every history
     //      row, so without this the bubble would appear blank.)
-    (async () => {
+    const recoverInterruptedStream = async () => {
       try {
         const [chatStatusRes, aiStatusRes] = await Promise.all([
           apiFetch<{ streaming: boolean; messageId?: string; startedAt?: string }>(`/projects/${resolvedProjectId}/chat/status`).catch(() => null),
@@ -3424,9 +3428,44 @@ function EditorPageInner() {
           }
         }
       } catch { /* ignore */ }
-    })();
+    };
+    recoverInterruptedStreamRef.current = recoverInterruptedStream;
+    recoverInterruptedStream();
      
   }, [resolvedProjectId]);
+
+  // Re-attach to an in-flight generation when the user returns to the
+  // tab. Mobile browsers kill the live stream when the app is
+  // minimized/backgrounded, while generation itself continues
+  // server-side — so on return we drop the dead stream and re-run the
+  // same recovery used on page load (stream-resume → polling).
+  const hiddenSinceRef = useRef<number | null>(null);
+  useEffect(() => {
+    const reattach = () => {
+      if (localStreamActiveRef.current) {
+        try { abortRef.current?.abort(); } catch { /* ignore */ }
+        localStreamActiveRef.current = false;
+      }
+      recoverInterruptedStreamRef.current?.();
+    };
+    const onVisibility = () => {
+      if (document.visibilityState === "hidden") {
+        hiddenSinceRef.current = Date.now();
+        return;
+      }
+      const hiddenFor = hiddenSinceRef.current ? Date.now() - hiddenSinceRef.current : 0;
+      hiddenSinceRef.current = null;
+      if (hiddenFor < 15_000) return; // brief switch — stream likely alive
+      reattach();
+    };
+    const onOnline = () => reattach();
+    document.addEventListener("visibilitychange", onVisibility);
+    window.addEventListener("online", onOnline);
+    return () => {
+      document.removeEventListener("visibilitychange", onVisibility);
+      window.removeEventListener("online", onOnline);
+    };
+  }, []);
 
   // Auto-send prompt from dashboard navigation.
   // Checks for an in-flight bridge stream first (started on dashboard before navigation).

@@ -174,13 +174,9 @@ export function ChatInput({
                 Work
               </button>
             </div>
-            {/* Framework picker — defaults to auto-detect (server picks
-                from prompt text, falls back to workspace admin default). */}
-            <FrameworkPicker
-              value={frameworkId}
-              onChange={onFrameworkChange}
-              disabled={isCreating}
-            />
+            {/* Framework/stack choice is fully automatic: the server
+                detects the best stack from the prompt (an explicitly
+                mentioned stack always wins). No manual picker. */}
           </div>
           <div className="flex items-center gap-1">
             {isMicSupported ? (
