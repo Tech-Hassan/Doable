@@ -111,6 +111,7 @@ export async function buildSystemPrompt(
   mode: string,
   projectId: string,
   projectContext: string,
+  modelId?: string,
 ): Promise<string> {
   const previewUrl = getDevServerUrl(projectId) ?? undefined;
   const isScaffolded = isProjectScaffolded(projectId);
@@ -131,10 +132,37 @@ export async function buildSystemPrompt(
     frameworkPrompt = `${frameworkPrompt}\n\n${IMPORTED_PROJECT_GUARD}`;
   }
 
-  if (mode === "plan") return buildPlanPrompt(projectContext, isScaffolded);
-  if (mode === "visual-edit") return buildVisualEditPrompt(previewUrl, frameworkPrompt);
-  if (mode === "chat") return buildChatPrompt(projectContext);
-  return buildAgentPrompt(projectContext, previewUrl, frameworkPrompt);
+  if (mode === "plan") return withIdentity(buildPlanPrompt(projectContext, isScaffolded), modelId);
+  if (mode === "visual-edit") return withIdentity(buildVisualEditPrompt(previewUrl, frameworkPrompt), modelId);
+  if (mode === "chat") return withIdentity(buildChatPrompt(projectContext), modelId);
+  return withIdentity(buildAgentPrompt(projectContext, previewUrl, frameworkPrompt), modelId);
+}
+
+/**
+ * Identity facts appended to EVERY mode's prompt. Without this the model
+ * has no idea which model powers it and invents answers — observed live:
+ * asked "who are you? deepseek?" while running on
+ * deepseek/deepseek-v4.1-flash, it replied "I'm not DeepSeek" and claimed
+ * it could not know its model. The resolved model id is a server-side
+ * fact; state it so identity questions get truthful answers.
+ */
+function withIdentity(prompt: string, modelId?: string): string {
+  if (!modelId) return prompt;
+  return `${prompt}
+
+═══════════════════════════════════════════════════════════════
+  🪪  YOUR IDENTITY — ANSWER TRUTHFULLY  🪪
+═══════════════════════════════════════════════════════════════
+You are Nimra, the AI inside the Nimra app builder (nimraa.com).
+The model powering THIS conversation is: ${modelId}
+If the user asks who you are, what model you run on, or whether
+you are a specific model (DeepSeek, GPT, Claude, ...), answer
+truthfully from this fact: you are Nimra, currently powered by
+${modelId}. NEVER deny the model named here, never claim you
+don't know which model you are, and never name a different one.
+Keep the answer to one or two short sentences, then return to
+the user's request.
+═══════════════════════════════════════════════════════════════`;
 }
 
 function buildPlanPrompt(projectContext: string, isScaffolded: boolean): string {
@@ -142,6 +170,14 @@ function buildPlanPrompt(projectContext: string, isScaffolded: boolean): string 
 ${isScaffolded ? `
 CONTEXT: This project already has files and code. The user switched to Plan Mode mid-build to plan NEXT STEPS — not to start over. Use the read_file, list_files, and search_files tools to understand what's already built before planning.
 ` : ""}
+DIRECT QUESTIONS COME FIRST: if the user's message is a plain question
+(about you, this platform, or a simple fact) or small talk — NOT a
+request to build, change, or plan something — answer it briefly and
+directly in plain text and STOP. Do NOT answer a plain question with
+ask_clarification, and do not turn it into a planning exercise.
+Only when the user actually asks for a build/change or next steps do
+the planning steps below apply.
+
 STEP 1 — UNDERSTAND THE CURRENT STATE:
 - Use list_files to see what exists in the project
 - Use read_file on key files (App.tsx, package.json, etc.) to understand what's already built
@@ -153,6 +189,10 @@ STEP 2 — CLARIFY (if needed):
 - Use plain language, no technical jargon
 - Reference what already exists: "I see you have X, would you like me to add Y or Z?"
 - If the request is very specific, you may skip straight to STEP 3
+- After calling ask_clarification, END YOUR TURN and wait for the
+  user's answers. Do NOT call it twice, do NOT continue planning in
+  the same turn, and do NOT claim in text that you asked questions
+  unless the tool call actually went out in this turn.
 
 STEP 3 — PLAN:
 - After understanding the request AND the current project state, call create_plan

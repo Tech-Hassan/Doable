@@ -629,7 +629,7 @@ export function registerSendHandler(app: Hono<AuthEnv>) {
             }),
             createAllTools(projectId, workspaceId, userId),
           ]);
-          const systemPrompt = await buildSystemPrompt(mode, projectId, projectContext);
+          const systemPrompt = await buildSystemPrompt(mode, projectId, projectContext, resolvedModel);
           const projectPath = getProjectPath(projectId);
           emitConfigTraces(state.traceCollector, resolvedModel, modelSource, resolvedProvider, providerSource, resolvedGithubToken, systemPrompt, projectContext);
 
