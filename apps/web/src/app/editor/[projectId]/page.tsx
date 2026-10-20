@@ -3126,6 +3126,44 @@ function EditorPageInner() {
           if (lastAssistant?.suggestions && lastAssistant.suggestions.length > 0) {
             setAiSuggestions(lastAssistant.suggestions);
           }
+          // Restore an UNANSWERED clarification card after a reload. The
+          // questions live in the persisted history: they are the arguments
+          // of the ask_clarification tool call. Without this, asking
+          // questions and then reloading (or the turn ending) lost the card
+          // forever while the AI's text still said "I've asked the
+          // questions above". Scan in order: the latest ask wins; a later
+          // answers message or a create_plan clears it.
+          try {
+            let restored: unknown[] | null = null;
+            for (const row of json.data as Array<Record<string, any>>) {
+              const calls = Array.isArray(row.tool_calls) ? row.tool_calls : [];
+              for (const tc of calls) {
+                if (tc?.name === "ask_clarification") {
+                  const rawArgs = (tc.arguments ?? {}) as Record<string, unknown>;
+                  const args = (rawArgs.arguments && typeof rawArgs.arguments === "object"
+                    ? rawArgs.arguments
+                    : rawArgs) as Record<string, unknown>;
+                  if (Array.isArray(args.questions) && args.questions.length > 0) {
+                    restored = args.questions as unknown[];
+                  }
+                }
+                if (tc?.name === "create_plan") restored = null;
+              }
+              if (
+                row.role === "user" &&
+                typeof row.content === "string" &&
+                row.content.includes("Here are my answers")
+              ) {
+                restored = null;
+              }
+            }
+            if (restored) {
+              setPendingQuestions(restored as never);
+              setPlanPhase("clarifying");
+            }
+          } catch {
+            // Restore is best-effort — never break history loading for it.
+          }
         }
       } catch {
         // API load failed — localStorage fallback already loaded
