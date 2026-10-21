@@ -115,7 +115,7 @@ export function GitHubButton({
     <div className="relative">
       {/* Main button */}
       <button
-        className="flex items-center gap-2 rounded-md border px-2 md:px-3 py-1.5 text-sm font-medium transition-colors hover:bg-accent"
+        className="flex h-8 md:h-auto items-center justify-center md:justify-start gap-2 rounded-lg md:rounded-md border border-transparent md:border-border px-1.5 md:px-3 md:py-1.5 text-sm font-medium transition-colors hover:bg-accent"
         onClick={() => {
           if (!isConnected) {
             onConnect();

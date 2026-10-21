@@ -5227,7 +5227,7 @@ function EditorPageInner() {
             className="flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-lg bg-brand-100 border border-brand-600 dark:bg-gradient-to-br dark:from-brand-600 dark:to-brand-700 dark:border-transparent shadow-sm shadow-brand-700/20 dark:shadow-brand-900/30 hover:brightness-95 transition-all"
             title="Back to dashboard"
           >
-            <span className="text-sm font-bold text-brand-700 dark:text-white self-end mb-0.5">D</span>
+            <span className="text-sm font-bold text-brand-700 dark:text-white self-end mb-0.5">N</span>
             <span className="h-1.5 w-1.5 rounded-full bg-violet-700 dark:bg-violet-400 self-end mb-1.5 ml-0.5 shrink-0" />
           </button>
 
@@ -5327,7 +5327,7 @@ function EditorPageInner() {
                     setActiveTab(key);
                   }
                 }}
-                className={`flex items-center justify-center text-[13px] font-medium transition-all rounded-md ${
+                className={`${key === "chat" ? "hidden md:flex" : "flex"} items-center justify-center text-[13px] font-medium transition-all rounded-md ${
                   isActive
                     ? "gap-1.5 bg-brand-500/15 text-brand-700 dark:text-brand-400 px-2.5 py-1"
                     : "text-muted-foreground hover:text-foreground hover:bg-accent p-1.5"
@@ -5335,7 +5335,7 @@ function EditorPageInner() {
                 title={label}
               >
                 <Icon className="h-4 w-4" />
-                {isActive && <span className="text-xs">{label}</span>}
+                {isActive && <span className="hidden md:inline text-xs">{label}</span>}
               </button>
             );
           })}
@@ -5350,7 +5350,7 @@ function EditorPageInner() {
               <button
                 key={`pinned-${tabKey}`}
                 onClick={() => setActiveTab(tabKey)}
-                className={`flex items-center justify-center text-[13px] font-medium transition-all rounded-md ${
+                className={`hidden md:flex items-center justify-center text-[13px] font-medium transition-all rounded-md ${
                   isActive
                     ? "gap-1.5 bg-brand-500/15 text-brand-700 dark:text-brand-400 px-2.5 py-1"
                     : "text-muted-foreground hover:text-foreground hover:bg-accent p-1.5"
@@ -5581,14 +5581,14 @@ function EditorPageInner() {
         </div>
 
         {/* Right: Share + GitHub + Upgrade + Publish */}
-        <div className="flex items-center gap-1 md:gap-1.5">
+        <div className="flex shrink-0 items-center gap-1 md:gap-1.5">
           {/* Collaboration presence avatars */}
           <CollabHeaderItems />
 
-          {/* Share: pill with muted bg, h-7 */}
+          {/* Share: plain icon on mobile, pill on desktop */}
           <button
             onClick={() => setShareDialogOpen(true)}
-            className="flex h-7 items-center gap-1.5 rounded-full bg-muted px-2.5 text-sm text-[#FCFBF8] hover:bg-[#333] transition-colors"
+            className="flex h-8 w-8 md:h-7 md:w-auto items-center justify-center gap-1.5 rounded-lg md:rounded-full text-muted-foreground md:bg-muted md:px-2.5 md:text-sm md:text-[#FCFBF8] hover:bg-accent md:hover:bg-[#333] transition-colors"
           >
             <UserPlus className="h-4 w-4" />
             <span className="hidden lg:inline">Share</span>
@@ -5605,10 +5605,10 @@ function EditorPageInner() {
             error={github.error}
             onClearError={() => github.clearError()}
           />
-          {/* Upgrade */}
+          {/* Upgrade — desktop only; on mobile it lives in Settings/Billing */}
           <button
             onClick={() => router.push("/billing")}
-            className="flex h-7 items-center gap-1.5 rounded-lg bg-accent border border-border px-2.5 text-sm text-foreground hover:bg-accent hover:text-foreground transition-all"
+            className="hidden md:flex h-7 items-center gap-1.5 rounded-lg bg-accent border border-border px-2.5 text-sm text-foreground hover:bg-accent hover:text-foreground transition-all"
           >
             <Crown className="h-4 w-4 text-amber-600 dark:text-amber-400" /><span className="hidden md:inline">Upgrade</span>
           </button>
@@ -5619,7 +5619,7 @@ function EditorPageInner() {
               setPublishError(null);
               setPublishModalOpen(true);
             }}
-            className="flex h-7 items-center gap-1.5 rounded-lg bg-gradient-to-r from-brand-600 to-brand-500 px-3 text-sm font-medium text-white shadow-lg shadow-brand-900/30 hover:brightness-110 transition-all"
+            className="flex h-8 md:h-7 items-center gap-1.5 rounded-lg bg-gradient-to-r from-brand-600 to-brand-500 px-2.5 md:px-3 text-sm font-medium text-white shadow-lg shadow-brand-900/30 hover:brightness-110 transition-all"
             title="Deploy to a public URL"
           >
             <CloudUpload className="h-4 w-4 md:hidden" />
