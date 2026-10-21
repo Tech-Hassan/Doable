@@ -115,7 +115,7 @@ export function GitHubButton({
     <div className="relative">
       {/* Main button */}
       <button
-        className="flex items-center gap-2 rounded-md border px-3 py-1.5 text-sm font-medium transition-colors hover:bg-accent"
+        className="flex items-center gap-2 rounded-md border px-2 md:px-3 py-1.5 text-sm font-medium transition-colors hover:bg-accent"
         onClick={() => {
           if (!isConnected) {
             onConnect();
@@ -139,7 +139,7 @@ export function GitHubButton({
         {/* Status dot */}
         <span className={`h-2 w-2 rounded-full ${indicator.color}`} />
 
-        <span>{isConnected ? indicator.label : "Connect GitHub"}</span>
+        <span className="hidden md:inline">{isConnected ? indicator.label : "Connect GitHub"}</span>
 
         {isBusy && (
           <span className="ml-1 text-xs text-muted-foreground">

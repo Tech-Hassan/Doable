@@ -5216,7 +5216,7 @@ function EditorPageInner() {
       onRemoteStatus={handleRemoteStatus}
       onRemoteError={handleRemoteError}
     />
-    <div className="flex h-screen flex-col bg-card text-foreground">
+    <div className="flex h-dvh flex-col bg-card text-foreground">
       {/* ─── Top Bar ──────────────────────────────────────────── */}
       <header className="flex h-12 flex-shrink-0 items-center justify-between border-b border-border bg-card px-2 md:px-3">
         {/* Left: Logo + Back arrow + Project name with dropdown */}
@@ -5307,7 +5307,7 @@ function EditorPageInner() {
         </div>
 
         {/* Center: View toggle icon buttons */}
-        <div className="flex items-center gap-0.5 rounded-xl bg-muted border border-border p-0.5">
+        <div className="flex min-w-0 items-center gap-0.5 rounded-xl bg-muted border border-border p-0.5">
           <div className="flex items-center gap-0.5 overflow-x-auto scrollbar-none">
           {/* Core toolbar buttons */}
           {([
@@ -5565,7 +5565,7 @@ function EditorPageInner() {
             onClick={() => {
               if (previewUrl) window.open(previewUrl, "_blank");
             }}
-            className="flex h-7 w-7 items-center justify-center rounded-md text-muted-foreground hover:bg-muted hover:text-foreground transition-colors"
+            className="hidden md:flex h-7 w-7 items-center justify-center rounded-md text-muted-foreground hover:bg-muted hover:text-foreground transition-colors"
             title="Open in new tab"
             disabled={!previewUrl}
           >
@@ -6492,7 +6492,7 @@ function EditorPageInner() {
 
               {/* Chat input toolbar */}
               <div className="px-2 py-2">
-                <div className="pt-2 pb-4 px-4 bg-gradient-to-t from-background via-background to-transparent shrink-0">
+                <div className="pt-2 px-2 sm:px-4 pb-[max(1rem,env(safe-area-inset-bottom))] bg-gradient-to-t from-background via-background to-transparent shrink-0">
                   <div
                     className={`relative flex flex-col rounded-3xl border shadow-lg backdrop-blur-xl transition-all duration-300 ease-out ${
                       isDragging
@@ -6556,13 +6556,13 @@ function EditorPageInner() {
                       placeholder={inputValue.length > 0 ? "" : "Ask Nimra..."}
                       rows={1}
                       disabled={isStreaming}
-                      className="w-full max-h-[40vh] min-h-[48px] resize-none bg-transparent px-4 py-3.5 text-[14px] leading-relaxed text-foreground placeholder:text-muted-foreground/70 outline-none disabled:opacity-50"
+                      className="w-full max-h-[40vh] min-h-[48px] resize-none bg-transparent px-4 py-3.5 text-base sm:text-[14px] leading-relaxed text-foreground placeholder:text-muted-foreground/70 outline-none disabled:opacity-50"
                     />
 
                     {/* Bottom toolbar row */}
                     <div className="@container flex items-center justify-between px-2 pb-2 mt-1">
                       {/* Left: Attachment + Toggles Group */}
-                      <div className="flex items-center gap-1.5 flex-1 min-w-0 overflow-hidden">
+                      <div className="flex items-center gap-1 sm:gap-1.5 flex-1 min-w-0 overflow-hidden">
                         {/* + button (rounded-full) */}
                         <button
                           onClick={fileAttachments.openFilePicker}
@@ -6586,38 +6586,39 @@ function EditorPageInner() {
 
                         <div className="shrink-0 h-4 w-px bg-accent mx-0.5" />
 
-                        {/* ── Strategize / Work Mode Toggle ── */}
-                        <div className="shrink-0 flex items-center rounded-full bg-muted border border-border p-0.5">
+                        {/* ── Strategize / Work Mode Toggle — mirrors the dashboard prompt box (labels always visible) ── */}
+                        <div className="shrink-0 flex items-center rounded-full border border-border overflow-hidden">
                           <button
                             onClick={() => setChatMode("plan")}
-                            className={`flex items-center gap-1 px-2.5 h-6 rounded-full text-[10px] sm:text-[11px] font-medium transition-all ${
+                            className={`flex items-center gap-1 px-2.5 h-7 text-[11px] font-medium transition-all ${
                               chatMode === "plan"
-                                ? "bg-brand-500/20 text-brand-700 dark:text-brand-300 shadow-[0_0_10px_rgba(168,85,247,0.1)]"
+                                ? "bg-blue-100 dark:bg-blue-600/20 text-blue-700 dark:text-blue-400"
                                 : "text-muted-foreground hover:text-foreground"
                             }`}
                             title="Strategize mode — creates plans only"
                           >
                             <Target className="h-3 w-3" />
-                            <span className="hidden @[26rem]:inline">Strategize</span>
+                            Strategize
                           </button>
+                          <div className="w-px h-4 bg-border" />
                           <button
                             onClick={() => setChatMode("agent")}
-                            className={`flex items-center gap-1 px-2.5 h-6 rounded-full text-[10px] sm:text-[11px] font-medium transition-all ${
+                            className={`flex items-center gap-1 px-2.5 h-7 text-[11px] font-medium transition-all ${
                               chatMode === "agent"
-                                ? "bg-brand-500/20 text-brand-700 dark:text-brand-300 shadow-[0_0_10px_rgba(168,85,247,0.1)]"
+                                ? "bg-brand-100 dark:bg-brand-600/20 text-brand-700 dark:text-brand-400"
                                 : "text-muted-foreground hover:text-foreground"
                             }`}
                             title="Work mode — generates code"
                           >
                             <Hammer className="h-3 w-3" />
-                            <span className="hidden @[26rem]:inline">Work</span>
+                            Work
                           </button>
                         </div>
                         
                         {/* Design View Toggle */}
                         <button
                           onClick={() => setActiveTab("design")}
-                          className={`shrink-0 flex items-center gap-1.5 rounded-full border h-7 w-7 @[26rem]:w-auto @[26rem]:px-2 justify-center text-[10px] sm:text-[11px] font-medium transition-all ${
+                          className={`shrink-0 hidden min-[420px]:flex items-center gap-1.5 rounded-full border h-7 w-7 @[26rem]:w-auto @[26rem]:px-2 justify-center text-[10px] sm:text-[11px] font-medium transition-all ${
                             isDesignMode
                               ? "border-brand-500/50 bg-brand-500/10 text-brand-700 dark:text-brand-300"
                               : "border-border bg-muted text-muted-foreground hover:bg-accent hover:text-foreground"
@@ -6685,7 +6686,7 @@ function EditorPageInner() {
                     </div>
                   </div>
                   
-                  <div className="mt-2 text-center text-[10px] text-muted-foreground/60 font-medium tracking-wide">
+                  <div className="hidden sm:block mt-2 text-center text-[10px] text-muted-foreground/60 font-medium tracking-wide">
                     Shift + Enter for new line
                   </div>
                 </div>

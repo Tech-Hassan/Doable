@@ -63,7 +63,7 @@ export function PresenceAvatars({ users, maxVisible = 4 }: Props) {
         )}
       </div>
       {users.length > 0 && (
-        <span className="text-[11px] text-muted-foreground ml-1">
+        <span className="hidden sm:inline text-[11px] text-muted-foreground ml-1">
           {users.length} online
         </span>
       )}
