@@ -2065,6 +2065,20 @@ function EditorPageInner() {
   const [publishedUrl, setPublishedUrl] = useState<string | null>(null);
   const [publishError, setPublishError] = useState<string | null>(null);
   const [publishBuildLog, setPublishBuildLog] = useState<string | null>(null);
+  // Custom link name (user-chosen published subdomain)
+  const [linkName, setLinkName] = useState("");
+  const [linkNameFeedback, setLinkNameFeedback] = useState<{ kind: "ok" | "error"; text: string } | null>(null);
+  const [linkNameSaving, setLinkNameSaving] = useState(false);
+
+  // When the publish dialog opens, prefill the custom-link box with the
+  // project's current published name (if it has one).
+  useEffect(() => {
+    if (publishModalOpen) {
+      setLinkNameFeedback(null);
+      if (currentSubdomain) setLinkName(currentSubdomain);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [publishModalOpen]);
 
   // Delete state
   const [isDeleting, setIsDeleting] = useState(false);
@@ -4792,6 +4806,95 @@ function EditorPageInner() {
     }
   }, [resolvedProjectId]);
 
+  // ─── Custom link name (published subdomain) ──────────────
+  const siteDomain = (() => {
+    if (publishedUrl) {
+      try {
+        const h = new URL(publishedUrl).hostname;
+        const i = h.indexOf(".");
+        return i > 0 ? h.slice(i + 1) : h;
+      } catch { /* fall through */ }
+    }
+    return "nimraa.com";
+  })();
+  const currentSubdomain = (() => {
+    if (!publishedUrl) return "";
+    try { return new URL(publishedUrl).hostname.split(".")[0] ?? ""; } catch { return ""; }
+  })();
+
+  const handleSaveLinkName = async () => {
+    const name = linkName.trim().toLowerCase();
+    if (name.length < 3) return;
+    setLinkNameSaving(true);
+    setLinkNameFeedback(null);
+    try {
+      const res = await apiFetch<{ data: { subdomain: string } }>(
+        `/projects/${resolvedProjectId}/subdomain`,
+        { method: "POST", body: JSON.stringify({ subdomain: name }) },
+      );
+      const sub = res.data.subdomain;
+      setLinkName(sub);
+      if (publishedUrl) {
+        try {
+          const u = new URL(publishedUrl);
+          const parts = u.hostname.split(".");
+          parts[0] = sub;
+          u.hostname = parts.join(".");
+          setPublishedUrl(u.toString());
+        } catch { /* keep the previous URL */ }
+      }
+      setLinkNameFeedback({ kind: "ok", text: `Saved — your link is ${sub}.${siteDomain}` });
+    } catch (err) {
+      setLinkNameFeedback({
+        kind: "error",
+        text: err instanceof Error ? err.message : "Could not save that name. Please try again.",
+      });
+    } finally {
+      setLinkNameSaving(false);
+    }
+  };
+
+  const linkNameEditor = (
+    <div className="w-full rounded-lg border border-border bg-card/50 px-3.5 py-3 text-left">
+      <label className="text-xs font-medium text-foreground">Custom link</label>
+      <p className="mt-0.5 text-[11px] text-muted-foreground">
+        Choose the name in your published site&apos;s address.
+      </p>
+      <div className="mt-2 flex items-center gap-2">
+        <div className="flex flex-1 min-w-0 items-center rounded-md bg-secondary border border-border px-2.5 py-2 focus-within:border-brand-500 transition-colors">
+          <input
+            value={linkName}
+            onChange={(e) => {
+              setLinkName(e.target.value.toLowerCase().replace(/[^a-z0-9-]/g, ""));
+              setLinkNameFeedback(null);
+            }}
+            placeholder="my-shop"
+            maxLength={30}
+            className="w-full min-w-0 bg-transparent text-sm font-mono text-foreground placeholder:text-muted-foreground/60 outline-none"
+          />
+          <span className="shrink-0 text-sm font-mono text-muted-foreground">.{siteDomain}</span>
+        </div>
+        <button
+          onClick={handleSaveLinkName}
+          disabled={linkNameSaving || linkName.trim().length < 3 || linkName.trim() === currentSubdomain}
+          className="shrink-0 rounded-md bg-brand-600 px-3 py-2 text-sm font-medium text-white hover:bg-brand-500 transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
+        >
+          {linkNameSaving ? "Saving…" : "Save"}
+        </button>
+      </div>
+      {currentSubdomain !== "" && linkName.trim() !== "" && linkName.trim() !== currentSubdomain && (
+        <p className="mt-1.5 text-[11px] text-amber-400/90">
+          Heads up: your old link ({currentSubdomain}.{siteDomain}) will stop working.
+        </p>
+      )}
+      {linkNameFeedback && (
+        <p className={`mt-1.5 text-[11px] ${linkNameFeedback.kind === "ok" ? "text-emerald-400" : "text-red-400"}`}>
+          {linkNameFeedback.text}
+        </p>
+      )}
+    </div>
+  );
+
   // Publish project
   const handlePublish = useCallback(async () => {
     setPublishStatus("building");
@@ -7390,6 +7493,8 @@ function EditorPageInner() {
                   </div>
                 </div>
 
+                {publishEnv === "production" && <div className="mb-4">{linkNameEditor}</div>}
+
                 <button
                   onClick={handlePublish}
                   className="w-full flex items-center justify-center gap-2 rounded-md bg-[#1E52F1] px-4 py-2.5 text-sm font-medium text-white hover:brightness-110 transition-colors"
@@ -7473,6 +7578,7 @@ function EditorPageInner() {
                     </button>
                   </div>
                 )}
+                {publishEnv === "production" && <div className="mt-4 w-full">{linkNameEditor}</div>}
                 <button
                   onClick={handleUnpublish}
                   disabled={unpublishing}

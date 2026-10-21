@@ -1,6 +1,6 @@
 import { Hono } from "hono";
 import { z } from "zod";
-import { rm } from "node:fs/promises";
+import { rm, rename } from "node:fs/promises";
 import { existsSync } from "node:fs";
 import { sql } from "../../db/index.js";
 import { starQueries } from "@doable/db";
@@ -14,6 +14,7 @@ import { stopDevServer, getDevServerInternalUrl } from "../../projects/dev-serve
 import { projects, workspacesQ, requireProjectAccess, isRoleAtLeast, validateProjectIdParam } from "./helpers.js";
 import { signProjectJwt } from "../../auth/project-jwt.js";
 import { PROJECT_JWT_SECRET } from "../../lib/secrets.js";
+import { getPublishedSiteDir } from "../../deploy/adapters/doable-cloud.js";
 
 const stars = starQueries(sql);
 const shareTracking = shareTrackingQueries(sql);
@@ -393,6 +394,132 @@ projectItemRoutes.post("/:id/star", async (c) => {
 });
 
 // ─── Move to Folder ─────────────────────────────────────────
+// ─── Custom Subdomain (user-chosen published link name) ────
+// The published URL is https://<subdomain>.<site domain>. The name is
+// stored on projects.subdomain (globally UNIQUE) and the live site's
+// files live in a directory named after it, so a rename moves the
+// directory too and the site stays up at the new address.
+const SUBDOMAIN_REGEX = /^[a-z0-9][a-z0-9-]{1,28}[a-z0-9]$/;
+
+/** Names nobody may claim: platform/system names and well-known brands. */
+const RESERVED_SUBDOMAINS = new Set([
+  // platform + system
+  "www", "api", "ws", "app", "apps", "admin", "mail", "email", "smtp", "imap", "ftp",
+  "cdn", "static", "assets", "media", "files", "docs", "help", "support", "status",
+  "blog", "news", "shop", "store", "billing", "account", "accounts", "login", "signin",
+  "signup", "register", "auth", "oauth", "dashboard", "editor", "preview", "dev",
+  "staging", "test", "demo", "beta", "internal", "system", "root", "security", "abuse",
+  "legal", "privacy", "terms", "dmca", "copyright", "contact", "about", "home", "main",
+  "portal", "cloud", "server", "host", "dns", "vpn", "proxy", "git", "npm", "official",
+  "team", "staff", "nimra", "nimraa", "doable",
+  // well-known brands (impersonation guard)
+  "google", "gmail", "youtube", "facebook", "instagram", "whatsapp", "messenger",
+  "tiktok", "twitter", "snapchat", "telegram", "linkedin", "github", "gitlab", "apple",
+  "microsoft", "windows", "amazon", "netflix", "spotify", "daraz", "jazzcash",
+  "easypaisa", "nayapay", "sadapay", "zong", "telenor", "ufone", "ptcl", "meezan",
+  "hbl", "ubl", "mcb", "bankalfalah", "raast", "sbp", "pta",
+]);
+
+const setSubdomainSchema = z.object({
+  subdomain: z.string().min(3).max(30),
+});
+
+projectItemRoutes.post("/:id/subdomain", async (c) => {
+  const id = c.req.param("id");
+  const userId = c.get("userId");
+
+  const access = await requireProjectAccess(userId, id);
+  if (!access) {
+    return c.json({ error: "Project not found" }, 404);
+  }
+  if (!isRoleAtLeast(access.role, "member")) {
+    return c.json({ error: "Viewers cannot edit projects" }, 403);
+  }
+
+  const body = await c.req.json().catch(() => null);
+  const parsed = setSubdomainSchema.safeParse(body);
+  if (!parsed.success) {
+    return c.json({ error: "Link name must be 3–30 characters." }, 400);
+  }
+  const candidate = parsed.data.subdomain.trim().toLowerCase();
+  if (!SUBDOMAIN_REGEX.test(candidate) || candidate.includes("--")) {
+    return c.json(
+      { error: "Use only lowercase letters, numbers and single hyphens. The name must start and end with a letter or number." },
+      400,
+    );
+  }
+  if (RESERVED_SUBDOMAINS.has(candidate)) {
+    return c.json({ error: "This name is reserved and can't be used." }, 400);
+  }
+
+  const current = (access.project.subdomain as string | null) ?? null;
+  if (current === candidate) {
+    return c.json({ data: { subdomain: candidate } });
+  }
+
+  // Globally unique — subdomains live on one shared domain.
+  const taken = await sql<{ id: string }[]>`
+    SELECT id FROM projects WHERE subdomain = ${candidate} AND id <> ${id} LIMIT 1
+  `;
+  if (taken.length > 0) {
+    return c.json({ error: "This name is already taken. Try another one." }, 409);
+  }
+
+  // A name another project gave up stays held for 30 days so it cannot be
+  // re-registered right away to impersonate the old site.
+  const held = await sql<{ project_id: string }[]>`
+    SELECT project_id FROM project_subdomain_history
+    WHERE subdomain = ${candidate} AND released_at > now() - interval '30 days'
+    LIMIT 1
+  `;
+  if (held.length > 0 && held[0]!.project_id !== id) {
+    return c.json({ error: "This name was used by another site recently and is held for a while." }, 409);
+  }
+
+  // Move the live site's files to the new name first, so the address and
+  // the content never disagree.
+  let movedFrom: string | null = null;
+  let movedTo: string | null = null;
+  if (current) {
+    const oldDir = getPublishedSiteDir(current, "production");
+    const newDir = getPublishedSiteDir(candidate, "production");
+    if (oldDir !== newDir && existsSync(oldDir)) {
+      if (existsSync(newDir)) {
+        return c.json({ error: "This name is already taken. Try another one." }, 409);
+      }
+      await rename(oldDir, newDir);
+      movedFrom = oldDir;
+      movedTo = newDir;
+    }
+  }
+
+  try {
+    await sql`
+      UPDATE projects SET subdomain = ${candidate}, updated_at = now() WHERE id = ${id}
+    `;
+  } catch (err) {
+    // Roll the files back so nothing is left half-moved.
+    if (movedFrom && movedTo) {
+      await rename(movedTo, movedFrom).catch(() => {});
+    }
+    const msg = err instanceof Error ? err.message : "";
+    if (msg.includes("projects_subdomain") || msg.includes("unique")) {
+      return c.json({ error: "This name is already taken. Try another one." }, 409);
+    }
+    throw err;
+  }
+
+  if (current) {
+    await sql`
+      INSERT INTO project_subdomain_history (subdomain, project_id, released_at)
+      VALUES (${current}, ${id}, now())
+      ON CONFLICT (subdomain) DO UPDATE SET project_id = ${id}, released_at = now()
+    `;
+  }
+
+  return c.json({ data: { subdomain: candidate } });
+});
+
 const moveSchema = z.object({
   folderId: z.string().uuid().nullable(),
 });
